@@ -1,0 +1,161 @@
+================================================
+ UTS CS238 - SOAL 2(iii)
+ PENGUKURAN BERULANG DAN AUDIT KONVERGENSI
+================================================
+
+===== A. STATUS OSPF SEBELUM PENGUKURAN =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          10h46m38s         33.538s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+===== B. PENGUKURAN OSPF 3 KALI =====
+
+===== PERCOBAAN 1 - PC-BR1 KE APP-SRV =====
+Waktu: 2026-11-04 03:29:27 +0000
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.108 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.075 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=5 ttl=61 time=0.075 ms
+64 bytes from 10.10.30.10: seq=6 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=7 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=8 ttl=61 time=0.074 ms
+64 bytes from 10.10.30.10: seq=9 ttl=61 time=0.071 ms
+
+--- 10.10.30.10 ping statistics ---
+10 packets transmitted, 10 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.076/0.108 ms
+
+===== PERCOBAAN 1 - PC-BR2 KE APP-SRV =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.081 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.075 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=5 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=6 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=7 ttl=61 time=0.323 ms
+64 bytes from 10.10.30.10: seq=8 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=9 ttl=61 time=0.074 ms
+
+--- 10.10.30.10 ping statistics ---
+10 packets transmitted, 10 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.098/0.323 ms
+
+===== PERCOBAAN 2 - PC-BR1 KE APP-SRV =====
+Waktu: 2026-11-04 03:29:45 +0000
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.076 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=5 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=6 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=7 ttl=61 time=0.093 ms
+64 bytes from 10.10.30.10: seq=8 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=9 ttl=61 time=0.072 ms
+
+--- 10.10.30.10 ping statistics ---
+10 packets transmitted, 10 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.074/0.093 ms
+
+===== PERCOBAAN 2 - PC-BR2 KE APP-SRV =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.068 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.093 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.074 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=5 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=6 ttl=61 time=0.074 ms
+64 bytes from 10.10.30.10: seq=7 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=8 ttl=61 time=0.082 ms
+64 bytes from 10.10.30.10: seq=9 ttl=61 time=0.092 ms
+
+--- 10.10.30.10 ping statistics ---
+10 packets transmitted, 10 packets received, 0% packet loss
+round-trip min/avg/max = 0.068/0.077/0.093 ms
+
+===== PERCOBAAN 3 - PC-BR1 KE APP-SRV =====
+Waktu: 2026-11-04 03:30:04 +0000
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.079 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.112 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.074 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=5 ttl=61 time=0.076 ms
+64 bytes from 10.10.30.10: seq=6 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=7 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=8 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=9 ttl=61 time=0.073 ms
+
+--- 10.10.30.10 ping statistics ---
+10 packets transmitted, 10 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.076/0.112 ms
+
+===== PERCOBAAN 3 - PC-BR2 KE APP-SRV =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.085 ms
+64 bytes from 10.10.30.10: seq=5 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=6 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=7 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=8 ttl=61 time=0.091 ms
+64 bytes from 10.10.30.10: seq=9 ttl=61 time=0.072 ms
+
+--- 10.10.30.10 ping statistics ---
+10 packets transmitted, 10 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.075/0.091 ms
+
+===== C. AUDIT LOG LINK FAILURE HISTORIS =====
+
+===== RIP =====
+File: evidence/soal2/rip/rip-link-failure.txt
+6:===== 1. BASELINE SEBELUM GANGGUAN =====
+29:3 packets transmitted, 3 packets received, 0% packet loss
+38:===== 3. TABEL RIP SAAT LINK DOWN =====
+40:===== 4. PING BR1 SAAT LINK DOWN =====
+44:5 packets transmitted, 0 packets received, 100% packet loss
+55:5 packets transmitted, 5 packets received, 0% packet loss
+60:===== 7. PEMULIHAN LINK =====
+64:===== 8. TABEL RIP SETELAH PEMULIHAN =====
+79:===== 9. PING SETELAH PEMULIHAN =====
+83:5 packets transmitted, 0 packets received, 100% packet loss
+85:===== EKSPERIMEN SELESAI =====
+
+===== OSPF =====
+File: evidence/soal2/ospf/ospf-link-failure.txt
+6:===== 1. BASELINE SEBELUM GANGGUAN =====
+31:3 packets transmitted, 3 packets received, 0% packet loss
+40:===== 3. ROUTING OSPF SAAT LINK DOWN =====
+51:===== 4. PING BR1 SAAT LINK DOWN =====
+55:5 packets transmitted, 0 packets received, 100% packet loss
+66:5 packets transmitted, 5 packets received, 0% packet loss
+69:===== 6. PEMULIHAN LINK =====
+73:===== 7. STATUS OSPF SETELAH LINK UP =====
+89:===== 8. PING SETELAH PEMULIHAN =====
+93:5 packets transmitted, 0 packets received, 100% packet loss
+95:===== EKSPERIMEN SELESAI =====
+
+===== D. STATUS OSPF SETELAH PENGUKURAN =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          10h47m32s         39.168s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+===== E. BATASAN =====
+Tiga pengulangan hanya untuk konektivitas normal OSPF.
+Belum ada pengulangan gangguan RIP dan OSPF.
+Waktu konvergensi tidak dihitung dari hasil ping ini.
+Konfigurasi dan interface tidak diubah.
+
+SOAL 2(iii) - PEMERIKSAAN SELESAI

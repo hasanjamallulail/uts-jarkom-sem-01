@@ -1,0 +1,18 @@
+
+====================================================
+ SOAL 1(iv) - STATIC VS RIP VS OSPF
+====================================================
+PARAMETER           | STATIC            | RIP V2             | OSPF              
+--------------------------------------------------------------------------
+Jenis routing       | Manual            | Distance-vector    | Link-state        
+Metric              | Ditentukan admin  | Hop count          | Cost              
+Skalabilitas        | Terbatas          | Terbatas           | Lebih fleksibel   
+Kompleksitas        | Rendah awalnya    | Relatif rendah     | Lebih tinggi      
+Respons kegagalan   | Perlu rute valid  | Update routing     | Update LSDB/SPF   
+Risiko operasional  | Salah static route | Timer/metric       | Adjacency/cost    
+
+===== HASIL EKSPERIMEN =====
+Ketiga metode mendukung konektivitas baseline.
+Saat link tunggal BR1-HQ putus, BR1 terisolasi.
+RIP dan OSPF tidak bisa menciptakan link alternatif.
+Durasi konvergensi belum terukur secara setara.

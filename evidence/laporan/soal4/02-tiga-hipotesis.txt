@@ -1,0 +1,109 @@
+====================================================
+ UTS CS238 - SOAL 4(ii)
+ PENGUJIAN TIGA HIPOTESIS GANGGUAN
+====================================================
+
+===== A. IDENTITAS SKENARIO =====
+Client   : PC-BR1 (10.10.20.10)
+Server   : APP-SRV (10.10.30.10)
+TCP Port : 5504
+Routing  : OSPF Area 0
+Sumber   : evidence/soal4/investigasi-lengkap.txt
+
+===== B. H1 - APAKAH OSPF BERMASALAH? =====
+Prediksi:
+Neighbor tidak FULL atau rute OSPF hilang.
+
+Pengujian historis:
+4. DIAGNOSIS TIGA HIPOTESIS
+================================================
+2026-11-03T18:09:58+00:00
+===== H1: OSPF ROUTER BERMASALAH? =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          1h27m09s          31.384s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 01:30:06
+O>* 10.0.0.4/30 [110/20] via 10.0.0.1, eth1, weight 1, 01:27:04
+O>* 10.0.0.8/30 [110/20] via 10.0.0.1, eth1, weight 1, 01:27:04
+O>* 10.10.10.0/24 [110/20] via 10.0.0.1, eth1, weight 1, 01:27:04
+O   10.10.20.0/24 [110/10] is directly connected, eth2, weight 1, 01:48:51
+O>* 10.10.30.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 01:27:04
+O>* 10.10.40.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 01:27:04
+
+===== H2: ROUTING IP CLIENT BERMASALAH? =====
+
+Kesimpulan berdasarkan bukti historis:
+OSPF tetap memiliki neighbor FULL dan rute.
+H1 tidak didukung pada kondisi pengujian.
+
+===== C. H2 - ROUTING IP CLIENT BERMASALAH =====
+Prediksi:
+Route khusus unreachable menolak akses server.
+
+Pengujian historis:
+79:unreachable 10.10.30.10 
+81:----- ICMP TEST: ROUTING TERGANGGU -----
+83:ping: sendto: Host is unreachable
+85:----- TCP TEST: ROUTING TERGANGGU -----
+99:ping: sendto: Host is unreachable
+132:unreachable 10.10.30.10 
+
+Hasil setelah route diperbaiki:
+===== ROUTING SETELAH PERBAIKAN =====
+10.10.30.10 via 10.10.20.1 dev eth1 src 10.10.20.10 uid 0 
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.059/0.065/0.070 ms
+----- TCP TEST: TCP MASIH MATI -----
+HASIL TCP: GAGAL
+KESIMPULAN TAHAP 1:
+
+Kesimpulan:
+Route khusus unreachable merupakan pemicu.
+H2 didukung oleh eksperimen.
+
+===== D. H3 - LAYANAN TCP SERVER MATI =====
+Prediksi:
+Routing normal, port 5504 tidak LISTEN.
+Capture memperlihatkan SYN dibalas RST.
+
+Pengujian historis:
+67:HASIL TCP: BERHASIL
+95:TCP 5504 TIDAK LISTEN
+136:TCP 5504 TIDAK LISTEN
+168:----- TCP TEST: TCP MASIH MATI -----
+180:----- TCP TEST: BUKTI TCP SERVER MATI -----
+196:----- TCP TEST: SETELAH TCP DIPULIHKAN -----
+199:HASIL TCP: BERHASIL
+236:HASIL TCP: BERHASIL
+
+Bukti packet capture:
+18:10:03.726817 IP 10.10.20.10.46239 > 10.10.30.10.5504: Flags [S], seq 1992371591, win 56760, options [mss 9460,sackOK,TS val 1818764570 ecr 0,nop,wscale 7], length 0
+18:10:03.726837 IP 10.10.30.10.5504 > 10.10.20.10.46239: Flags [R.], seq 0, ack 1992371592, win 0, length 0
+
+Kesimpulan:
+TCP RST mendukung kondisi port tidak aktif.
+H3 didukung oleh eksperimen.
+
+===== E. MATRIKS KESIMPULAN =====
+HIPOTESIS    HASIL                     KESIMPULAN          
+H1           OSPF FULL + rute ada      Tidak didukung      
+H2           Route unreachable         Didukung            
+H3           TCP tidak LISTEN + RST    Didukung            
+
+===== F. BATASAN PEMERIKSAAN =====
+Audit menggunakan evidence historis.
+Tidak dilakukan simulasi gangguan baru.
+Tidak ada perubahan routing atau TCP.
+
+====================================================
+ SOAL 4(ii) - PEMERIKSAAN SELESAI
+====================================================

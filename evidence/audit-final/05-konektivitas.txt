@@ -1,0 +1,44 @@
+
+======================================================
+ AUDIT 05 - KONEKTIVITAS SAAT INI
+======================================================
+
+===== PC-HQ1 KE APP-SRV =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=62 time=0.476 ms
+64 bytes from 10.10.30.10: seq=1 ttl=62 time=0.069 ms
+64 bytes from 10.10.30.10: seq=2 ttl=62 time=0.067 ms
+64 bytes from 10.10.30.10: seq=3 ttl=62 time=0.068 ms
+64 bytes from 10.10.30.10: seq=4 ttl=62 time=0.068 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.067/0.149/0.476 ms
+
+===== PC-BR1 KE APP-SRV =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.117 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.080 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.071 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.082/0.117 ms
+
+===== PC-BR2 KE APP-SRV =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.094 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.082 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.072 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.078/0.094 ms
+
+CATATAN:
+Ini adalah kondisi OSPF saat audit.
+Bukan pengukuran ulang RIP atau static routing.

@@ -1,0 +1,120 @@
+
+======================================================
+ AUDIT 04 - SOAL 2 OSPF
+======================================================
+===== KONFIGURASI OSPF =====
+
+----- R-HQ -----
+[ADA] configs/ospf/R-HQ/frr.conf
+7: ip ospf network point-to-point
+11: ip ospf network point-to-point
+15: ip ospf network point-to-point
+26:router ospf
+27: ospf router-id 1.1.1.1
+28: passive-interface eth4
+29: network 10.0.0.0/30 area 0.0.0.0
+30: network 10.0.0.4/30 area 0.0.0.0
+31: network 10.0.0.8/30 area 0.0.0.0
+32: network 10.10.10.0/24 area 0.0.0.0
+
+----- R-BR1 -----
+[ADA] configs/ospf/R-BR1/frr.conf
+7: ip ospf network point-to-point
+18:router ospf
+19: ospf router-id 2.2.2.2
+20: passive-interface eth2
+21: network 10.0.0.0/30 area 0.0.0.0
+22: network 10.10.20.0/24 area 0.0.0.0
+
+----- R-BR2 -----
+[ADA] configs/ospf/R-BR2/frr.conf
+7: ip ospf network point-to-point
+18:router ospf
+19: ospf router-id 3.3.3.3
+20: passive-interface eth2
+21: network 10.0.0.8/30 area 0.0.0.0
+22: network 10.10.40.0/24 area 0.0.0.0
+
+----- R-DC -----
+[ADA] configs/ospf/R-DC/frr.conf
+7: ip ospf network point-to-point
+18:router ospf
+19: ospf router-id 4.4.4.4
+20: passive-interface eth2
+21: network 10.0.0.4/30 area 0.0.0.0
+22: network 10.10.30.0/24 area 0.0.0.0
+
+===== OSPF NEIGHBOR AKTUAL =====
+
+----- R-HQ -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+4.4.4.4           1 Full/-          9h04m39s          32.099s 10.0.0.6        eth2:10.0.0.5                        0     0     0
+3.3.3.3           1 Full/-          9h04m39s          32.099s 10.0.0.10       eth3:10.0.0.9                        0     0     0
+2.2.2.2           1 Full/-          9h04m39s          32.099s 10.0.0.2        eth1:10.0.0.1                        0     0     0
+
+
+----- R-BR1 -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          9h04m39s          32.045s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+----- R-BR2 -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          9h04m39s          31.991s 10.0.0.9        eth1:10.0.0.10                       0     0     0
+
+
+----- R-DC -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          9h04m40s          31.939s 10.0.0.5        eth1:10.0.0.6                        0     0     0
+
+
+===== ROUTING OSPF R-HQ =====
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 09:07:37
+O   10.0.0.4/30 [110/10] is directly connected, eth2, weight 1, 09:26:23
+O   10.0.0.8/30 [110/10] is directly connected, eth3, weight 1, 09:26:23
+O   10.10.10.0/24 [110/10] is directly connected, eth4, weight 1, 09:26:22
+O>* 10.10.20.0/24 [110/20] via 10.0.0.2, eth1, weight 1, 09:04:35
+O>* 10.10.30.0/24 [110/20] via 10.0.0.6, eth2, weight 1, 09:04:35
+O>* 10.10.40.0/24 [110/20] via 10.0.0.10, eth3, weight 1, 09:04:35
+
+===== ROUTING OSPF R-BR1 =====
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+idence/audit-final/04-ospf.txtidence/audit-final/04-ospf.txtidence/audit-final/03-rip.txtidence/audit-final/04-ospf.txt       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 09:07:37
+O>* 10.0.0.4/30 [110/20] via 10.0.0.1, eth1, weight 1, 09:04:35
+O>* 10.0.0.8/30 [110/20] via 10.0.0.1, eth1, weight 1, 09:04:35
+O>* 10.10.10.0/24 [110/20] via 10.0.0.1, eth1, weight 1, 09:04:35
+O   10.10.20.0/24 [110/10] is directly connected, eth2, weight 1, 09:26:22
+O>* 10.10.30.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 09:04:35
+O>* 10.10.40.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 09:04:35
+
+===== EVIDENCE OSPF =====
+evidence/soal2/ospf/final/R-BR1-neighbor.txt
+evidence/soal2/ospf/final/R-BR1-routing.txt
+evidence/soal2/ospf/final/R-BR2-neighbor.txt
+evidence/soal2/ospf/final/R-BR2-routing.txt
+evidence/soal2/ospf/final/R-DC-neighbor.txt
+evidence/soal2/ospf/final/R-DC-routing.txt
+evidence/soal2/ospf/final/R-HQ-neighbor.txt
+evidence/soal2/ospf/final/R-HQ-routing.txt
+evidence/soal2/ospf/final/ping-BR1.txt
+evidence/soal2/ospf/final/ping-BR2.txt
+evidence/soal2/ospf/ospf-link-failure.txt

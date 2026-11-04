@@ -1,0 +1,71 @@
+
+========== KONDISI BASELINE ==========
+
+===== TCP TRANSFER: BASELINE =====
+./scripts/soal3/qos-batch-final.sh: line 95: /tmp/qos-received.bin: No such file or directory
+Kondisi: BASELINE
+Waktu transfer: 45 ms
+Byte diterima: 
+Exit code Netcat: 0
+SHA256 penerima: 12394e8cf69db4a3fdbcbca8db57c9c01b360c39f68de4d16c6f4903a1589478
+Integritas file: VALID
+
+===== UDP: BASELINE =====
+KONDISI: BASELINE
+DATAGRAM DIKIRIM: 30
+Traceback (most recent call last):
+  File "/home/budiluhur/Hasan/scripts/soal3/udp_qos.py", line 13, in <module>
+    s.bind(("10.10.30.10", 5001))
+OSError: [Errno 98] Address already in use
+Exit code penerima UDP: 1
+
+========== KONDISI DELAY 100 MS ==========
+qdisc netem 8004: root refcnt 3 limit 1000 delay 100ms
+
+===== TCP TRANSFER: DELAY_100MS =====
+./scripts/soal3/qos-batch-final.sh: line 95: /tmp/qos-received.bin: No such file or directory
+Kondisi: DELAY_100MS
+Waktu transfer: 244 ms
+Byte diterima: 
+Exit code Netcat: 0
+SHA256 penerima: 12394e8cf69db4a3fdbcbca8db57c9c01b360c39f68de4d16c6f4903a1589478
+Integritas file: VALID
+
+========== KONDISI LOSS 10% ==========
+qdisc netem 8005: root refcnt 3 limit 1000 loss 10%
+
+===== TCP TRANSFER: LOSS_10PCT =====
+./scripts/soal3/qos-batch-final.sh: line 95: /tmp/qos-received.bin: No such file or directory
+Kondisi: LOSS_10PCT
+Waktu transfer: 46 ms
+Byte diterima: 
+Exit code Netcat: 0
+SHA256 penerima: 12394e8cf69db4a3fdbcbca8db57c9c01b360c39f68de4d16c6f4903a1589478
+Integritas file: VALID
+Capture TCP tersimpan.
+
+===== UDP: LOSS_10PCT =====
+KONDISI: LOSS_10PCT
+DATAGRAM DIKIRIM: 30
+Traceback (most recent call last):
+  File "/home/budiluhur/Hasan/scripts/soal3/udp_qos.py", line 13, in <module>
+    s.bind(("10.10.30.10", 5001))
+OSError: [Errno 98] Address already in use
+Exit code penerima UDP: 1
+
+========== VERIFIKASI AKHIR ==========
+qdisc noqueue 0: root refcnt 2 
+
+===== REKAP TRANSFER TCP =====
+kondisi,waktu_ms,byte_diterima,exit_code,integritas
+BASELINE,45,,0,VALID
+DELAY_100MS,244,,0,VALID
+LOSS_10PCT,46,,0,VALID
+
+===== FILE EVIDENCE =====
+-rw-rw-r-- 1 budiluhur budiluhur  164 Nov  3 17:44 evidence/soal3/capture/tcp-transfer-loss-info.txt
+-rw-r--r-- 1 tcpdump   tcpdump    66K Nov  3 17:44 evidence/soal3/capture/tcp-transfer-loss.pcap
+-rw-rw-r-- 1 budiluhur budiluhur 3.6K Nov  3 17:44 evidence/soal3/capture/tcp-transfer-loss.txt
+-rw-rw-r-- 1 budiluhur budiluhur  121 Nov  3 17:44 evidence/soal3/qos/tcp-transfer-summary.csv
+-rw-rw-r-- 1 budiluhur budiluhur  190 Nov  3 17:44 evidence/soal3/qos/udp-BASELINE.txt
+-rw-rw-r-- 1 budiluhur budiluhur  190 Nov  3 17:44 evidence/soal3/qos/udp-LOSS_10PCT.txt

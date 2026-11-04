@@ -1,0 +1,77 @@
+
+======================================================
+ AUDIT 03 - SOAL 2 RIP VERSION 2
+======================================================
+===== FILE KONFIGURASI RIP =====
+
+----- R-HQ -----
+[ADA] configs/rip/R-HQ/frr.conf
+24:router rip
+25: version 2
+26: no auto-summary
+27: network 10.0.0.0/30
+28: network 10.0.0.4/30
+29: network 10.0.0.8/30
+30: network 10.10.10.0/24
+ripd=yes
+
+----- R-BR1 -----
+[ADA] configs/rip/R-BR1/frr.conf
+18:router rip
+19: version 2
+20: no auto-summary
+21: network 10.0.0.0/30
+22: network 10.10.20.0/24
+ripd=yes
+
+----- R-BR2 -----
+[ADA] configs/rip/R-BR2/frr.conf
+18:router rip
+19: version 2
+20: no auto-summary
+21: network 10.0.0.8/30
+22: network 10.10.40.0/24
+ripd=yes
+
+----- R-DC -----
+[ADA] configs/rip/R-DC/frr.conf
+18:router rip
+19: version 2
+20: no auto-summary
+21: network 10.0.0.4/30
+22: network 10.10.30.0/24
+ripd=yes
+
+===== EVIDENCE RIP =====
+evidence/soal2/rip/baseline/R-BR1-rip-route.txt
+evidence/soal2/rip/baseline/R-BR1-rip-status.txt
+evidence/soal2/rip/baseline/R-BR2-rip-route.txt
+evidence/soal2/rip/baseline/R-BR2-rip-status.txt
+evidence/soal2/rip/baseline/R-DC-rip-route.txt
+evidence/soal2/rip/baseline/R-DC-rip-status.txt
+evidence/soal2/rip/baseline/R-HQ-rip-route.txt
+evidence/soal2/rip/baseline/R-HQ-rip-status.txt
+evidence/soal2/rip/baseline/ping-BR1.txt
+evidence/soal2/rip/baseline/ping-BR2.txt
+evidence/soal2/rip/rip-link-failure.txt
+
+===== LOG RIP TERKAIT GANGGUAN =====
+evidence/soal2/rip/rip-link-failure.txt:29:3 packets transmitted, 3 packets received, 0% packet loss
+evidence/soal2/rip/rip-link-failure.txt:30:round-trip min/avg/max = 0.070/0.099/0.158 ms
+evidence/soal2/rip/rip-link-failure.txt:38:===== 3. TABEL RIP SAAT LINK DOWN =====
+evidence/soal2/rip/rip-link-failure.txt:40:===== 4. PING BR1 SAAT LINK DOWN =====
+evidence/soal2/rip/rip-link-failure.txt:44:5 packets transmitted, 0 packets received, 100% packet loss
+evidence/soal2/rip/rip-link-failure.txt:55:5 packets transmitted, 5 packets received, 0% packet loss
+evidence/soal2/rip/rip-link-failure.txt:56:round-trip min/avg/max = 0.069/0.091/0.150 ms
+evidence/soal2/rip/rip-link-failure.txt:60:===== 7. PEMULIHAN LINK =====
+evidence/soal2/rip/rip-link-failure.txt:64:===== 8. TABEL RIP SETELAH PEMULIHAN =====
+evidence/soal2/rip/rip-link-failure.txt:79:===== 9. PING SETELAH PEMULIHAN =====
+evidence/soal2/rip/rip-link-failure.txt:83:5 packets transmitted, 0 packets received, 100% packet loss
+evidence/soal2/rip/baseline/ping-BR2.txt:9:5 packets transmitted, 5 packets received, 0% packet loss
+evidence/soal2/rip/baseline/ping-BR2.txt:10:round-trip min/avg/max = 0.064/0.069/0.079 ms
+evidence/soal2/rip/baseline/ping-BR1.txt:9:5 packets transmitted, 5 packets received, 0% packet loss
+evidence/soal2/rip/baseline/ping-BR1.txt:10:round-trip min/avg/max = 0.067/0.068/0.070 ms
+
+CATATAN:
+Waktu konvergensi RIP belum dianggap terukur
+tanpa log monitoring dengan timestamp yang memadai.

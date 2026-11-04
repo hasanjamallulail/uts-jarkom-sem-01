@@ -1,0 +1,97 @@
+================================================
+ UTS CS238 - SOAL 3(iv)
+ EKSPERIMEN DELAY DAN PACKET LOSS
+================================================
+
+===== A. INFORMASI EKSPERIMEN =====
+Client : PC-BR1 10.10.20.10
+Server : APP-SRV 10.10.30.10
+Interface gangguan : PC-BR1 eth1
+Skenario 1 : Tanpa gangguan tambahan
+Skenario 2 : Delay 100 ms
+Skenario 3 : Packet loss 10%
+
+===== B. PENGUKURAN ICMP BASELINE =====
+Sumber: evidence/soal3/qos/ping-baseline.txt
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 0.069/0.075/0.096 ms
+
+===== C. PENGUKURAN DELAY 100 MS =====
+evidence/soal3/qos/ping-delay-100ms.txt
+
+===== D. PENGUKURAN PACKET LOSS =====
+evidence/soal3/capture/tcp-transfer-loss-fixed-info.txt
+evidence/soal3/capture/tcp-transfer-loss-fixed.txt
+evidence/soal3/capture/tcp-transfer-loss-info.txt
+evidence/soal3/capture/tcp-transfer-loss.txt
+evidence/soal3/qos/ping-loss-10pct.txt
+evidence/soal3/qos/udp-fixed-LOSS_10PCT.txt
+evidence/soal3/qos/udp-LOSS_10PCT.txt
+
+===== E. HASIL TRANSFER FILE TCP =====
+Sumber: evidence/soal3/qos/tcp-transfer-fixed.csv
+kondisi,waktu_ms,byte_diterima,exit_code,integritas
+BASELINE,45,262144,0,VALID
+DELAY_100MS,244,262144,0,VALID
+LOSS_10PCT,46,262144,0,VALID
+
+===== F. HASIL UDP BASELINE =====
+UDP_SERVER_READY
+KONDISI: BASELINE
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 100
+DATAGRAM HILANG: 0
+LOSS APLIKASI: 0.00%
+
+===== G. HASIL UDP PACKET LOSS 10% =====
+UDP_SERVER_READY
+KONDISI: LOSS_10PCT
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 94
+DATAGRAM HILANG: 6
+LOSS APLIKASI: 6.00%
+
+===== H. HASIL RESPONS TCP =====
+UTS CS238 - PENGUJIAN WAKTU RESPONS TCP
+
+===== BASELINE TANPA DELAY =====
+Percobaan 1 | 55 ms | Respons: UJI TCP 1
+Percobaan 2 | 46 ms | Respons: UJI TCP 2
+Percobaan 3 | 46 ms | Respons: UJI TCP 3
+Percobaan 4 | 48 ms | Respons: UJI TCP 4
+Percobaan 5 | 47 ms | Respons: UJI TCP 5
+
+===== TERAPKAN DELAY 100 MS =====
+qdisc netem 8003: root refcnt 3 limit 1000 delay 100ms
+
+===== TCP DENGAN DELAY 100 MS =====
+Percobaan 1 | 248 ms | Respons: UJI TCP 1
+Percobaan 2 | 248 ms | Respons: UJI TCP 2
+Percobaan 3 | 246 ms | Respons: UJI TCP 3
+Percobaan 4 | 248 ms | Respons: UJI TCP 4
+Percobaan 5 | 245 ms | Respons: UJI TCP 5
+
+===== PEMULIHAN QDISC =====
+qdisc noqueue 0: root refcnt 2 
+
+===== I. KONDISI QDISC SAAT INI =====
+qdisc noqueue 0: root refcnt 2 
+
+===== J. ANALISIS TEKNIS =====
+Delay meningkatkan waktu respons.
+Packet loss UDP dapat menyebabkan
+datagram tidak diterima aplikasi.
+TCP dapat melakukan retransmission.
+Transfer kecil belum tentu menunjukkan
+perlambatan signifikan pada loss 10%.
+
+===== K. BATASAN =====
+Data berasal dari eksperimen historis.
+Hasil bergantung pada jumlah sampel.
+Performa aplikasi interaktif nyata
+belum diuji dengan workload khusus.
+Tidak ada gangguan jaringan dijalankan.
+
+================================================
+ SOAL 3(iv) - PEMERIKSAAN SELESAI
+================================================

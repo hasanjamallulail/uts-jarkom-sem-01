@@ -1,0 +1,74 @@
+==================================================
+ UTS CS238 - PERSIAPAN 03
+ VERIFIKASI IP ADDRESS, SUBNET DAN GATEWAY
+==================================================
+
+===== A. IP ADDRESS EMPAT ROUTER =====
+
+========== R-HQ ==========
+    inet 10.0.0.1/30 brd 10.0.0.3 scope global eth1
+    inet 10.0.0.5/30 brd 10.0.0.7 scope global eth2
+    inet 10.0.0.9/30 brd 10.0.0.11 scope global eth3
+    inet 10.10.10.1/24 brd 10.10.10.255 scope global eth4
+
+========== R-BR1 ==========
+    inet 10.0.0.2/30 brd 10.0.0.3 scope global eth1
+    inet 10.10.20.1/24 brd 10.10.20.255 scope global eth2
+
+========== R-BR2 ==========
+    inet 10.0.0.10/30 brd 10.0.0.11 scope global eth1
+    inet 10.10.40.1/24 brd 10.10.40.255 scope global eth2
+
+========== R-DC ==========
+    inet 10.0.0.6/30 brd 10.0.0.7 scope global eth1
+    inet 10.10.30.1/24 brd 10.10.30.255 scope global eth2
+
+===== B. IP ADDRESS CLIENT DAN SERVER =====
+
+========== PC-HQ1 ==========
+    inet 10.10.10.10/24 scope global eth1
+
+========== PC-HQ2 ==========
+    inet 10.10.10.11/24 scope global eth1
+
+========== PC-BR1 ==========
+    inet 10.10.20.10/24 scope global eth1
+
+========== PC-BR2 ==========
+    inet 10.10.40.10/24 scope global eth1
+
+========== APP-SRV ==========
+    inet 10.10.30.10/24 scope global eth1
+
+========== DNS-SRV ==========
+    inet 10.10.30.53/24 scope global eth1
+
+===== C. DEFAULT GATEWAY CLIENT DAN SERVER =====
+
+========== PC-HQ1 ==========
+default via 10.10.10.1 dev eth1 
+10.10.10.0/24 dev eth1 scope link  src 10.10.10.10 
+
+========== PC-HQ2 ==========
+default via 10.10.10.1 dev eth1 
+10.10.10.0/24 dev eth1 scope link  src 10.10.10.11 
+
+========== PC-BR1 ==========
+default via 10.10.20.1 dev eth1 
+10.10.20.0/24 dev eth1 scope link  src 10.10.20.10 
+
+========== PC-BR2 ==========
+default via 10.10.40.1 dev eth1 
+10.10.40.0/24 dev eth1 scope link  src 10.10.40.10 
+
+========== APP-SRV ==========
+default via 10.10.30.1 dev eth1 
+10.10.30.0/24 dev eth1 scope link  src 10.10.30.10 
+
+========== DNS-SRV ==========
+default via 10.10.30.1 dev eth1 
+10.10.30.0/24 dev eth1 scope link  src 10.10.30.53 
+
+==================================================
+ PERSIAPAN 03 - PEMERIKSAAN SELESAI
+==================================================

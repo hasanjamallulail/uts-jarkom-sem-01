@@ -1,0 +1,29 @@
+==============================================
+ SOAL 4(i) - VERIFIKASI KONDISI AKHIR
+==============================================
+
+===== 1. ROUTING PC-BR1 KE APP-SRV =====
+10.10.30.10 via 10.10.20.1 dev eth1  src 10.10.20.10 
+
+===== 2. PING PC-BR1 KE APP-SRV =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.087 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.072 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.072/0.077/0.087 ms
+
+===== 3. STATUS OSPF R-BR1 =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          12h10m15s         37.106s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+===== 4. CEK ROUTE UNREACHABLE =====
+Tidak ditemukan route unreachable
+
+===== 5. KESIMPULAN =====
+Pemeriksaan bersifat read-only.
+Tidak ada perubahan konfigurasi.

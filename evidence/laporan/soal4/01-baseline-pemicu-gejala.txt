@@ -1,0 +1,148 @@
+==================================================
+ UTS CS238 - SOAL 4(i)
+ BASELINE, PEMICU, GEJALA DAN DAMPAK PENGGUNA
+==================================================
+
+===== A. IDENTITAS SKENARIO =====
+Topologi : Hub-and-Spoke
+Routing  : OSPF Area 0
+Client   : PC-BR1 (10.10.20.10)
+Server   : APP-SRV (10.10.30.10)
+Layanan  : TCP port 5504
+Lapisan  : IP Routing + TCP Application
+
+===== B. FILE EVIDENCE SOAL 4 =====
+evidence/soal4/checksum-sebelum.txt
+evidence/soal4/checksum-sesudah.txt
+evidence/soal4/investigasi-lengkap.txt
+evidence/soal4/ringkasan-soal4.txt
+evidence/soal4/tcp-capture-info.txt
+evidence/soal4/tcp-server-mati.pcap
+evidence/soal4/tcp-server-mati.txt
+
+===== C. LOG EKSPERIMEN ASLI =====
+3:SOAL 4 - INVESTIGASI GANGGUAN TERINTEGRASI
+6:Skenario: Routing IP + TCP
+28:1. BASELINE KONDISI NORMAL
+31:===== ROUTING CLIENT =====
+34:===== OSPF ROUTING =====
+51:----- ICMP TEST: BASELINE BR1 -----
+64:----- TCP TEST: BASELINE TCP -----
+67:HASIL TCP: BERHASIL
+68:BASELINE: VALID
+71:2. PEMICU GANGGUAN PERTAMA - ROUTING
+81:----- ICMP TEST: ROUTING TERGANGGU -----
+85:----- TCP TEST: ROUTING TERGANGGU -----
+88:HASIL TCP: GAGAL
+91:3. PEMICU GANGGUAN KEDUA - TCP SERVER
+97:----- ICMP TEST: DUA GANGGUAN AKTIF -----
+101:----- TCP TEST: DUA GANGGUAN AKTIF -----
+104:HASIL TCP: GAGAL
+131:===== H2: ROUTING IP CLIENT BERMASALAH? =====
+140:----- ICMP TEST: BR2 SAAT GANGGUAN BR1 -----
+151:5. SOLUSI TAHAP 1 - PERBAIKI ROUTING SAJA
+154:===== ROUTING SETELAH PERBAIKAN =====
+158:----- ICMP TEST: SETELAH PERBAIKAN ROUTING -----
+168:----- TCP TEST: TCP MASIH MATI -----
+171:HASIL TCP: GAGAL
+172:KESIMPULAN TAHAP 1:
+173:Routing dipulihkan tanpa mengaktifkan TCP server.
+180:----- TCP TEST: BUKTI TCP SERVER MATI -----
+183:HASIL TCP: GAGAL
+196:----- TCP TEST: SETELAH TCP DIPULIHKAN -----
+199:HASIL TCP: BERHASIL
+208:----- ICMP TEST: BR1 KE APP-SRV -----
+219:----- ICMP TEST: BR2 KE APP-SRV -----
+233:----- TCP TEST: TCP BR2 KE APP-SRV -----
+236:HASIL TCP: BERHASIL
+289:Skenario: Routing IP + TCP
+290:Baseline TCP: BERHASIL
+291:Gangguan 1: Route unreachable khusus APP-SRV
+292:Gangguan 2: TCP server port 5504 mati
+293:H1: OSPF diperiksa melalui neighbor dan tabel routing
+
+===== D. BASELINE TCP HISTORIS =====
+1. BASELINE KONDISI NORMAL
+----- ICMP TEST: BASELINE BR1 -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.084/0.105 ms
+----- TCP TEST: BASELINE TCP -----
+Respons: SOAL4_TCP_OK
+Exit code: 0
+HASIL TCP: BERHASIL
+BASELINE: VALID
+
+===== E. PEMICU GANGGUAN ROUTING =====
+71:2. PEMICU GANGGUAN PERTAMA - ROUTING
+72-================================================
+73-2026-11-03T18:09:56+00:00
+74-
+75-===== CLEANUP OTOMATIS =====
+76-TCP SERVER: LISTEN port 5504
+77-===== TAMBAHKAN ROUTE UNREACHABLE =====
+78-===== ROUTE YANG DISUNTIKKAN =====
+79-unreachable 10.10.30.10 
+80-
+81------ ICMP TEST: ROUTING TERGANGGU -----
+82-PING 10.10.30.10 (10.10.30.10): 56 data bytes
+83-ping: sendto: Host is unreachable
+84-
+85------ TCP TEST: ROUTING TERGANGGU -----
+86-Respons: <tidak ada>
+87-Exit code: 1
+88-HASIL TCP: GAGAL
+89-
+90-================================================
+91-3. PEMICU GANGGUAN KEDUA - TCP SERVER
+92-================================================
+93-2026-11-03T18:09:57+00:00
+
+===== F. DAMPAK DUA GANGGUAN =====
+81:----- ICMP TEST: ROUTING TERGANGGU -----
+83:ping: sendto: Host is unreachable
+85:----- TCP TEST: ROUTING TERGANGGU -----
+88:HASIL TCP: GAGAL
+97:----- ICMP TEST: DUA GANGGUAN AKTIF -----
+99:ping: sendto: Host is unreachable
+101:----- TCP TEST: DUA GANGGUAN AKTIF -----
+104:HASIL TCP: GAGAL
+168:----- TCP TEST: TCP MASIH MATI -----
+171:HASIL TCP: GAGAL
+183:HASIL TCP: GAGAL
+
+===== G. KONDISI JARINGAN SAAT INI =====
+Routing PC-BR1 menuju APP-SRV:
+10.10.30.10 via 10.10.20.1 dev eth1  src 10.10.20.10 
+
+Ping PC-BR1 menuju APP-SRV:
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.119 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.066 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.071 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.066/0.085/0.119 ms
+
+Status OSPF R-BR1:
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          12h07m51s         30.622s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+===== H. KETERULANGAN EKSPERIMEN =====
+Gunakan topologi dan konfigurasi OSPF yang sama.
+Uji baseline sebelum mengaktifkan gangguan.
+Aktifkan satu gangguan pada setiap tahap.
+Catat ping, routing, TCP, dan status layanan.
+Pulihkan setiap perubahan setelah pengujian.
+Simpan log dengan timestamp.
+
+===== I. STATUS =====
+Audit menggunakan evidence historis.
+Tidak ada simulasi gangguan baru.
+Tidak ada perubahan konfigurasi router.
+
+==================================================
+ SOAL 4(i) - PEMERIKSAAN SELESAI
+==================================================

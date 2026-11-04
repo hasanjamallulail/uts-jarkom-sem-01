@@ -1,0 +1,116 @@
+====================================================
+ UTS CS238 - SOAL 5(i)
+ IDENTIFIKASI TIGA RISIKO TEKNIS UTAMA
+====================================================
+
+===== A. IDENTITAS ARSITEKTUR =====
+Topologi  : Hub-and-Spoke
+Router    : R-HQ, R-BR1, R-BR2, R-DC
+Routing   : OSPF Area 0
+Server    : APP-SRV 10.10.30.10
+Platform  : Ubuntu, Docker, Containerlab, FRRouting
+
+===== B. BUKTI TOPOLOGI =====
+Jumlah node: 14
+Jumlah link: 13
+
+DAFTAR LINK:
+01. R-HQ:eth1 <--> R-BR1:eth1
+02. R-HQ:eth2 <--> R-DC:eth1
+03. R-HQ:eth3 <--> R-BR2:eth1
+04. R-HQ:eth4 <--> SW-HQ:hq-r
+05. R-BR1:eth2 <--> SW-BR1:br1-r
+06. R-BR2:eth2 <--> SW-BR2:br2-r
+07. R-DC:eth2 <--> SW-DC:dc-r
+08. PC-HQ1:eth1 <--> SW-HQ:hq-pc1
+09. PC-HQ2:eth1 <--> SW-HQ:hq-pc2
+10. PC-BR1:eth1 <--> SW-BR1:br1-pc
+11. PC-BR2:eth1 <--> SW-BR2:br2-pc
+12. APP-SRV:eth1 <--> SW-DC:dc-app
+13. DNS-SRV:eth1 <--> SW-DC:dc-dns
+
+===== C. RISIKO 1 - SINGLE POINT OF FAILURE =====
+Periksa hubungan seluruh router dengan R-HQ.
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+4.4.4.4           1 Full/-          12h35m22s         39.998s 10.0.0.6        eth2:10.0.0.5                        0     0     0
+3.3.3.3           1 Full/-          12h35m22s         39.998s 10.0.0.10       eth3:10.0.0.9                        0     0     0
+2.2.2.2           1 Full/-          12h35m22s         39.998s 10.0.0.2        eth1:10.0.0.1                        0     0     0
+
+
+===== D. RISIKO 2 - TIDAK ADA LINK REDUNDAN =====
+R-BR1 memiliki satu link transit menuju R-HQ.
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if107       UP             172.20.20.9/24 3fff:172:20:20::9/64 fe80::400d:b2ff:fe7b:5796/64 
+eth1@if115       UP             10.0.0.2/30 fe80::a8c1:abff:fec1:c49/64 
+eth2@if122       UP             10.10.20.1/24 fe80::a8c1:abff:fe2c:6983/64 
+
+Rute R-BR1 menuju Data Center:
+Routing entry for 10.10.30.0/24
+  Known via "ospf", distance 110, metric 30, best
+  Last update 12:35:17 ago
+  * 10.0.0.1, via eth1, weight 1
+
+
+Bukti kegagalan link historis:
+
+FILE: evidence/soal1/SS-12-link-failure.txt
+3 packets transmitted, 3 packets received, 0% packet loss
+5 packets transmitted, 0 packets received, 100% packet loss
+5 packets transmitted, 5 packets received, 0% packet loss
+5 packets transmitted, 5 packets received, 0% packet loss
+
+FILE: evidence/soal2/rip/rip-link-failure.txt
+3 packets transmitted, 3 packets received, 0% packet loss
+5 packets transmitted, 0 packets received, 100% packet loss
+5 packets transmitted, 5 packets received, 0% packet loss
+5 packets transmitted, 0 packets received, 100% packet loss
+
+FILE: evidence/soal2/ospf/ospf-link-failure.txt
+3 packets transmitted, 3 packets received, 0% packet loss
+5 packets transmitted, 0 packets received, 100% packet loss
+5 packets transmitted, 5 packets received, 0% packet loss
+5 packets transmitted, 0 packets received, 100% packet loss
+
+===== E. RISIKO 3 - KONFIGURASI DAN LAYANAN =====
+Bukti route unreachable dan TCP tidak LISTEN:
+79:unreachable 10.10.30.10 
+88:HASIL TCP: GAGAL
+95:TCP 5504 TIDAK LISTEN
+104:HASIL TCP: GAGAL
+132:unreachable 10.10.30.10 
+136:TCP 5504 TIDAK LISTEN
+171:HASIL TCP: GAGAL
+183:HASIL TCP: GAGAL
+200:HASIL PEMULIHAN: BERHASIL
+
+===== F. VERIFIKASI KONDISI SAAT INI =====
+Routing PC-BR1 menuju server:
+10.10.30.10 via 10.10.20.1 dev eth1  src 10.10.20.10 
+
+Ping PC-BR1 menuju APP-SRV:
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.205 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.067 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.068 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.067/0.113/0.205 ms
+
+===== G. MATRIKS RISIKO =====
+RISIKO   PENYEBAB                     DAMPAK                        
+R1       R-HQ sebagai pusat           Potensi gangguan luas         
+R2       Link BR1-HQ tunggal          Cabang terisolasi             
+R3       Route atau service salah     Aplikasi tidak tersedia       
+
+===== H. BATASAN AUDIT =====
+Risiko R1 adalah analisis topologi.
+Risiko R2 didukung eksperimen link failure.
+Risiko R3 didukung eksperimen routing dan TCP.
+Tidak dilakukan simulasi gangguan baru.
+Tidak ada konfigurasi yang diubah.
+
+====================================================
+ SOAL 5(i) - PEMERIKSAAN SELESAI
+====================================================

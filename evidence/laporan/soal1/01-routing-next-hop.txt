@@ -1,0 +1,81 @@
+================================================
+ UTS CS238 - SOAL 1(i)
+ ROUTING ANTARSUBNET DAN NEXT HOP
+================================================
+
+===== A. KONFIGURASI STATIC ROUTING TERSIMPAN =====
+
+========== R-HQ ==========
+ip route 10.10.20.0/24 10.0.0.2
+ip route 10.10.30.0/24 10.0.0.6
+ip route 10.10.40.0/24 10.0.0.10
+
+========== R-BR1 ==========
+ip route 10.10.10.0/24 10.0.0.1
+ip route 10.10.30.0/24 10.0.0.1
+ip route 10.10.40.0/24 10.0.0.1
+
+========== R-BR2 ==========
+ip route 10.10.10.0/24 10.0.0.9
+ip route 10.10.20.0/24 10.0.0.9
+ip route 10.10.30.0/24 10.0.0.9
+
+========== R-DC ==========
+ip route 10.10.10.0/24 10.0.0.5
+ip route 10.10.20.0/24 10.0.0.5
+ip route 10.10.40.0/24 10.0.0.5
+
+===== B. TABEL ROUTING AKTIF (OSPF) =====
+
+========== R-HQ ==========
+Routing entry for 10.10.30.0/24
+  Known via "ospf", distance 110, metric 20, best
+  Last update 10:16:35 ago
+  * 10.0.0.6, via eth2, weight 1
+
+
+========== R-BR1 ==========
+Routing entry for 10.10.30.0/24
+  Known via "ospf", distance 110, metric 30, best
+  Last update 10:16:35 ago
+  * 10.0.0.1, via eth1, weight 1
+
+
+========== R-BR2 ==========
+Routing entry for 10.10.30.0/24
+  Known via "ospf", distance 110, metric 30, best
+  Last update 10:16:35 ago
+  * 10.0.0.9, via eth1, weight 1
+
+
+========== R-DC ==========
+Routing entry for 10.10.30.0/24
+  Known via "ospf", distance 110, metric 10
+  Last update 10:38:22 ago
+    directly connected, eth2, weight 1
+
+Routing entry for 10.10.30.0/24
+  Known via "connected", distance 0, metric 0, best
+  Last update 10:38:22 ago
+  * directly connected, eth2, weight 1
+
+
+===== C. JALUR PC-BR1 MENUJU APP-SRV =====
+10.10.30.10 via 10.10.20.1 dev eth1  src 10.10.20.10 
+
+===== D. TRACEROUTE HISTORIS STATIC ROUTING =====
+============================================
+ UTS CS238 - PENGUJIAN TRACEROUTE
+ Sumber : PC-BR1 (10.10.20.10)
+ Tujuan : APP-SRV (10.10.30.10)
+============================================
+2026-11-03T14:41:24+00:00
+traceroute to 10.10.30.10 (10.10.30.10), 8 hops max, 46 byte packets
+ 1  10.10.20.1  0.006 ms  0.004 ms
+ 2  10.0.0.1  0.003 ms  0.003 ms
+ 3  10.0.0.6  0.003 ms  0.003 ms
+ 4  10.10.30.10  0.003 ms  0.003 ms
+
+================================================
+ SOAL 1(i) - PEMERIKSAAN SELESAI
+================================================

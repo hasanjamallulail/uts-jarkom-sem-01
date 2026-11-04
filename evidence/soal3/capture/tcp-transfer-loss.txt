@@ -1,0 +1,23 @@
+reading from file evidence/soal3/capture/tcp-transfer-loss.pcap, link-type EN10MB (Ethernet), snapshot length 262144
+17:44:45.711929 IP 10.10.20.10.37955 > 10.10.30.10.5002: Flags [S], seq 3413987587, win 56760, options [mss 9460,sackOK,TS val 1817246555 ecr 0,nop,wscale 7], length 0
+17:44:45.711942 IP 10.10.30.10.5002 > 10.10.20.10.37955: Flags [S.], seq 2619134089, ack 3413987588, win 56688, options [mss 9460,sackOK,TS val 2635193078 ecr 1817246555,nop,wscale 7], length 0
+17:44:45.711970 IP 10.10.20.10.37955 > 10.10.30.10.5002: Flags [.], ack 1, win 444, options [nop,nop,TS val 1817246556 ecr 2635193078], length 0
+17:44:45.712011 IP 10.10.20.10.37955 > 10.10.30.10.5002: Flags [P.], seq 1:8193, ack 1, win 444, options [nop,nop,TS val 1817246556 ecr 2635193078], length 8192
+17:44:45.712016 IP 10.10.30.10.5002 > 10.10.20.10.37955: Flags [.], ack 8193, win 591, options [nop,nop,TS val 2635193078 ecr 1817246556], length 0
+17:44:45.712024 IP 10.10.30.10.5002 > 10.10.20.10.37955: Flags [F.], seq 1, ack 8193, win 591, options [nop,nop,TS val 2635193078 ecr 1817246556], length 0
+17:44:45.712042 IP 10.10.20.10.37955 > 10.10.30.10.5002: Flags [P.], seq 8193:16385, ack 1, win 444, options [nop,nop,TS val 1817246556 ecr 2635193078], length 8192
+17:44:45.712046 IP 10.10.30.10.5002 > 10.10.20.10.37955: Flags [.], ack 16385, win 739, options [nop,nop,TS val 2635193078 ecr 1817246556], length 0
+17:44:45.712072 IP 10.10.20.10.37955 > 10.10.30.10.5002: Flags [P.], seq 16385:24577, ack 2, win 444, options [nop,nop,TS val 1817246556 ecr 2635193078], length 8192
+17:44:45.712076 IP 10.10.30.10.5002 > 10.10.20.10.37955: Flags [.], ack 24577, win 853, options [nop,nop,TS val 2635193078 ecr 1817246556], length 0
+17:44:45.712098 IP 10.10.20.10.37955 > 10.10.30.10.5002: Flags [P.], seq 24577:32769, ack 2, win 444, options [nop,nop,TS val 1817246556 ecr 2635193078], length 8192
+17:44:45.712104 IP 10.10.30.10.5002 > 10.10.20.10.37955: Flags [.], ack 32769, win 853, options [nop,nop,TS val 2635193078 ecr 1817246556], length 0
+17:44:45.712127 IP 10.10.20.10.37955 > 10.10.30.10.5002: Flags [P.], seq 32769:40961, ack 2, win 444, options [nop,nop,TS val 1817246556 ecr 2635193078], length 8192
+17:44:45.712132 IP 10.10.30.10.5002 > 10.10.20.10.37955: Flags [.], ack 40961, win 853, options [nop,nop,TS val 2635193078 ecr 1817246556], length 0
+17:44:45.712154 IP 10.10.20.10.37955 > 10.10.30.10.5002: Flags [P.], seq 40961:49153, ack 2, win 444, options [nop,nop,TS val 1817246556 ecr 2635193078], length 8192
+17:44:45.712170 IP 10.10.30.10.5002 > 10.10.20.10.37955: Flags [.], ack 49153, win 853, options [nop,nop,TS val 2635193078 ecr 1817246556], length 0
+17:44:45.712183 IP 10.10.20.10.37955 > 10.10.30.10.5002: Flags [.], seq 49153:58601, ack 2, win 444, options [nop,nop,TS val 1817246556 ecr 2635193078], length 9448
+17:44:45.712187 IP 10.10.30.10.5002 > 10.10.20.10.37955: Flags [.], ack 58601, win 855, options [nop,nop,TS val 2635193078 ecr 1817246556], length 0
+17:44:45.712200 IP 10.10.20.10.37955 > 10.10.30.10.5002: Flags [P.], seq 58601:65537, ack 2, win 444, options [nop,nop,TS val 1817246556 ecr 2635193078], length 6936
+17:44:45.712205 IP 10.10.30.10.5002 > 10.10.20.10.37955: Flags [.], ack 65537, win 873, options [nop,nop,TS val 2635193078 ecr 1817246556], length 0
+17:44:45.712225 IP 10.10.20.10.37955 > 10.10.30.10.5002: Flags [F.], seq 65537, ack 2, win 444, options [nop,nop,TS val 1817246556 ecr 2635193078], length 0
+17:44:45.712228 IP 10.10.30.10.5002 > 10.10.20.10.37955: Flags [.], ack 65538, win 873, options [nop,nop,TS val 2635193078 ecr 1817246556], length 0

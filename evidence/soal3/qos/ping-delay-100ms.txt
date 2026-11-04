@@ -1,0 +1,25 @@
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=100.452 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=100.266 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=100.400 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=100.401 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=100.153 ms
+64 bytes from 10.10.30.10: seq=5 ttl=61 time=100.403 ms
+64 bytes from 10.10.30.10: seq=6 ttl=61 time=100.140 ms
+64 bytes from 10.10.30.10: seq=7 ttl=61 time=100.220 ms
+64 bytes from 10.10.30.10: seq=8 ttl=61 time=100.400 ms
+64 bytes from 10.10.30.10: seq=9 ttl=61 time=100.109 ms
+64 bytes from 10.10.30.10: seq=10 ttl=61 time=100.251 ms
+64 bytes from 10.10.30.10: seq=11 ttl=61 time=100.261 ms
+64 bytes from 10.10.30.10: seq=12 ttl=61 time=100.398 ms
+64 bytes from 10.10.30.10: seq=13 ttl=61 time=100.400 ms
+64 bytes from 10.10.30.10: seq=14 ttl=61 time=100.377 ms
+64 bytes from 10.10.30.10: seq=15 ttl=61 time=100.231 ms
+64 bytes from 10.10.30.10: seq=16 ttl=61 time=100.257 ms
+64 bytes from 10.10.30.10: seq=17 ttl=61 time=100.135 ms
+64 bytes from 10.10.30.10: seq=18 ttl=61 time=100.258 ms
+64 bytes from 10.10.30.10: seq=19 ttl=61 time=100.231 ms
+
+--- 10.10.30.10 ping statistics ---
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 100.109/100.287/100.452 ms

@@ -1,0 +1,21 @@
+UTS CS238 - PENGUJIAN WAKTU RESPONS TCP
+
+===== BASELINE TANPA DELAY =====
+Percobaan 1 | 55 ms | Respons: UJI TCP 1
+Percobaan 2 | 46 ms | Respons: UJI TCP 2
+Percobaan 3 | 46 ms | Respons: UJI TCP 3
+Percobaan 4 | 48 ms | Respons: UJI TCP 4
+Percobaan 5 | 47 ms | Respons: UJI TCP 5
+
+===== TERAPKAN DELAY 100 MS =====
+qdisc netem 8003: root refcnt 3 limit 1000 delay 100ms
+
+===== TCP DENGAN DELAY 100 MS =====
+Percobaan 1 | 248 ms | Respons: UJI TCP 1
+Percobaan 2 | 248 ms | Respons: UJI TCP 2
+Percobaan 3 | 246 ms | Respons: UJI TCP 3
+Percobaan 4 | 248 ms | Respons: UJI TCP 4
+Percobaan 5 | 245 ms | Respons: UJI TCP 5
+
+===== PEMULIHAN QDISC =====
+qdisc noqueue 0: root refcnt 2 

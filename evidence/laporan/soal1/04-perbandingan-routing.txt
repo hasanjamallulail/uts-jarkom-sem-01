@@ -1,0 +1,82 @@
+================================================
+ UTS CS238 - SOAL 1(iv)
+ PERBANDINGAN STATIC ROUTING, RIP DAN OSPF
+================================================
+
+===== A. BUKTI KONFIGURASI TIGA METODE =====
+
+--- STATIC ROUTING R-HQ ---
+ip route 10.10.20.0/24 10.0.0.2
+ip route 10.10.30.0/24 10.0.0.6
+ip route 10.10.40.0/24 10.0.0.10
+
+--- RIP VERSION 2 R-HQ ---
+router rip
+ version 2
+ no auto-summary
+ network 10.0.0.0/30
+ network 10.0.0.4/30
+ network 10.0.0.8/30
+ network 10.10.10.0/24
+!
+
+--- OSPF R-HQ ---
+router ospf
+ ospf router-id 1.1.1.1
+ passive-interface eth4
+ network 10.0.0.0/30 area 0.0.0.0
+ network 10.0.0.4/30 area 0.0.0.0
+ network 10.0.0.8/30 area 0.0.0.0
+ network 10.10.10.0/24 area 0.0.0.0
+!
+end
+
+===== B. HASIL LINK FAILURE HISTORIS =====
+
+--- evidence/soal1/SS-12-link-failure.txt ---
+3 packets transmitted, 3 packets received, 0% packet loss
+===== STATUS LINK DOWN =====
+===== TABEL ROUTING SAAT LINK DOWN =====
+5 packets transmitted, 0 packets received, 100% packet loss
+5 packets transmitted, 5 packets received, 0% packet loss
+===== PEMULIHAN =====
+===== PEMULIHAN INTERFACE BR1 =====
+===== PING SETELAH PEMULIHAN =====
+5 packets transmitted, 5 packets received, 0% packet loss
+
+--- evidence/soal2/rip/rip-link-failure.txt ---
+3 packets transmitted, 3 packets received, 0% packet loss
+===== 3. TABEL RIP SAAT LINK DOWN =====
+===== 4. PING BR1 SAAT LINK DOWN =====
+5 packets transmitted, 0 packets received, 100% packet loss
+5 packets transmitted, 5 packets received, 0% packet loss
+===== 7. PEMULIHAN LINK =====
+===== 8. TABEL RIP SETELAH PEMULIHAN =====
+===== 9. PING SETELAH PEMULIHAN =====
+5 packets transmitted, 0 packets received, 100% packet loss
+
+--- evidence/soal2/ospf/ospf-link-failure.txt ---
+3 packets transmitted, 3 packets received, 0% packet loss
+===== 3. ROUTING OSPF SAAT LINK DOWN =====
+===== 4. PING BR1 SAAT LINK DOWN =====
+5 packets transmitted, 0 packets received, 100% packet loss
+5 packets transmitted, 5 packets received, 0% packet loss
+===== 6. PEMULIHAN LINK =====
+===== 8. PING SETELAH PEMULIHAN =====
+5 packets transmitted, 0 packets received, 100% packet loss
+
+===== C. PERBANDINGAN TEKNIS =====
+ASPEK                 STATIC              RIP V2              OSPF               
+Kompleksitas          Manual              Relatif sederhana   Lebih kompleks     
+Respons kegagalan     Status/konfigurasi  Update dan timer    LSA dan SPF        
+Skalabilitas          Terbatas            Hop maks. 15        Lebih fleksibel    
+Pemilihan jalur       Rute admin          Hop count           Cost               
+Risiko operasional    Salah next hop      Timer dan metric    Adjacency/cost     
+Kesesuaian            Jaringan kecil      Jaringan sederhana  Jaringan berkembang
+
+===== D. BATASAN HASIL =====
+Topologi tidak memiliki link alternatif BR1-HQ.
+Tidak ada bukti waktu konvergensi terukur setara.
+Perbandingan sifat protokol merupakan analisis teknis.
+
+SOAL 1(iv) - PEMERIKSAAN SELESAI

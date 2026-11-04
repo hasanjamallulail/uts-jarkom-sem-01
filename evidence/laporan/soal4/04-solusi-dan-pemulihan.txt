@@ -1,0 +1,88 @@
+=================================================
+ UTS CS238 - SOAL 4(iv)
+ PENERAPAN SOLUSI DAN PEMBUKTIAN PEMULIHAN
+=================================================
+
+===== A. IDENTITAS EKSPERIMEN =====
+Client : PC-BR1 (10.10.20.10)
+Server : APP-SRV (10.10.30.10)
+Port   : TCP 5504
+Routing: OSPF Area 0
+
+===== B. KONDISI BASELINE HISTORIS =====
+1. BASELINE KONDISI NORMAL
+----- ICMP TEST: BASELINE BR1 -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.084/0.105 ms
+----- TCP TEST: BASELINE TCP -----
+Respons: SOAL4_TCP_OK
+Exit code: 0
+HASIL TCP: BERHASIL
+BASELINE: VALID
+
+===== C. BUKTI GANGGUAN SEBELUM PERBAIKAN =====
+79:unreachable 10.10.30.10 
+83:ping: sendto: Host is unreachable
+88:HASIL TCP: GAGAL
+95:TCP 5504 TIDAK LISTEN
+99:ping: sendto: Host is unreachable
+104:HASIL TCP: GAGAL
+132:unreachable 10.10.30.10 
+136:TCP 5504 TIDAK LISTEN
+171:HASIL TCP: GAGAL
+183:HASIL TCP: GAGAL
+
+===== D. SOLUSI PERTAMA: PERBAIKAN ROUTING =====
+5. SOLUSI TAHAP 1 - PERBAIKI ROUTING SAJA
+===== ROUTING SETELAH PERBAIKAN =====
+10.10.30.10 via 10.10.20.1 dev eth1 src 10.10.20.10 uid 0 
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.059/0.065/0.070 ms
+----- TCP TEST: TCP MASIH MATI -----
+HASIL TCP: GAGAL
+
+===== E. SOLUSI KEDUA: PEMULIHAN TCP =====
+TCP SERVER: LISTEN port 5504
+Respons: SOAL4_TCP_OK
+Exit code: 0
+HASIL TCP: BERHASIL
+HASIL PEMULIHAN: BERHASIL
+
+===== F. HASIL PERBANDINGAN =====
+PARAMETER               SEBELUM                SETELAH               
+Routing                 Unreachable            Via 10.10.20.1        
+ICMP                    GAGAL                  BERHASIL              
+TCP Port 5504           Tidak LISTEN           LISTEN (historis)     
+TCP aplikasi            GAGAL                  BERHASIL              
+
+===== G. VERIFIKASI ROUTING SAAT INI =====
+10.10.30.10 via 10.10.20.1 dev eth1  src 10.10.20.10 
+
+Cek route unreachable:
+Tidak ditemukan route unreachable.
+
+===== H. VERIFIKASI ICMP SAAT INI =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.125 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.072 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.072/0.089/0.125 ms
+
+===== I. VERIFIKASI OSPF SAAT INI =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          12h22m41s         30.380s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+===== J. BATASAN PEMERIKSAAN =====
+Pemulihan TCP dibuktikan dari log historis.
+Audit saat ini memeriksa routing, ICMP, OSPF.
+Tidak ada konfigurasi yang diubah.
+Tidak ada gangguan baru yang dijalankan.
+
+=================================================
+ SOAL 4(iv) - PEMERIKSAAN SELESAI
+=================================================

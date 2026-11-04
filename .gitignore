@@ -1,0 +1,24 @@
+# Containerlab runtime
+clab-uts/
+
+# Git dan file sementara
+*.log
+*.tmp
+*.swp
+.DS_Store
+__pycache__/
+
+# File backup dan arsip
+*.zip
+*.tar
+*.tar.gz
+
+# Kredensial dan file sensitif
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+id_rsa
+id_ed25519
+*.token

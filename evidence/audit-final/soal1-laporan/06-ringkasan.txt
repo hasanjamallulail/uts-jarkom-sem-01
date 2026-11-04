@@ -1,0 +1,20 @@
+
+====================================================
+ SOAL 1 - RINGKASAN EVIDENCE
+====================================================
+
+-rw-rw-r-- 1 budiluhur budiluhur 1.3K Nov  4 02:24 evidence/audit-final/soal1-laporan/01-static-routing.txt
+
+-rw-rw-r-- 1 budiluhur budiluhur 1.8K Nov  4 02:24 evidence/audit-final/soal1-laporan/02-longest-prefix.txt
+
+-rw-rw-r-- 1 budiluhur budiluhur 4.1K Nov  4 02:24 evidence/audit-final/soal1-laporan/03-link-failure.txt
+
+-rw-rw-r-- 1 budiluhur budiluhur 1019 Nov  4 02:24 evidence/audit-final/soal1-laporan/04-perbandingan-routing.txt
+
+-rw-rw-r-- 1 budiluhur budiluhur 838 Nov  4 02:24 evidence/audit-final/soal1-laporan/05-rekomendasi.txt
+
+===== STATUS =====
+Audit selesai.
+Tidak ada route yang diubah.
+Tidak ada interface yang dimatikan.
+Konfigurasi OSPF aktif tidak disentuh.

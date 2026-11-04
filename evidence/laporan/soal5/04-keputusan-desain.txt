@@ -1,0 +1,209 @@
+====================================================
+ UTS CS238 - SOAL 5(iv)
+ KEPUTUSAN DESAIN, TRADE-OFF DAN KONSEKUENSI
+====================================================
+
+===== A. KEPUTUSAN DESAIN =====
+Keputusan : OSPF Area 0
+Topologi  : Hub-and-Spoke
+Router    : R-HQ, R-BR1, R-BR2, R-DC
+Server    : APP-SRV 10.10.30.10
+
+===== B. BUKTI KONFIGURASI OSPF =====
+
+----- ROUTER R-HQ -----
+router ospf
+ ospf router-id 1.1.1.1
+ passive-interface eth4
+ network 10.0.0.0/30 area 0.0.0.0
+ network 10.0.0.4/30 area 0.0.0.0
+ network 10.0.0.8/30 area 0.0.0.0
+ network 10.10.10.0/24 area 0.0.0.0
+!
+Interface point-to-point:
+7: ip ospf network point-to-point
+11: ip ospf network point-to-point
+15: ip ospf network point-to-point
+
+----- ROUTER R-BR1 -----
+router ospf
+ ospf router-id 2.2.2.2
+ passive-interface eth2
+ network 10.0.0.0/30 area 0.0.0.0
+ network 10.10.20.0/24 area 0.0.0.0
+!
+Interface point-to-point:
+7: ip ospf network point-to-point
+
+----- ROUTER R-BR2 -----
+router ospf
+ ospf router-id 3.3.3.3
+ passive-interface eth2
+ network 10.0.0.8/30 area 0.0.0.0
+ network 10.10.40.0/24 area 0.0.0.0
+!
+Interface point-to-point:
+7: ip ospf network point-to-point
+
+----- ROUTER R-DC -----
+router ospf
+ ospf router-id 4.4.4.4
+ passive-interface eth2
+ network 10.0.0.4/30 area 0.0.0.0
+ network 10.10.30.0/24 area 0.0.0.0
+!
+Interface point-to-point:
+7: ip ospf network point-to-point
+
+===== C. VERIFIKASI OSPF AKTIF =====
+
+----- NEIGHBOR R-HQ -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+4.4.4.4           1 Full/-          13h36m29s         32.910s 10.0.0.6        eth2:10.0.0.5                        0     0     0
+3.3.3.3           1 Full/-          13h36m29s         32.910s 10.0.0.10       eth3:10.0.0.9                        0     0     0
+2.2.2.2           1 Full/-          13h36m29s         32.910s 10.0.0.2        eth1:10.0.0.1                        0     0     0
+
+
+----- NEIGHBOR R-BR1 -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          13h36m29s         32.857s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+----- NEIGHBOR R-BR2 -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          13h36m30s         32.803s 10.0.0.9        eth1:10.0.0.10                       0     0     0
+
+
+----- NEIGHBOR R-DC -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          13h36m30s         32.750s 10.0.0.5        eth1:10.0.0.6                        0     0     0
+
+
+===== D. JALUR ROUTING MENUJU SERVER =====
+
+----- ROUTING R-HQ -----
+Routing entry for 10.10.30.0/24
+  Known via "ospf", distance 110, metric 20, best
+  Last update 13:36:25 ago
+  * 10.0.0.6, via eth2, weight 1
+
+
+----- ROUTING R-BR1 -----
+Routing entry for 10.10.30.0/24
+  Known via "ospf", distance 110, metric 30, best
+  Last update 13:36:25 ago
+  * 10.0.0.1, via eth1, weight 1
+
+
+----- ROUTING R-BR2 -----
+Routing entry for 10.10.30.0/24
+  Known via "ospf", distance 110, metric 30, best
+  Last update 13:36:25 ago
+  * 10.0.0.9, via eth1, weight 1
+
+
+----- ROUTING R-DC -----
+Routing entry for 10.10.30.0/24
+  Known via "ospf", distance 110, metric 10
+  Last update 13:58:12 ago
+    directly connected, eth2, weight 1
+
+Routing entry for 10.10.30.0/24
+  Known via "connected", distance 0, metric 0, best
+  Last update 13:58:12 ago
+  * directly connected, eth2, weight 1
+
+
+===== E. KONSEKUENSI LINK TUNGGAL =====
+Bukti link failure static routing:
+3 packets transmitted, 3 packets received, 0% packet loss
+===== STATUS LINK DOWN =====
+5 packets transmitted, 0 packets received, 100% packet loss
+5 packets transmitted, 5 packets received, 0% packet loss
+===== PEMULIHAN =====
+===== PEMULIHAN INTERFACE BR1 =====
+===== PING SETELAH PEMULIHAN =====
+5 packets transmitted, 5 packets received, 0% packet loss
+
+Bukti kegagalan pada RIP dan OSPF:
+
+FILE: evidence/soal2/rip/rip-link-failure.txt
+3 packets transmitted, 3 packets received, 0% packet loss
+5 packets transmitted, 0 packets received, 100% packet loss
+5 packets transmitted, 5 packets received, 0% packet loss
+5 packets transmitted, 0 packets received, 100% packet loss
+
+FILE: evidence/soal2/ospf/ospf-link-failure.txt
+3 packets transmitted, 3 packets received, 0% packet loss
+5 packets transmitted, 0 packets received, 100% packet loss
+5 packets transmitted, 5 packets received, 0% packet loss
+5 packets transmitted, 0 packets received, 100% packet loss
+
+===== F. PERBANDINGAN ALTERNATIF ROUTING =====
+ASPEK              RIP VERSION 2            OSPF                    
+Metode             Distance-vector          Link-state              
+Metric             Hop count                Cost                    
+Skalabilitas       Maksimum 15 hop          Lebih fleksibel         
+Konfigurasi        Relatif sederhana        Lebih kompleks          
+Gangguan link      Update dan timer         Adjacency dan SPF       
+
+Catatan:
+Perbandingan ini berdasarkan karakteristik protokol.
+Keunggulan waktu konvergensi belum diukur setara.
+
+===== G. KONDISI JARINGAN SAAT INI =====
+Ping PC-BR1 menuju APP-SRV:
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.214 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.090 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.072/0.104/0.214 ms
+
+Routing PC-BR1 menuju APP-SRV:
+10.10.30.10 via 10.10.20.1 dev eth1  src 10.10.20.10 
+
+===== H. TRADE-OFF KEPUTUSAN =====
+KEUNTUNGAN:
+- OSPF mempelajari rute secara dinamis.
+- Cost dapat digunakan untuk memilih jalur.
+- Mendukung pengembangan jaringan.
+- Seluruh neighbor aktif telah diverifikasi FULL.
+
+KONSEKUENSI:
+- Konfigurasi lebih kompleks dibanding static/RIP.
+- Perlu monitoring adjacency dan routing.
+- R-HQ menjadi titik ketergantungan utama.
+- Tidak ada failover tanpa link alternatif.
+
+===== I. KONDISI PERUBAHAN KEPUTUSAN =====
+1. Jika jaringan sangat kecil dan stabil:
+   Static routing dapat dipertimbangkan.
+2. Jika operator memiliki keterbatasan pengelolaan:
+   Evaluasi kompleksitas protokol.
+3. Jika jumlah cabang meningkat:
+   Pertahankan OSPF dan evaluasi struktur area.
+4. Jika SLA dan keandalan meningkat:
+   Tambahkan redundansi link dan perangkat.
+5. Jika kebutuhan kinerja meningkat:
+   Evaluasi cost, kapasitas dan QoS.
+
+===== J. BATASAN EVALUASI =====
+- Keputusan didasarkan pada lab Containerlab.
+- Link redundan belum tersedia.
+- Failover alternatif belum diuji.
+- Waktu konvergensi RIP/OSPF belum diukur setara.
+- Belum ada pengujian skala produksi.
+- Tidak ada konfigurasi yang diubah.
+
+====================================================
+ SOAL 5(iv) - PEMERIKSAAN SELESAI
+====================================================

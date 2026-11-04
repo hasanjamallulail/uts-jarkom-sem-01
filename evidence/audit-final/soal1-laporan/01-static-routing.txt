@@ -1,0 +1,44 @@
+
+====================================================
+ SOAL 1(i) - KONFIGURASI STATIC ROUTING
+====================================================
+
+===== ROUTER R-HQ =====
+ip route 10.10.20.0/24 10.0.0.2
+ip route 10.10.30.0/24 10.0.0.6
+ip route 10.10.40.0/24 10.0.0.10
+
+===== ROUTER R-BR1 =====
+ip route 10.10.10.0/24 10.0.0.1
+ip route 10.10.30.0/24 10.0.0.1
+ip route 10.10.40.0/24 10.0.0.1
+
+===== ROUTER R-BR2 =====
+ip route 10.10.10.0/24 10.0.0.9
+ip route 10.10.20.0/24 10.0.0.9
+ip route 10.10.30.0/24 10.0.0.9
+
+===== ROUTER R-DC =====
+ip route 10.10.10.0/24 10.0.0.5
+ip route 10.10.20.0/24 10.0.0.5
+ip route 10.10.40.0/24 10.0.0.5
+
+===== NEXT HOP MENUJU APP-SRV =====
+Tujuan: 10.10.30.10
+Dari HQ  : via 10.0.0.6
+Dari BR1 : via 10.0.0.1
+Dari BR2 : via 10.0.0.9
+Dari DC  : jaringan 10.10.30.0/24 terhubung langsung
+
+===== EVIDENCE TRACEROUTE =====
+============================================
+ UTS CS238 - PENGUJIAN TRACEROUTE
+ Sumber : PC-BR1 (10.10.20.10)
+ Tujuan : APP-SRV (10.10.30.10)
+============================================
+2026-11-03T14:41:24+00:00
+traceroute to 10.10.30.10 (10.10.30.10), 8 hops max, 46 byte packets
+ 1  10.10.20.1  0.006 ms  0.004 ms
+ 2  10.0.0.1  0.003 ms  0.003 ms
+ 3  10.0.0.6  0.003 ms  0.003 ms
+ 4  10.10.30.10  0.003 ms  0.003 ms

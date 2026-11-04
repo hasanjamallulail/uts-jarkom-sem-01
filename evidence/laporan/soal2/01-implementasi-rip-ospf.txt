@@ -1,0 +1,266 @@
+================================================
+ UTS CS238 - SOAL 2(i)
+ IMPLEMENTASI RIP VERSION 2 DAN OSPF
+================================================
+
+===== A. KONFIGURASI RIP VERSION 2 =====
+
+========== RIP R-HQ ==========
+router rip
+ version 2
+ no auto-summary
+ network 10.0.0.0/30
+ network 10.0.0.4/30
+ network 10.0.0.8/30
+ network 10.10.10.0/24
+!
+ripd=yes
+
+========== RIP R-BR1 ==========
+router rip
+ version 2
+ no auto-summary
+ network 10.0.0.0/30
+ network 10.10.20.0/24
+!
+ripd=yes
+
+========== RIP R-BR2 ==========
+router rip
+ version 2
+ no auto-summary
+ network 10.0.0.8/30
+ network 10.10.40.0/24
+!
+ripd=yes
+
+========== RIP R-DC ==========
+router rip
+ version 2
+ no auto-summary
+ network 10.0.0.4/30
+ network 10.10.30.0/24
+!
+ripd=yes
+
+===== B. BUKTI RIP PERNAH BERJALAN =====
+
+========== STATUS HISTORIS RIP R-HQ ==========
+Routing Protocol is "rip"
+  Sending updates every 30 seconds with +/-50%, next due in 3 seconds
+  Timeout after 180 seconds, garbage collect after 240 seconds
+  Outgoing update filter list for all interface is not set
+  Incoming update filter list for all interface is not set
+    Interface        Send  Recv   Key-chain
+  Routing for Networks:
+    Gateway          BadPackets BadRoutes  Distance Last Update
+========== ROUTING HISTORIS RIP R-HQ ==========
+R>* 10.10.20.0/24 [120/2] via 10.0.0.2, eth1, weight 1, 00:22:47
+R>* 10.10.30.0/24 [120/2] via 10.0.0.6, eth2, weight 1, 00:22:47
+R>* 10.10.40.0/24 [120/2] via 10.0.0.10, eth3, weight 1, 00:22:47
+
+========== STATUS HISTORIS RIP R-BR1 ==========
+Routing Protocol is "rip"
+  Sending updates every 30 seconds with +/-50%, next due in 33 seconds
+  Timeout after 180 seconds, garbage collect after 240 seconds
+  Outgoing update filter list for all interface is not set
+  Incoming update filter list for all interface is not set
+    Interface        Send  Recv   Key-chain
+  Routing for Networks:
+    Gateway          BadPackets BadRoutes  Distance Last Update
+========== ROUTING HISTORIS RIP R-BR1 ==========
+R>* 10.0.0.4/30 [120/2] via 10.0.0.1, eth1, weight 1, 00:22:47
+R>* 10.0.0.8/30 [120/2] via 10.0.0.1, eth1, weight 1, 00:22:47
+R>* 10.10.10.0/24 [120/2] via 10.0.0.1, eth1, weight 1, 00:22:47
+R>* 10.10.30.0/24 [120/3] via 10.0.0.1, eth1, weight 1, 00:22:47
+R>* 10.10.40.0/24 [120/3] via 10.0.0.1, eth1, weight 1, 00:22:47
+
+========== STATUS HISTORIS RIP R-BR2 ==========
+Routing Protocol is "rip"
+  Sending updates every 30 seconds with +/-50%, next due in 24 seconds
+  Timeout after 180 seconds, garbage collect after 240 seconds
+  Outgoing update filter list for all interface is not set
+  Incoming update filter list for all interface is not set
+    Interface        Send  Recv   Key-chain
+  Routing for Networks:
+    Gateway          BadPackets BadRoutes  Distance Last Update
+========== ROUTING HISTORIS RIP R-BR2 ==========
+R>* 10.0.0.0/30 [120/2] via 10.0.0.9, eth1, weight 1, 00:22:47
+R>* 10.0.0.4/30 [120/2] via 10.0.0.9, eth1, weight 1, 00:22:47
+R>* 10.10.10.0/24 [120/2] via 10.0.0.9, eth1, weight 1, 00:22:47
+R>* 10.10.20.0/24 [120/3] via 10.0.0.9, eth1, weight 1, 00:22:47
+R>* 10.10.30.0/24 [120/3] via 10.0.0.9, eth1, weight 1, 00:22:47
+
+========== STATUS HISTORIS RIP R-DC ==========
+Routing Protocol is "rip"
+  Sending updates every 30 seconds with +/-50%, next due in 25 seconds
+  Timeout after 180 seconds, garbage collect after 240 seconds
+  Outgoing update filter list for all interface is not set
+  Incoming update filter list for all interface is not set
+    Interface        Send  Recv   Key-chain
+  Routing for Networks:
+    Gateway          BadPackets BadRoutes  Distance Last Update
+========== ROUTING HISTORIS RIP R-DC ==========
+R>* 10.0.0.0/30 [120/2] via 10.0.0.5, eth1, weight 1, 00:22:47
+R>* 10.0.0.8/30 [120/2] via 10.0.0.5, eth1, weight 1, 00:22:47
+R>* 10.10.10.0/24 [120/2] via 10.0.0.5, eth1, weight 1, 00:22:47
+R>* 10.10.20.0/24 [120/3] via 10.0.0.5, eth1, weight 1, 00:22:47
+R>* 10.10.40.0/24 [120/3] via 10.0.0.5, eth1, weight 1, 00:22:47
+
+===== C. KONFIGURASI OSPF AREA 0 =====
+
+========== OSPF R-HQ ==========
+router ospf
+ ospf router-id 1.1.1.1
+ passive-interface eth4
+ network 10.0.0.0/30 area 0.0.0.0
+ network 10.0.0.4/30 area 0.0.0.0
+ network 10.0.0.8/30 area 0.0.0.0
+ network 10.10.10.0/24 area 0.0.0.0
+!
+end
+Interface point-to-point:
+7: ip ospf network point-to-point
+11: ip ospf network point-to-point
+15: ip ospf network point-to-point
+
+========== OSPF R-BR1 ==========
+router ospf
+ ospf router-id 2.2.2.2
+ passive-interface eth2
+ network 10.0.0.0/30 area 0.0.0.0
+ network 10.10.20.0/24 area 0.0.0.0
+!
+end
+Interface point-to-point:
+7: ip ospf network point-to-point
+
+========== OSPF R-BR2 ==========
+router ospf
+ ospf router-id 3.3.3.3
+ passive-interface eth2
+ network 10.0.0.8/30 area 0.0.0.0
+ network 10.10.40.0/24 area 0.0.0.0
+!
+end
+Interface point-to-point:
+7: ip ospf network point-to-point
+
+========== OSPF R-DC ==========
+router ospf
+ ospf router-id 4.4.4.4
+ passive-interface eth2
+ network 10.0.0.4/30 area 0.0.0.0
+ network 10.10.30.0/24 area 0.0.0.0
+!
+end
+Interface point-to-point:
+7: ip ospf network point-to-point
+
+===== D. STATUS OSPF AKTIF =====
+
+========== NEIGHBOR R-HQ ==========
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+4.4.4.4           1 Full/-          10h34m13s         38.936s 10.0.0.6        eth2:10.0.0.5                        0     0     0
+3.3.3.3           1 Full/-          10h34m13s         38.936s 10.0.0.10       eth3:10.0.0.9                        0     0     0
+2.2.2.2           1 Full/-          10h34m13s         38.936s 10.0.0.2        eth1:10.0.0.1                        0     0     0
+
+
+========== NEIGHBOR R-BR1 ==========
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          10h34m13s         38.881s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+========== NEIGHBOR R-BR2 ==========
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          10h34m13s         38.828s 10.0.0.9        eth1:10.0.0.10                       0     0     0
+
+
+========== NEIGHBOR R-DC ==========
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          10h34m13s         38.773s 10.0.0.5        eth1:10.0.0.6                        0     0     0
+
+
+===== E. TABEL ROUTING OSPF =====
+
+========== ROUTING OSPF R-HQ ==========
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 10:37:10
+O   10.0.0.4/30 [110/10] is directly connected, eth2, weight 1, 10:55:56
+O   10.0.0.8/30 [110/10] is directly connected, eth3, weight 1, 10:55:56
+O   10.10.10.0/24 [110/10] is directly connected, eth4, weight 1, 10:55:55
+O>* 10.10.20.0/24 [110/20] via 10.0.0.2, eth1, weight 1, 10:34:08
+O>* 10.10.30.0/24 [110/20] via 10.0.0.6, eth2, weight 1, 10:34:08
+O>* 10.10.40.0/24 [110/20] via 10.0.0.10, eth3, weight 1, 10:34:08
+
+========== ROUTING OSPF R-BR1 ==========
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 10:37:10
+O>* 10.0.0.4/30 [110/20] via 10.0.0.1, eth1, weight 1, 10:34:08
+O>* 10.0.0.8/30 [110/20] via 10.0.0.1, eth1, weight 1, 10:34:08
+O>* 10.10.10.0/24 [110/20] via 10.0.0.1, eth1, weight 1, 10:34:08
+O   10.10.20.0/24 [110/10] is directly connected, eth2, weight 1, 10:55:55
+O>* 10.10.30.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 10:34:08
+O>* 10.10.40.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 10:34:08
+
+========== ROUTING OSPF R-BR2 ==========
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O>* 10.0.0.0/30 [110/20] via 10.0.0.9, eth1, weight 1, 10:34:08
+O>* 10.0.0.4/30 [110/20] via 10.0.0.9, eth1, weight 1, 10:34:08
+O   10.0.0.8/30 [110/10] is directly connected, eth1, weight 1, 10:55:56
+O>* 10.10.10.0/24 [110/20] via 10.0.0.9, eth1, weight 1, 10:34:08
+O>* 10.10.20.0/24 [110/30] via 10.0.0.9, eth1, weight 1, 10:34:08
+O>* 10.10.30.0/24 [110/30] via 10.0.0.9, eth1, weight 1, 10:34:08
+O   10.10.40.0/24 [110/10] is directly connected, eth2, weight 1, 10:55:55
+
+========== ROUTING OSPF R-DC ==========
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O>* 10.0.0.0/30 [110/20] via 10.0.0.5, eth1, weight 1, 10:34:08
+O   10.0.0.4/30 [110/10] is directly connected, eth1, weight 1, 10:55:56
+O>* 10.0.0.8/30 [110/20] via 10.0.0.5, eth1, weight 1, 10:34:08
+O>* 10.10.10.0/24 [110/20] via 10.0.0.5, eth1, weight 1, 10:34:08
+O>* 10.10.20.0/24 [110/30] via 10.0.0.5, eth1, weight 1, 10:34:08
+O   10.10.30.0/24 [110/10] is directly connected, eth2, weight 1, 10:55:55
+O>* 10.10.40.0/24 [110/30] via 10.0.0.5, eth1, weight 1, 10:34:08
+
+===== F. BATASAN PEMERIKSAAN =====
+RIP: berdasarkan konfigurasi dan log historis.
+OSPF: berdasarkan konfigurasi dan status aktif.
+Kedua protokol tidak diuji aktif bersamaan.
+Tidak ada perubahan konfigurasi router.
+
+================================================
+ SOAL 2(i) - PEMERIKSAAN SELESAI
+================================================

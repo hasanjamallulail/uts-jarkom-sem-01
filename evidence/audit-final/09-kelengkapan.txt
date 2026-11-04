@@ -1,0 +1,32 @@
+
+======================================================
+ AUDIT 09 - SOAL 5 DAN KELENGKAPAN
+======================================================
+===== EVIDENCE SOAL 5 =====
+evidence/soal5/evaluasi-arsitektur.txt
+
+===== JUMLAH EVIDENCE SOAL 1-5 =====
+Soal 1: 3 file
+Soal 2: 22 file
+Soal 3: 37 file
+Soal 4: 7 file
+Soal 5: 1 file
+
+===== README =====
+[ADA] README.md
+
+===== FILE TOPOLOGI =====
+[ADA] topology.clab.yml
+[ADA] topology-ospf.clab.yml
+
+===== LAPORAN PDF DI SERVER =====
+
+===== FILE ZIP BACKUP =====
+/home/budiluhur/UTS-BACKUP/UTS-CS238-FINAL-SOAL1-5.zip
+
+===== CATATAN AUDIT =====
+Soal 2(iii): ulangi pengukuran perlu bukti tersendiri.
+Soal 3(v): tiga penyebab TCP gagal perlu ditulis.
+Soal 1(iv-v): perbandingan dan rekomendasi harus eksplisit.
+Soal 4(ii): matriks hipotesis harus lengkap.
+Soal 5(iii): metode dan ukuran sampel harus konsisten.

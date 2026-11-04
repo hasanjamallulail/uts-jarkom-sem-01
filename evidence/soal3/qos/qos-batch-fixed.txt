@@ -1,0 +1,75 @@
+
+========== BASELINE ==========
+
+===== TCP TRANSFER: BASELINE =====
+Waktu transfer: 45 ms
+Ukuran diterima: 262144 byte
+Exit code client: 0
+SHA256 penerima: 0ea7fccb73db378bd52fc77f9c7e59d7851a9b0c1a8bfcc0f56754440c56e946
+Integritas: VALID
+
+===== UDP: BASELINE =====
+DATAGRAM BERHASIL DIKIRIM DARI CLIENT: 100
+UDP_SERVER_READY
+KONDISI: BASELINE
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 100
+DATAGRAM HILANG: 0
+LOSS APLIKASI: 0.00%
+Exit code server UDP: 0
+
+========== DELAY 100 MS ==========
+qdisc netem 8006: root refcnt 3 limit 1000 delay 100ms
+
+===== TCP TRANSFER: DELAY_100MS =====
+Waktu transfer: 244 ms
+Ukuran diterima: 262144 byte
+Exit code client: 0
+SHA256 penerima: 0ea7fccb73db378bd52fc77f9c7e59d7851a9b0c1a8bfcc0f56754440c56e946
+Integritas: VALID
+
+========== PACKET LOSS 10% ==========
+qdisc netem 8007: root refcnt 3 limit 1000 loss 10%
+
+===== TCP TRANSFER: LOSS_10PCT =====
+Waktu transfer: 46 ms
+Ukuran diterima: 262144 byte
+Exit code client: 0
+SHA256 penerima: 0ea7fccb73db378bd52fc77f9c7e59d7851a9b0c1a8bfcc0f56754440c56e946
+Integritas: VALID
+Packet capture TCP tersimpan.
+
+===== UDP: LOSS_10PCT =====
+DATAGRAM BERHASIL DIKIRIM DARI CLIENT: 100
+UDP_SERVER_READY
+KONDISI: LOSS_10PCT
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 94
+DATAGRAM HILANG: 6
+LOSS APLIKASI: 6.00%
+Exit code server UDP: 0
+
+========== HASIL AKHIR ==========
+qdisc noqueue 0: root refcnt 2 
+
+===== REKAP TCP =====
+kondisi,waktu_ms,byte_diterima,exit_code,integritas
+BASELINE,45,262144,0,VALID
+DELAY_100MS,244,262144,0,VALID
+LOSS_10PCT,46,262144,0,VALID
+
+===== REKAP UDP BASELINE =====
+UDP_SERVER_READY
+KONDISI: BASELINE
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 100
+DATAGRAM HILANG: 0
+LOSS APLIKASI: 0.00%
+
+===== REKAP UDP LOSS 10% =====
+UDP_SERVER_READY
+KONDISI: LOSS_10PCT
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 94
+DATAGRAM HILANG: 6
+LOSS APLIKASI: 6.00%

@@ -1,0 +1,45 @@
+
+======================================================
+ AUDIT 07 - SOAL 3 QOS
+======================================================
+===== ICMP BASELINE (20 PAKET) =====
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 0.069/0.075/0.096 ms
+
+===== DELAY 100 MS (20 PAKET) =====
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 100.109/100.287/100.452 ms
+
+===== LOSS 10% (100 PAKET) =====
+100 packets transmitted, 92 packets received, 8% packet loss
+round-trip min/avg/max = 0.063/0.076/0.135 ms
+
+===== TRANSFER TCP 256 KiB =====
+kondisi,waktu_ms,byte_diterima,exit_code,integritas
+BASELINE,45,262144,0,VALID
+DELAY_100MS,244,262144,0,VALID
+LOSS_10PCT,46,262144,0,VALID
+
+===== UDP BASELINE =====
+UDP_SERVER_READY
+KONDISI: BASELINE
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 100
+DATAGRAM HILANG: 0
+LOSS APLIKASI: 0.00%
+
+===== UDP LOSS 10% =====
+UDP_SERVER_READY
+KONDISI: LOSS_10PCT
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 94
+DATAGRAM HILANG: 6
+LOSS APLIKASI: 6.00%
+
+===== TCP RETRANSMISSION =====
+tcp-retransmission-analysis.txt : 5
+tcp-duplicate-ack.txt : 4
+tcp-lost-segment.txt : 2
+
+===== QDISC SAAT INI =====
+qdisc noqueue 0: root refcnt 2 

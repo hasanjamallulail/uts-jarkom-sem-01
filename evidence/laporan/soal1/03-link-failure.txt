@@ -1,0 +1,103 @@
+================================================
+ UTS CS238 - SOAL 1(iii)
+ SIMULASI KEGAGALAN LINK DAN PEMULIHAN
+================================================
+
+===== A. KONDISI AWAL =====
+===== BASELINE SEBELUM GANGGUAN =====
+13: eth1@if12: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP mode DEFAULT group default 
+    link/ether aa:c1:ab:14:c2:8c brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    altname clab-o-e65f54abc2e98ee0
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.104 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.093 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.072/0.089/0.104 ms
+
+===== PUTUSKAN LINK =====
+
+===== B. STATUS LINK DOWN DAN ROUTING =====
+===== STATUS LINK DOWN =====
+13: eth1@if12: <BROADCAST,MULTICAST> mtu 9500 qdisc noqueue state DOWN mode DEFAULT group default 
+    link/ether aa:c1:ab:14:c2:8c brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    altname clab-o-e65f54abc2e98ee0
+
+===== TABEL ROUTING SAAT LINK DOWN =====
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+K>* 0.0.0.0/0 [0/0] via 172.20.20.1, eth0, weight 1, 01:15:12
+S>  10.10.10.0/24 [1/0] via 10.0.0.1 (recursive), weight 1, 00:00:00
+  *                       via 172.20.20.1, eth0, weight 1, 00:00:00
+C>* 10.10.20.0/24 is directly connected, eth2, weight 1, 01:15:11
+L>* 10.10.20.1/32 is directly connected, eth2, weight 1, 01:15:11
+S>  10.10.30.0/24 [1/0] via 10.0.0.1 (recursive), weight 1, 00:00:00
+  *                       via 172.20.20.1, eth0, weight 1, 00:00:00
+S>  10.10.30.10/32 [1/0] via 10.0.0.1 (recursive), weight 1, 00:00:00
+  *                        via 172.20.20.1, eth0, weight 1, 00:00:00
+S>  10.10.40.0/24 [1/0] via 10.0.0.1 (recursive), weight 1, 00:00:00
+  *                       via 172.20.20.1, eth0, weight 1, 00:00:00
+C>* 172.20.20.0/24 is directly connected, eth0, weight 1, 01:15:12
+L>* 172.20.20.9/32 is directly connected, eth0, weight 1, 01:15:12
+
+===== PING BR1 KE SERVER SAAT DOWN =====
+
+===== C. DAMPAK TERHADAP CABANG 1 DAN 2 =====
+===== PING BR1 KE SERVER SAAT DOWN =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 0 packets received, 100% packet loss
+
+===== PING BR2 KE SERVER SAAT BR1 DOWN =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.098 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.069 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.068 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.068/0.075/0.098 ms
+
+===== PEMULIHAN =====
+
+===== PEMULIHAN INTERFACE BR1 =====
+
+===== D. PEMULIHAN LINK =====
+===== STATUS LINK SETELAH UP =====
+13: eth1@if12: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP mode DEFAULT group default 
+    link/ether aa:c1:ab:14:c2:8c brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    altname clab-o-e65f54abc2e98ee0
+
+===== PING SETELAH PEMULIHAN =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.089 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.082 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.096 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.071 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.081/0.096 ms
+
+===== EKSPERIMEN SELESAI =====
+2026-11-03T14:50:31+00:00
+
+===== CATATAN =====
+Sumber: evidence historis eksperimen static routing.
+Tidak ada interface atau route yang diubah.
+
+================================================
+ SOAL 1(iii) - PEMERIKSAAN SELESAI
+================================================

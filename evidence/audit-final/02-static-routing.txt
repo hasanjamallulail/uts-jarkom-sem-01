@@ -1,0 +1,45 @@
+
+======================================================
+ AUDIT 02 - SOAL 1 STATIC ROUTING
+======================================================
+Catatan: yang ditampilkan adalah file historis,
+bukan tabel static routing aktif saat ini.
+
+===== BACKUP KONFIGURASI STATIC =====
+configs/static-backup/R-BR1-frr.conf
+configs/static-backup/R-BR2-frr.conf
+configs/static-backup/R-DC-frr.conf
+configs/static-backup/R-HQ-frr.conf
+
+===== PERINTAH STATIC ROUTE DALAM BACKUP =====
+configs/static-backup/R-DC-frr.conf:16:ip route 10.10.10.0/24 10.0.0.5
+configs/static-backup/R-DC-frr.conf:17:ip route 10.10.20.0/24 10.0.0.5
+configs/static-backup/R-DC-frr.conf:18:ip route 10.10.40.0/24 10.0.0.5
+configs/static-backup/R-HQ-frr.conf:22:ip route 10.10.20.0/24 10.0.0.2
+configs/static-backup/R-HQ-frr.conf:23:ip route 10.10.30.0/24 10.0.0.6
+configs/static-backup/R-HQ-frr.conf:24:ip route 10.10.40.0/24 10.0.0.10
+configs/static-backup/R-BR2-frr.conf:16:ip route 10.10.10.0/24 10.0.0.9
+configs/static-backup/R-BR2-frr.conf:17:ip route 10.10.20.0/24 10.0.0.9
+configs/static-backup/R-BR2-frr.conf:18:ip route 10.10.30.0/24 10.0.0.9
+configs/static-backup/R-BR1-frr.conf:16:ip route 10.10.10.0/24 10.0.0.1
+configs/static-backup/R-BR1-frr.conf:17:ip route 10.10.30.0/24 10.0.0.1
+configs/static-backup/R-BR1-frr.conf:18:ip route 10.10.40.0/24 10.0.0.1
+
+===== DAFTAR EVIDENCE SOAL 1 =====
+evidence/soal1/SS-10-traceroute.txt
+evidence/soal1/SS-11-longest-prefix.txt
+evidence/soal1/SS-12-link-failure.txt
+
+===== LONGEST PREFIX MATCH =====
+Target: 10.10.30.10/32 versus 10.10.30.0/24
+evidence/soal1/SS-11-longest-prefix.txt:2: UTS CS238 - LONGEST PREFIX MATCH
+evidence/soal1/SS-11-longest-prefix.txt:24:S>* 10.10.30.10/32 [1/0] via 10.0.0.1, eth1, weight 1, 00:00:00
+evidence/soal1/SS-12-link-failure.txt:43:S>  10.10.30.10/32 [1/0] via 10.0.0.1 (recursive), weight 1, 00:00:00
+scripts/final/audit-uts-cs238.sh:115:    echo "===== LONGEST PREFIX MATCH ====="
+scripts/final/audit-uts-cs238.sh:116:    echo "Target: 10.10.30.10/32 versus 10.10.30.0/24"
+scripts/final/audit-uts-cs238.sh:119:      'longest|prefix|10\.10\.30\.10/32' \
+scripts/final/show-all-uts.sh:391:  ip -4 route show exact 10.10.30.10/32
+
+===== BUKTI LINK FAILURE =====
+evidence/soal1/SS-12-link-failure.txt:2: UTS CS238 - SIMULASI LINK FAILURE
+evidence/soal1/SS-12-link-failure.txt:54:5 packets transmitted, 0 packets received, 100% packet loss

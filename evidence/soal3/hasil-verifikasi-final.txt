@@ -1,0 +1,280 @@
+[H[2J[3J=================================================
+ UTS CS238 - VERIFIKASI SELURUH HASIL SOAL 3
+ TRANSPORT LAYER DAN QUALITY OF SERVICE
+=================================================
+
+========== 1. STATUS CONTAINER ==========
+NAMES              STATUS
+clab-uts-PC-BR1    Up 2 hours
+clab-uts-DNS-SRV   Up 2 hours
+clab-uts-APP-SRV   Up 2 hours
+clab-uts-R-HQ      Up 2 hours
+clab-uts-R-DC      Up 2 hours
+clab-uts-R-BR2     Up 2 hours
+clab-uts-R-BR1     Up 2 hours
+clab-uts-PC-BR2    Up 2 hours
+clab-uts-PC-HQ2    Up 2 hours
+clab-uts-PC-HQ1    Up 2 hours
+
+========== 2. STATUS INTERFACE ==========
+133: eth1@if132: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 9500 qdisc noqueue state UP qlen 1000
+    inet 10.10.20.10/24 scope global eth1
+       valid_lft forever preferred_lft forever
+137: eth1@if136: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 9500 qdisc noqueue state UP 
+    inet 10.10.30.10/24 scope global eth1
+       valid_lft forever preferred_lft forever
+
+========== 3. STATUS ROUTING OSPF ==========
+
+===== R-HQ - NEIGHBOR =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+4.4.4.4           1 Full/-          1h20m18s          32.415s 10.0.0.6        eth2:10.0.0.5                        0     0     0
+3.3.3.3           1 Full/-          1h20m18s          32.415s 10.0.0.10       eth3:10.0.0.9                        0     0     0
+2.2.2.2           1 Full/-          1h20m18s          32.415s 10.0.0.2        eth1:10.0.0.1                        0     0     0
+
+===== R-HQ - ROUTING =====
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 01:23:15
+O   10.0.0.4/30 [110/10] is directly connected, eth2, weight 1, 01:42:01
+O   10.0.0.8/30 [110/10] is directly connected, eth3, weight 1, 01:42:01
+O   10.10.10.0/24 [110/10] is directly connected, eth4, weight 1, 01:42:00
+O>* 10.10.20.0/24 [110/20] via 10.0.0.2, eth1, weight 1, 01:20:13
+O>* 10.10.30.0/24 [110/20] via 10.0.0.6, eth2, weight 1, 01:20:13
+O>* 10.10.40.0/24 [110/20] via 10.0.0.10, eth3, weight 1, 01:20:13
+
+===== R-BR1 - NEIGHBOR =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          1h20m18s          32.306s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+===== R-BR1 - ROUTING =====
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 01:23:15
+O>* 10.0.0.4/30 [110/20] via 10.0.0.1, eth1, weight 1, 01:20:13
+O>* 10.0.0.8/30 [110/20] via 10.0.0.1, eth1, weight 1, 01:20:13
+O>* 10.10.10.0/24 [110/20] via 10.0.0.1, eth1, weight 1, 01:20:13
+O   10.10.20.0/24 [110/10] is directly connected, eth2, weight 1, 01:42:00
+O>* 10.10.30.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 01:20:13
+O>* 10.10.40.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 01:20:13
+
+===== R-BR2 - NEIGHBOR =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          1h20m18s          32.200s 10.0.0.9        eth1:10.0.0.10                       0     0     0
+
+===== R-BR2 - ROUTING =====
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O>* 10.0.0.0/30 [110/20] via 10.0.0.9, eth1, weight 1, 01:20:13
+O>* 10.0.0.4/30 [110/20] via 10.0.0.9, eth1, weight 1, 01:20:13
+O   10.0.0.8/30 [110/10] is directly connected, eth1, weight 1, 01:42:01
+O>* 10.10.10.0/24 [110/20] via 10.0.0.9, eth1, weight 1, 01:20:13
+O>* 10.10.20.0/24 [110/30] via 10.0.0.9, eth1, weight 1, 01:20:13
+O>* 10.10.30.0/24 [110/30] via 10.0.0.9, eth1, weight 1, 01:20:13
+O   10.10.40.0/24 [110/10] is directly connected, eth2, weight 1, 01:42:00
+
+===== R-DC - NEIGHBOR =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          1h20m18s          32.094s 10.0.0.5        eth1:10.0.0.6                        0     0     0
+
+===== R-DC - ROUTING =====
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O>* 10.0.0.0/30 [110/20] via 10.0.0.5, eth1, weight 1, 01:20:13
+O   10.0.0.4/30 [110/10] is directly connected, eth1, weight 1, 01:42:01
+O>* 10.0.0.8/30 [110/20] via 10.0.0.5, eth1, weight 1, 01:20:13
+O>* 10.10.10.0/24 [110/20] via 10.0.0.5, eth1, weight 1, 01:20:13
+O>* 10.10.20.0/24 [110/30] via 10.0.0.5, eth1, weight 1, 01:20:13
+O   10.10.30.0/24 [110/10] is directly connected, eth2, weight 1, 01:42:00
+O>* 10.10.40.0/24 [110/30] via 10.0.0.5, eth1, weight 1, 01:20:13
+
+========== 4. KONEKTIVITAS AKHIR ==========
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.084 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.059 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.094 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.073 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.059/0.076/0.094 ms
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.083 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.066 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.066/0.072/0.083 ms
+
+========== 5. TCP HANDSHAKE ==========
+17:20:33.745079 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [S], seq 12069666, win 56760, options [mss 9460,sackOK,TS val 1815794589 ecr 0,nop,wscale 7], length 0
+17:20:33.745093 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [S.], seq 1817581857, ack 12069667, win 56688, options [mss 9460,sackOK,TS val 2633741111 ecr 1815794589,nop,wscale 7], length 0
+17:20:33.745122 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [.], ack 1, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 0
+17:20:33.745165 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [P.], seq 1:24, ack 1, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 23
+17:20:33.745169 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [.], ack 24, win 443, options [nop,nop,TS val 2633741111 ecr 1815794589], length 0
+17:20:33.745190 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [F.], seq 24, ack 1, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 0
+17:20:33.745730 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [P.], seq 1:24, ack 25, win 443, options [nop,nop,TS val 2633741111 ecr 1815794589], length 23
+17:20:33.745761 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [.], ack 24, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 0
+17:20:33.746049 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [F.], seq 24, ack 25, win 443, options [nop,nop,TS val 2633741112 ecr 1815794589], length 0
+17:20:33.746073 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [.], ack 25, win 444, options [nop,nop,TS val 1815794590 ecr 2633741112], length 0
+
+========== 6. TCP SERVER MATI ==========
+17:26:42.609861 IP 10.10.20.10.43497 > 10.10.30.10.5000: Flags [S], seq 3950595082, win 56760, options [mss 9460,sackOK,TS val 1816163453 ecr 0,nop,wscale 7], length 0
+17:26:42.609873 IP 10.10.30.10.5000 > 10.10.20.10.43497: Flags [R.], seq 0, ack 3950595083, win 0, length 0
+
+========== 7. UDP SERVER MATI ==========
+17:31:22.642328 IP 10.10.20.10.51954 > 10.10.30.10.5001: UDP, length 16
+17:31:22.642356 IP 10.10.30.10 > 10.10.20.10: ICMP 10.10.30.10 udp port 5001 unreachable, length 52
+
+========== 8. UDP TANPA RESPONS ==========
+17:33:44.677743 IP 10.10.20.10.54704 > 10.10.30.10.5001: UDP, length 27
+UDP DITERIMA TANPA BALASAN
+
+========== 9. QOS BASELINE ==========
+
+--- 10.10.30.10 ping statistics ---
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 0.069/0.075/0.096 ms
+
+========== 10. QOS DELAY 100 MS ==========
+
+--- 10.10.30.10 ping statistics ---
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 100.109/100.287/100.452 ms
+
+========== 11. QOS PACKET LOSS 10% ==========
+
+--- 10.10.30.10 ping statistics ---
+100 packets transmitted, 92 packets received, 8% packet loss
+round-trip min/avg/max = 0.063/0.076/0.135 ms
+
+========== 12. WAKTU RESPONS TCP ==========
+UTS CS238 - PENGUJIAN WAKTU RESPONS TCP
+
+===== BASELINE TANPA DELAY =====
+Percobaan 1 | 55 ms | Respons: UJI TCP 1
+Percobaan 2 | 46 ms | Respons: UJI TCP 2
+Percobaan 3 | 46 ms | Respons: UJI TCP 3
+Percobaan 4 | 48 ms | Respons: UJI TCP 4
+Percobaan 5 | 47 ms | Respons: UJI TCP 5
+
+===== TERAPKAN DELAY 100 MS =====
+qdisc netem 8003: root refcnt 3 limit 1000 delay 100ms
+
+===== TCP DENGAN DELAY 100 MS =====
+Percobaan 1 | 248 ms | Respons: UJI TCP 1
+Percobaan 2 | 248 ms | Respons: UJI TCP 2
+Percobaan 3 | 246 ms | Respons: UJI TCP 3
+Percobaan 4 | 248 ms | Respons: UJI TCP 4
+Percobaan 5 | 245 ms | Respons: UJI TCP 5
+
+===== PEMULIHAN QDISC =====
+qdisc noqueue 0: root refcnt 2 
+
+========== 13. TRANSFER FILE TCP ==========
+kondisi,waktu_ms,byte_diterima,exit_code,integritas
+BASELINE,45,262144,0,VALID
+DELAY_100MS,244,262144,0,VALID
+LOSS_10PCT,46,262144,0,VALID
+
+========== 14. UDP BASELINE ==========
+UDP_SERVER_READY
+KONDISI: BASELINE
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 100
+DATAGRAM HILANG: 0
+LOSS APLIKASI: 0.00%
+
+========== 15. UDP PACKET LOSS ==========
+UDP_SERVER_READY
+KONDISI: LOSS_10PCT
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 94
+DATAGRAM HILANG: 6
+LOSS APLIKASI: 6.00%
+
+========== 16. TCP RETRANSMISSION ==========
+tcp-retransmission-analysis.txt : 5 baris
+tcp-duplicate-ack.txt : 4 baris
+tcp-lost-segment.txt : 2 baris
+
+========== 17. KONDISI QDISC AKHIR ==========
+qdisc noqueue 0: root refcnt 2 
+
+========== 18. DAFTAR SELURUH EVIDENCE ==========
+evidence/soal3/capture/hasil-analisis-retransmission.txt
+evidence/soal3/capture/tcp-analysis-final.txt
+evidence/soal3/capture/tcp-capture-info.txt
+evidence/soal3/capture/tcp-duplicate-ack.txt
+evidence/soal3/capture/tcp-handshake.pcap
+evidence/soal3/capture/tcp-handshake.txt
+evidence/soal3/capture/tcp-lost-segment.txt
+evidence/soal3/capture/tcp-retransmission-analysis.txt
+evidence/soal3/capture/tcp-server-mati-info.txt
+evidence/soal3/capture/tcp-server-mati.pcap
+evidence/soal3/capture/tcp-server-mati.txt
+evidence/soal3/capture/tcp-transfer-loss-fixed-info.txt
+evidence/soal3/capture/tcp-transfer-loss-fixed.pcap
+evidence/soal3/capture/tcp-transfer-loss-fixed.txt
+evidence/soal3/capture/tcp-transfer-loss-info.txt
+evidence/soal3/capture/tcp-transfer-loss.pcap
+evidence/soal3/capture/tcp-transfer-loss.txt
+evidence/soal3/capture/udp-no-response-info.txt
+evidence/soal3/capture/udp-no-response.pcap
+evidence/soal3/capture/udp-server-mati-info.txt
+evidence/soal3/capture/udp-server-mati.pcap
+evidence/soal3/hasil-verifikasi-final.txt
+evidence/soal3/qos/ping-baseline.txt
+evidence/soal3/qos/ping-delay-100ms.txt
+evidence/soal3/qos/ping-loss-10pct.txt
+evidence/soal3/qos/qos-batch-final.txt
+evidence/soal3/qos/qos-batch-fixed.txt
+evidence/soal3/qos/tcp-response.txt
+evidence/soal3/qos/tcp-transfer-fixed.csv
+evidence/soal3/qos/tcp-transfer-summary.csv
+evidence/soal3/qos/udp-BASELINE.txt
+evidence/soal3/qos/udp-fixed-BASELINE.txt
+evidence/soal3/qos/udp-fixed-LOSS_10PCT.txt
+evidence/soal3/qos/udp-LOSS_10PCT.txt
+evidence/soal3/udp/udp-no-response-capture.txt
+evidence/soal3/udp/udp-no-response-server.log
+evidence/soal3/udp/udp-server-mati.txt
+
+========== 19. TOTAL FILE EVIDENCE ==========
+37
+
+=================================================
+ VERIFIKASI FINAL SOAL 3 SELESAI
+=================================================

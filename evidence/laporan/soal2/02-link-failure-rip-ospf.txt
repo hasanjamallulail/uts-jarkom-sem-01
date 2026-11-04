@@ -1,0 +1,146 @@
+==================================================
+ UTS CS238 - SOAL 2(ii)
+ PERBANDINGAN LINK FAILURE RIP VS OSPF
+==================================================
+
+==================================================
+ PROTOKOL: RIP
+==================================================
+
+===== 1. BAGIAN PENGUJIAN DALAM LOG =====
+6:===== 1. BASELINE SEBELUM GANGGUAN =====
+23:PING 10.10.30.10 (10.10.30.10): 56 data bytes
+28:--- 10.10.30.10 ping statistics ---
+38:===== 3. TABEL RIP SAAT LINK DOWN =====
+40:===== 4. PING BR1 SAAT LINK DOWN =====
+41:PING 10.10.30.10 (10.10.30.10): 56 data bytes
+43:--- 10.10.30.10 ping statistics ---
+46:===== 5. PING BR2 SAAT BR1 DOWN =====
+47:PING 10.10.30.10 (10.10.30.10): 56 data bytes
+54:--- 10.10.30.10 ping statistics ---
+58:===== 6. PEMERIKSAAN RIP SETELAH GANGGUAN =====
+60:===== 7. PEMULIHAN LINK =====
+64:===== 8. TABEL RIP SETELAH PEMULIHAN =====
+79:===== 9. PING SETELAH PEMULIHAN =====
+80:PING 10.10.30.10 (10.10.30.10): 56 data bytes
+82:--- 10.10.30.10 ping statistics ---
+
+===== 2. HASIL PING =====
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.099/0.158 ms
+5 packets transmitted, 0 packets received, 100% packet loss
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.069/0.091/0.150 ms
+5 packets transmitted, 0 packets received, 100% packet loss
+
+===== 3. STATUS DAN RUTE YANG TERCATAT =====
+67: eth1@if68: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP mode DEFAULT group default 
+R>* 10.0.0.4/30 [120/2] via 10.0.0.1, eth1, weight 1, 00:01:12
+R>* 10.0.0.8/30 [120/2] via 10.0.0.1, eth1, weight 1, 00:01:12
+R>* 10.10.10.0/24 [120/2] via 10.0.0.1, eth1, weight 1, 00:01:12
+R>* 10.10.30.0/24 [120/3] via 10.0.0.1, eth1, weight 1, 00:01:12
+R>* 10.10.40.0/24 [120/3] via 10.0.0.1, eth1, weight 1, 00:01:12
+67: eth1@if68: <BROADCAST,MULTICAST> mtu 9500 qdisc noqueue state DOWN mode DEFAULT group default 
+R>* 10.0.0.4/30 [120/2] via 10.0.0.1, eth1, weight 1, 00:00:04
+R>* 10.0.0.8/30 [120/2] via 10.0.0.1, eth1, weight 1, 00:00:04
+R>* 10.10.10.0/24 [120/2] via 10.0.0.1, eth1, weight 1, 00:00:04
+R>* 10.10.30.0/24 [120/3] via 10.0.0.1, eth1, weight 1, 00:00:04
+R>* 10.10.40.0/24 [120/3] via 10.0.0.1, eth1, weight 1, 00:00:04
+
+===== 4. BAGIAN AKHIR LOG =====
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+R>* 10.0.0.4/30 [120/2] via 10.0.0.1, eth1, weight 1, 00:00:04
+R>* 10.0.0.8/30 [120/2] via 10.0.0.1, eth1, weight 1, 00:00:04
+R>* 10.10.10.0/24 [120/2] via 10.0.0.1, eth1, weight 1, 00:00:04
+R>* 10.10.30.0/24 [120/3] via 10.0.0.1, eth1, weight 1, 00:00:04
+R>* 10.10.40.0/24 [120/3] via 10.0.0.1, eth1, weight 1, 00:00:04
+
+===== 9. PING SETELAH PEMULIHAN =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 0 packets received, 100% packet loss
+
+===== EKSPERIMEN SELESAI =====
+2026-11-03T16:02:52+00:00
+
+==================================================
+ PROTOKOL: OSPF
+==================================================
+
+===== 1. BAGIAN PENGUJIAN DALAM LOG =====
+6:===== 1. BASELINE SEBELUM GANGGUAN =====
+25:PING 10.10.30.10 (10.10.30.10): 56 data bytes
+30:--- 10.10.30.10 ping statistics ---
+40:===== 3. ROUTING OSPF SAAT LINK DOWN =====
+51:===== 4. PING BR1 SAAT LINK DOWN =====
+52:PING 10.10.30.10 (10.10.30.10): 56 data bytes
+54:--- 10.10.30.10 ping statistics ---
+57:===== 5. PING BR2 SAAT BR1 DOWN =====
+58:PING 10.10.30.10 (10.10.30.10): 56 data bytes
+65:--- 10.10.30.10 ping statistics ---
+69:===== 6. PEMULIHAN LINK =====
+73:===== 7. STATUS OSPF SETELAH LINK UP =====
+75:Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+89:===== 8. PING SETELAH PEMULIHAN =====
+90:PING 10.10.30.10 (10.10.30.10): 56 data bytes
+92:--- 10.10.30.10 ping statistics ---
+
+===== 2. HASIL PING =====
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.093/0.139 ms
+5 packets transmitted, 0 packets received, 100% packet loss
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.068/0.074/0.089 ms
+5 packets transmitted, 0 packets received, 100% packet loss
+
+===== 3. STATUS DAN RUTE YANG TERCATAT =====
+114: eth1@if115: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP mode DEFAULT group default 
+O>* 10.0.0.4/30 [110/20] via 10.0.0.1, eth1, weight 1, 00:00:38
+O>* 10.0.0.8/30 [110/20] via 10.0.0.1, eth1, weight 1, 00:00:38
+O>* 10.10.10.0/24 [110/20] via 10.0.0.1, eth1, weight 1, 00:00:38
+O>* 10.10.30.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 00:00:38
+O>* 10.10.40.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 00:00:38
+114: eth1@if115: <BROADCAST,MULTICAST> mtu 9500 qdisc noqueue state DOWN mode DEFAULT group default 
+
+===== 4. BAGIAN AKHIR LOG =====
+1.1.1.1           1 2-Way/DROther   0.056s            39.943s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 00:00:01
+O   10.10.20.0/24 [110/10] is directly connected, eth2, weight 1, 00:18:46
+
+===== 8. PING SETELAH PEMULIHAN =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 0 packets received, 100% packet loss
+
+===== EKSPERIMEN SELESAI =====
+2026-11-03T16:39:58+00:00
+===== MEMULIHKAN LINK BR1-HQ =====
+
+==================================================
+ CATATAN METODOLOGI
+==================================================
+1. Data RIP dan OSPF berasal dari eksperimen terpisah.
+2. Ping segera setelah link UP bukan bukti waktu konvergensi.
+3. Waktu pemulihan belum terukur secara kontinu.
+4. Jalur alternatif BR1-HQ tidak tersedia.
+5. Tidak ada konfigurasi yang diubah.
+
+SOAL 2(ii) - PEMERIKSAAN SELESAI

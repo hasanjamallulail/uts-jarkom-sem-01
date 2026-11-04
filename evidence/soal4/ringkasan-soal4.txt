@@ -1,0 +1,15 @@
+UTS CS238 - RINGKASAN SOAL 4
+========================================
+Skenario: Routing IP + TCP
+Baseline TCP: BERHASIL
+Gangguan 1: Route unreachable khusus APP-SRV
+Gangguan 2: TCP server port 5504 mati
+H1: OSPF diperiksa melalui neighbor dan tabel routing
+H2: Route khusus teridentifikasi
+H3: TCP port 5504 tidak listening
+Perbaikan 1: Route sementara dihapus
+Perbaikan 2: Layanan TCP diuji kembali
+Pemulihan TCP: BERHASIL
+Regresi: BR1, BR2, dan OSPF diuji
+Status file Soal 1-3: TIDAK BERUBAH
+========================================

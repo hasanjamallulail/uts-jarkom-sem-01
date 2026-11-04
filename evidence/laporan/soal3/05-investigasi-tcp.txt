@@ -1,0 +1,80 @@
+================================================
+ UTS CS238 - SOAL 3(v)
+ INVESTIGASI PING BERHASIL TAPI TCP GAGAL
+================================================
+
+===== A. IDENTITAS PENGUJIAN =====
+Client : PC-BR1 10.10.20.10
+Server : APP-SRV 10.10.30.10
+Port   : TCP 5000
+
+===== B. VERIFIKASI ICMP =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.112 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.073 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.072/0.085/0.112 ms
+
+===== C. ROUTING CLIENT =====
+10.10.30.10 via 10.10.20.1 dev eth1  src 10.10.20.10 
+
+===== D. H1: TCP SERVER TIDAK LISTEN =====
+Socket TCP port 5000 saat ini:
+   0: 00000000000000000000000000000000:1388 00000000000000000000000000000000:0000 0A 00000000:00000000 00:00000000 00000000     0        0 4648165 1 ffff8e6a41848a00 100 0 0 10 0
+
+Proses Netcat pada APP-SRV:
+  868 root      0:00 nc -l -p 5000 -k -e /bin/cat
+
+Bukti historis saat server mati:
+17:26:42.609861 IP 10.10.20.10.43497 > 10.10.30.10.5000: Flags [S], seq 3950595082, win 56760, options [mss 9460,sackOK,TS val 1816163453 ecr 0,nop,wscale 7], length 0
+17:26:42.609873 IP 10.10.30.10.5000 > 10.10.20.10.43497: Flags [R.], seq 0, ack 3950595083, win 0, length 0
+
+===== E. H2: FIREWALL / ACL =====
+Periksa aturan firewall pada APP-SRV:
+-P INPUT ACCEPT
+-P FORWARD ACCEPT
+-P OUTPUT ACCEPT
+
+Catatan:
+Hasil ini belum membuktikan ada/tidaknya
+semua bentuk firewall atau ACL.
+
+===== F. H3: ROUTING / RETURN PATH =====
+Routing dari APP-SRV menuju PC-BR1:
+10.10.20.10 via 10.10.30.1 dev eth1  src 10.10.30.10 
+
+Routing OSPF R-BR1 menuju Data Center:
+Routing entry for 10.10.30.0/24
+  Known via "ospf", distance 110, metric 30, best
+  Last update 11:13:47 ago
+  * 10.0.0.1, via eth1, weight 1
+
+
+Routing OSPF R-DC menuju Cabang 1:
+Routing entry for 10.10.20.0/24
+  Known via "ospf", distance 110, metric 30, best
+  Last update 11:13:47 ago
+  * 10.0.0.5, via eth1, weight 1
+
+
+===== G. BUKTI TCP SERVER AKTIF =====
+17:20:33.745079 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [S], seq 12069666, win 56760, options [mss 9460,sackOK,TS val 1815794589 ecr 0,nop,wscale 7], length 0
+17:20:33.745093 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [S.], seq 1817581857, ack 12069667, win 56688, options [mss 9460,sackOK,TS val 2633741111 ecr 1815794589,nop,wscale 7], length 0
+17:20:33.745122 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [.], ack 1, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 0
+17:20:33.745165 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [P.], seq 1:24, ack 1, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 23
+17:20:33.745169 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [.], ack 24, win 443, options [nop,nop,TS val 2633741111 ecr 1815794589], length 0
+
+===== H. KESIMPULAN INVESTIGASI =====
+H1: Server tidak aktif dapat menghasilkan RST.
+H2: Firewall/ACL perlu bukti aturan atau drop.
+H3: Routing perlu diuji dua arah.
+Ping berhasil tidak menjamin TCP berhasil.
+
+Tidak ada konfigurasi yang diubah.
+
+================================================
+ SOAL 3(v) - PEMERIKSAAN SELESAI
+================================================

@@ -1,0 +1,74 @@
+
+======================================================
+ AUDIT 08 - SOAL 4 GANGGUAN TERINTEGRASI
+======================================================
+===== BASELINE, HIPOTESIS, SOLUSI =====
+BASELINE: VALID
+===== H1: OSPF ROUTER BERMASALAH? =====
+===== H2: ROUTING IP CLIENT BERMASALAH? =====
+===== H3: LAYANAN TCP TIDAK AKTIF? =====
+HASIL PEMULIHAN: BERHASIL
+Status file lama: TIDAK BERUBAH
+H1: OSPF diperiksa melalui neighbor dan tabel routing
+H2: Route khusus teridentifikasi
+H3: TCP port 5504 tidak listening
+
+===== HASIL TCP =====
+----- TCP TEST: BASELINE TCP -----
+Exit code: 0
+HASIL TCP: BERHASIL
+----- TCP TEST: ROUTING TERGANGGU -----
+Exit code: 1
+HASIL TCP: GAGAL
+----- TCP TEST: DUA GANGGUAN AKTIF -----
+Exit code: 1
+HASIL TCP: GAGAL
+----- TCP TEST: TCP MASIH MATI -----
+Exit code: 1
+HASIL TCP: GAGAL
+----- TCP TEST: BUKTI TCP SERVER MATI -----
+Exit code: 1
+HASIL TCP: GAGAL
+----- TCP TEST: SETELAH TCP DIPULIHKAN -----
+Exit code: 0
+HASIL TCP: BERHASIL
+----- TCP TEST: TCP BR2 KE APP-SRV -----
+Exit code: 0
+HASIL TCP: BERHASIL
+
+===== HASIL ICMP =====
+----- ICMP TEST: BASELINE BR1 -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.084/0.105 ms
+----- ICMP TEST: ROUTING TERGANGGU -----
+----- ICMP TEST: DUA GANGGUAN AKTIF -----
+----- ICMP TEST: BR2 SAAT GANGGUAN BR1 -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.080/0.096 ms
+----- ICMP TEST: SETELAH PERBAIKAN ROUTING -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.059/0.065/0.070 ms
+----- ICMP TEST: BR1 KE APP-SRV -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.067/0.071/0.075 ms
+----- ICMP TEST: BR2 KE APP-SRV -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.082/0.106 ms
+
+===== OSPF SAAT REGRESI =====
+1.1.1.1           1 Full/-          1h27m03s          37.063s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+1.1.1.1           1 Full/-          1h27m09s          31.384s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+4.4.4.4           1 Full/-          1h27m25s          34.688s 10.0.0.6        eth2:10.0.0.5                        0     0     0
+3.3.3.3           1 Full/-          1h27m25s          34.688s 10.0.0.10       eth3:10.0.0.9                        0     0     0
+2.2.2.2           1 Full/-          1h27m25s          34.688s 10.0.0.2        eth1:10.0.0.1                        0     0     0
+1.1.1.1           1 Full/-          1h27m25s          34.634s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+1.1.1.1           1 Full/-          1h27m25s          34.579s 10.0.0.9        eth1:10.0.0.10                       0     0     0
+1.1.1.1           1 Full/-          1h27m25s          34.526s 10.0.0.5        eth1:10.0.0.6                        0     0     0
+
+===== BUKTI TCP SYN DAN RST =====
+18:10:03.726817 IP 10.10.20.10.46239 > 10.10.30.10.5504: Flags [S], seq 1992371591, win 56760, options [mss 9460,sackOK,TS val 1818764570 ecr 0,nop,wscale 7], length 0
+18:10:03.726837 IP 10.10.30.10.5504 > 10.10.20.10.46239: Flags [R.], seq 0, ack 1992371592, win 0, length 0
+
+===== CHECKSUM SOAL 1-3 =====
+3ad0cee831c7285f2a6eb7578f85edae1d32b2d7f1a6d17857e82318fa9dc968
+3ad0cee831c7285f2a6eb7578f85edae1d32b2d7f1a6d17857e82318fa9dc968

@@ -1,0 +1,550 @@
+
+====================================================
+ UTS CS238 - SHOW ALL FINAL SOAL 1 SAMPAI 5
+====================================================
+2026-11-03T18:43:01+00:00
+Project: /home/budiluhur/Hasan
+Hostname: ubl
+
+====================================================
+ 00. STATUS LINGKUNGAN
+====================================================
+===== SISTEM OPERASI =====
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.5 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+
+===== DOCKER =====
+Docker version 29.9.2, build a82e528
+
+===== CONTAINERLAB =====
+
+ ⣴⡾⠛⠛⠖ ⢠⣶⠟⠛⢷⣦ ⢸⣿⣧  ⣿ ⠘⠛⢻⡟⠛⠛  ⣾⣿⡀  ⣿⡇ ⣿⣿⡄ ⢸⡇ ⣿⡟⠛⠛⠃⢸⣿⠛⠛⣷⡄ [38;2;0;201;255m⣿⡇[0m      [38;2;0;201;255m⣿⡇[0m    
+⢸⣿     ⣿⡇   ⣿⡇⢸⣿⠹⣧⡀⣿   ⢸⡇   ⣸⡏⢹⣧  ⣿⡇ ⣿⡏⢿⣄⢸⡇ ⣿⣧⣤⣤ ⢸⣿⣀⣀⣾⠇ [38;2;0;201;255m⣿⡇⠐⠟⠛⢿⡆[0m [38;2;0;201;255m⣿⡷⠛⢿⣆[0m 
+⠘⣿⣄  ⡀ ⢻⣧⡀ ⣠⣿⠃⢸⣿ ⠘⣷⣿   ⢸⡇  ⢠⣿⠷⠶⢿⡆ ⣿⡇ ⣿⡇ ⢻⣾⡇ ⣿⡇   ⢸⣿⠉⢻⣧⡀ [38;2;0;201;255m⣿⡇⢰⡟⠛⣻⡇[0m [38;2;0;201;255m⣿⡇[0m [38;2;0;201;255m⣸⡿[0m 
+ ⠈⠙⠛⠛⠉  ⠉⠛⠛⠋⠁ ⠘⠛  ⠈⠛   ⠘⠃  ⠚⠃  ⠘⠛ ⠛⠃ ⠛⠃  ⠙⠃ ⠛⠛⠛⠛⠃⠘⠛  ⠙⠓ [38;2;0;201;255m⠛⠃⠈⠛⠛⠙⠃[0m [38;2;0;201;255m⠛⠛⠛⠛⠁[0m 
+
+    version: 0.82.0
+     commit: 4272331ab
+
+===== CONTAINER AKTIF =====
+NAMES              STATUS
+clab-uts-PC-BR1    Up 2 hours
+clab-uts-DNS-SRV   Up 2 hours
+clab-uts-APP-SRV   Up 2 hours
+clab-uts-R-HQ      Up 2 hours
+clab-uts-R-DC      Up 2 hours
+clab-uts-R-BR2     Up 2 hours
+clab-uts-R-BR1     Up 2 hours
+clab-uts-PC-BR2    Up 2 hours
+clab-uts-PC-HQ2    Up 2 hours
+clab-uts-PC-HQ1    Up 2 hours
+
+====================================================
+ 01. TOPOLOGI CONTAINERLAB
+====================================================
+===== FILE TOPOLOGI =====
+[ADA] topology.clab.yml
+-rw-rw-r-- 1 budiluhur budiluhur 2.0K Nov  3 13:33 topology.clab.yml
+[ADA] topology-next.clab.yml
+-rw-rw-r-- 1 budiluhur budiluhur 2.6K Nov  3 15:08 topology-next.clab.yml
+[ADA] topology-rip.clab.yml
+-rw-rw-r-- 1 budiluhur budiluhur 2.6K Nov  3 15:16 topology-rip.clab.yml
+[ADA] topology-ospf.clab.yml
+-rw-rw-r-- 1 budiluhur budiluhur 2.6K Nov  3 16:09 topology-ospf.clab.yml
+
+===== NODE CONTAINER =====
+clab-uts-APP-SRV
+clab-uts-DNS-SRV
+clab-uts-PC-BR1
+clab-uts-PC-BR2
+clab-uts-PC-HQ1
+clab-uts-PC-HQ2
+clab-uts-R-BR1
+clab-uts-R-BR2
+clab-uts-R-DC
+clab-uts-R-HQ
+
+===== JUMLAH CONTAINER =====
+10
+
+====================================================
+ 02. SOAL 1 - STATIC ROUTING
+====================================================
+===== EVIDENCE SOAL 1 =====
+evidence/soal1/SS-10-traceroute.txt
+evidence/soal1/SS-11-longest-prefix.txt
+evidence/soal1/SS-12-link-failure.txt
+Jumlah file:
+3
+
+===== BACKUP STATIC ROUTING =====
+configs/static-backup/R-BR1-frr.conf
+configs/static-backup/R-BR2-frr.conf
+configs/static-backup/R-DC-frr.conf
+configs/static-backup/R-HQ-frr.conf
+
+===== SCRIPT SOAL 1 =====
+
+====================================================
+ 03. SOAL 2 - RIP VERSION 2
+====================================================
+===== KONFIGURASI RIP =====
+
+----- R-HQ -----
+[ADA] configs/rip/R-HQ/frr.conf
+-rw-rw-r-- 1 budiluhur budiluhur 385 Nov  3 15:11 configs/rip/R-HQ/frr.conf
+
+----- R-BR1 -----
+[ADA] configs/rip/R-BR1/frr.conf
+-rw-rw-r-- 1 budiluhur budiluhur 262 Nov  3 15:11 configs/rip/R-BR1/frr.conf
+
+----- R-BR2 -----
+[ADA] configs/rip/R-BR2/frr.conf
+-rw-rw-r-- 1 budiluhur budiluhur 263 Nov  3 15:11 configs/rip/R-BR2/frr.conf
+
+----- R-DC -----
+[ADA] configs/rip/R-DC/frr.conf
+-rw-rw-r-- 1 budiluhur budiluhur 261 Nov  3 15:11 configs/rip/R-DC/frr.conf
+
+===== EVIDENCE RIP =====
+evidence/soal2/rip/baseline/ping-BR1.txt
+evidence/soal2/rip/baseline/ping-BR2.txt
+evidence/soal2/rip/baseline/R-BR1-rip-route.txt
+evidence/soal2/rip/baseline/R-BR1-rip-status.txt
+evidence/soal2/rip/baseline/R-BR2-rip-route.txt
+evidence/soal2/rip/baseline/R-BR2-rip-status.txt
+evidence/soal2/rip/baseline/R-DC-rip-route.txt
+evidence/soal2/rip/baseline/R-DC-rip-status.txt
+evidence/soal2/rip/baseline/R-HQ-rip-route.txt
+evidence/soal2/rip/baseline/R-HQ-rip-status.txt
+evidence/soal2/rip/rip-link-failure.txt
+
+===== ROUTING RIP TERSIMPAN =====
+R>* 10.10.20.0/24 [120/2] via 10.0.0.2, eth1, weight 1, 00:22:47
+R>* 10.10.30.0/24 [120/2] via 10.0.0.6, eth2, weight 1, 00:22:47
+R>* 10.10.40.0/24 [120/2] via 10.0.0.10, eth3, weight 1, 00:22:47
+
+===== LOG LINK FAILURE RIP =====
+[ADA] evidence/soal2/rip/rip-link-failure.txt
+-rw-rw-r-- 1 budiluhur budiluhur 3.5K Nov  3 16:02 evidence/soal2/rip/rip-link-failure.txt
+
+====================================================
+ 04. SOAL 2 - OSPF
+====================================================
+===== KONFIGURASI OSPF =====
+
+----- R-HQ -----
+[ADA] configs/ospf/R-HQ/frr.conf
+-rw-rw-r-- 1 budiluhur budiluhur 557 Nov  3 16:44 configs/ospf/R-HQ/frr.conf
+7: ip ospf network point-to-point
+11: ip ospf network point-to-point
+15: ip ospf network point-to-point
+26:router ospf
+27: ospf router-id 1.1.1.1
+
+----- R-BR1 -----
+[ADA] configs/ospf/R-BR1/frr.conf
+-rw-rw-r-- 1 budiluhur budiluhur 344 Nov  3 16:44 configs/ospf/R-BR1/frr.conf
+7: ip ospf network point-to-point
+18:router ospf
+19: ospf router-id 2.2.2.2
+
+----- R-BR2 -----
+[ADA] configs/ospf/R-BR2/frr.conf
+-rw-rw-r-- 1 budiluhur budiluhur 345 Nov  3 16:44 configs/ospf/R-BR2/frr.conf
+7: ip ospf network point-to-point
+18:router ospf
+19: ospf router-id 3.3.3.3
+
+----- R-DC -----
+[ADA] configs/ospf/R-DC/frr.conf
+-rw-rw-r-- 1 budiluhur budiluhur 343 Nov  3 16:44 configs/ospf/R-DC/frr.conf
+7: ip ospf network point-to-point
+18:router ospf
+19: ospf router-id 4.4.4.4
+
+===== OSPF NEIGHBOR SAAT INI =====
+
+----- R-HQ -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+4.4.4.4           1 Full/-          2h00m12s          37.706s 10.0.0.6        eth2:10.0.0.5                        0     0     0
+3.3.3.3           1 Full/-          2h00m12s          37.706s 10.0.0.10       eth3:10.0.0.9                        0     0     0
+2.2.2.2           1 Full/-          2h00m12s          37.706s 10.0.0.2        eth1:10.0.0.1                        0     0     0
+
+
+----- R-BR1 -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          2h00m12s          37.654s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+----- R-BR2 -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          2h00m12s          37.598s 10.0.0.9        eth1:10.0.0.10                       0     0     0
+
+
+----- R-DC -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          2h00m12s          37.545s 10.0.0.5        eth1:10.0.0.6                        0     0     0
+
+
+===== OSPF ROUTING SAAT INI =====
+
+----- R-HQ -----
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 02:03:10
+O   10.0.0.4/30 [110/10] is directly connected, eth2, weight 1, 02:21:56
+O   10.0.0.8/30 [110/10] is directly connected, eth3, weight 1, 02:21:56
+O   10.10.10.0/24 [110/10] is directly connected, eth4, weight 1, 02:21:55
+O>* 10.10.20.0/24 [110/20] via 10.0.0.2, eth1, weight 1, 02:00:08
+O>* 10.10.30.0/24 [110/20] via 10.0.0.6, eth2, weight 1, 02:00:08
+O>* 10.10.40.0/24 [110/20] via 10.0.0.10, eth3, weight 1, 02:00:08
+
+----- R-BR1 -----
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 02:03:10
+O>* 10.0.0.4/30 [110/20] via 10.0.0.1, eth1, weight 1, 02:00:08
+O>* 10.0.0.8/30 [110/20] via 10.0.0.1, eth1, weight 1, 02:00:08
+O>* 10.10.10.0/24 [110/20] via 10.0.0.1, eth1, weight 1, 02:00:08
+O   10.10.20.0/24 [110/10] is directly connected, eth2, weight 1, 02:21:55
+O>* 10.10.30.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 02:00:08
+O>* 10.10.40.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 02:00:08
+
+----- R-BR2 -----
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O>* 10.0.0.0/30 [110/20] via 10.0.0.9, eth1, weight 1, 02:00:08
+O>* 10.0.0.4/30 [110/20] via 10.0.0.9, eth1, weight 1, 02:00:08
+O   10.0.0.8/30 [110/10] is directly connected, eth1, weight 1, 02:21:56
+O>* 10.10.10.0/24 [110/20] via 10.0.0.9, eth1, weight 1, 02:00:08
+O>* 10.10.20.0/24 [110/30] via 10.0.0.9, eth1, weight 1, 02:00:08
+O>* 10.10.30.0/24 [110/30] via 10.0.0.9, eth1, weight 1, 02:00:08
+O   10.10.40.0/24 [110/10] is directly connected, eth2, weight 1, 02:21:55
+
+----- R-DC -----
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O>* 10.0.0.0/30 [110/20] via 10.0.0.5, eth1, weight 1, 02:00:08
+O   10.0.0.4/30 [110/10] is directly connected, eth1, weight 1, 02:21:56
+O>* 10.0.0.8/30 [110/20] via 10.0.0.5, eth1, weight 1, 02:00:08
+O>* 10.10.10.0/24 [110/20] via 10.0.0.5, eth1, weight 1, 02:00:08
+O>* 10.10.20.0/24 [110/30] via 10.0.0.5, eth1, weight 1, 02:00:08
+O   10.10.30.0/24 [110/10] is directly connected, eth2, weight 1, 02:21:55
+O>* 10.10.40.0/24 [110/30] via 10.0.0.5, eth1, weight 1, 02:00:08
+
+===== EVIDENCE OSPF =====
+evidence/soal2/ospf/final/ping-BR1.txt
+evidence/soal2/ospf/final/ping-BR2.txt
+evidence/soal2/ospf/final/R-BR1-neighbor.txt
+evidence/soal2/ospf/final/R-BR1-routing.txt
+evidence/soal2/ospf/final/R-BR2-neighbor.txt
+evidence/soal2/ospf/final/R-BR2-routing.txt
+evidence/soal2/ospf/final/R-DC-neighbor.txt
+evidence/soal2/ospf/final/R-DC-routing.txt
+evidence/soal2/ospf/final/R-HQ-neighbor.txt
+evidence/soal2/ospf/final/R-HQ-routing.txt
+evidence/soal2/ospf/ospf-link-failure.txt
+
+====================================================
+ 05. SOAL 3 - TRANSPORT LAYER TCP
+====================================================
+===== TCP HANDSHAKE =====
+[ADA] evidence/soal3/capture/tcp-handshake.pcap
+-rw-r--r-- 1 tcpdump tcpdump 906 Nov  3 17:20 evidence/soal3/capture/tcp-handshake.pcap
+[ADA] evidence/soal3/capture/tcp-handshake.txt
+-rw-rw-r-- 1 budiluhur budiluhur 1.6K Nov  3 17:20 evidence/soal3/capture/tcp-handshake.txt
+
+===== TCP SAAT SERVER MATI =====
+[ADA] evidence/soal3/capture/tcp-server-mati.pcap
+-rw-r--r-- 1 tcpdump tcpdump 184 Nov  3 17:26 evidence/soal3/capture/tcp-server-mati.pcap
+[ADA] evidence/soal3/capture/tcp-server-mati.txt
+-rw-rw-r-- 1 budiluhur budiluhur 276 Nov  3 17:26 evidence/soal3/capture/tcp-server-mati.txt
+
+===== RINGKASAN CAPTURE TCP =====
+17:20:33.745079 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [S], seq 12069666, win 56760, options [mss 9460,sackOK,TS val 1815794589 ecr 0,nop,wscale 7], length 0
+17:20:33.745093 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [S.], seq 1817581857, ack 12069667, win 56688, options [mss 9460,sackOK,TS val 2633741111 ecr 1815794589,nop,wscale 7], length 0
+17:20:33.745122 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [.], ack 1, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 0
+17:20:33.745165 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [P.], seq 1:24, ack 1, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 23
+17:20:33.745169 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [.], ack 24, win 443, options [nop,nop,TS val 2633741111 ecr 1815794589], length 0
+17:20:33.745190 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [F.], seq 24, ack 1, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 0
+17:20:33.745730 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [P.], seq 1:24, ack 25, win 443, options [nop,nop,TS val 2633741111 ecr 1815794589], length 23
+17:20:33.745761 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [.], ack 24, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 0
+17:20:33.746049 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [F.], seq 24, ack 25, win 443, options [nop,nop,TS val 2633741112 ecr 1815794589], length 0
+17:20:33.746073 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [.], ack 25, win 444, options [nop,nop,TS val 1815794590 ecr 2633741112], length 0
+
+====================================================
+ 06. SOAL 3 - TRANSPORT LAYER UDP
+====================================================
+===== UDP SERVER MATI =====
+[ADA] evidence/soal3/udp/udp-server-mati.txt
+-rw-rw-r-- 1 budiluhur budiluhur 172 Nov  3 17:31 evidence/soal3/udp/udp-server-mati.txt
+
+===== UDP TANPA RESPONS =====
+[ADA] evidence/soal3/udp/udp-no-response-capture.txt
+-rw-rw-r-- 1 budiluhur budiluhur 72 Nov  3 17:33 evidence/soal3/udp/udp-no-response-capture.txt
+[ADA] evidence/soal3/udp/udp-no-response-server.log
+-rw-rw-r-- 1 budiluhur budiluhur 27 Nov  3 17:33 evidence/soal3/udp/udp-no-response-server.log
+
+===== DATA UDP TANPA RESPONS =====
+UDP DITERIMA TANPA BALASAN
+
+====================================================
+ 07. SOAL 3 - QOS
+====================================================
+===== BASELINE =====
+----- evidence/soal3/qos/ping-baseline.txt -----
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 0.069/0.075/0.096 ms
+
+===== DELAY 100 MS =====
+----- evidence/soal3/qos/ping-delay-100ms.txt -----
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 100.109/100.287/100.452 ms
+
+===== PACKET LOSS 10% =====
+----- evidence/soal3/qos/ping-loss-10pct.txt -----
+100 packets transmitted, 92 packets received, 8% packet loss
+round-trip min/avg/max = 0.063/0.076/0.135 ms
+
+===== RESPONS APLIKASI TCP =====
+UTS CS238 - PENGUJIAN WAKTU RESPONS TCP
+
+===== BASELINE TANPA DELAY =====
+Percobaan 1 | 55 ms | Respons: UJI TCP 1
+Percobaan 2 | 46 ms | Respons: UJI TCP 2
+Percobaan 3 | 46 ms | Respons: UJI TCP 3
+Percobaan 4 | 48 ms | Respons: UJI TCP 4
+Percobaan 5 | 47 ms | Respons: UJI TCP 5
+
+===== TERAPKAN DELAY 100 MS =====
+qdisc netem 8003: root refcnt 3 limit 1000 delay 100ms
+
+===== TCP DENGAN DELAY 100 MS =====
+Percobaan 1 | 248 ms | Respons: UJI TCP 1
+Percobaan 2 | 248 ms | Respons: UJI TCP 2
+Percobaan 3 | 246 ms | Respons: UJI TCP 3
+Percobaan 4 | 248 ms | Respons: UJI TCP 4
+Percobaan 5 | 245 ms | Respons: UJI TCP 5
+
+===== PEMULIHAN QDISC =====
+qdisc noqueue 0: root refcnt 2 
+
+===== TRANSFER FILE TCP =====
+kondisi,waktu_ms,byte_diterima,exit_code,integritas
+BASELINE,45,262144,0,VALID
+DELAY_100MS,244,262144,0,VALID
+LOSS_10PCT,46,262144,0,VALID
+
+===== UDP BASELINE =====
+UDP_SERVER_READY
+KONDISI: BASELINE
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 100
+DATAGRAM HILANG: 0
+LOSS APLIKASI: 0.00%
+
+===== UDP LOSS =====
+UDP_SERVER_READY
+KONDISI: LOSS_10PCT
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 94
+DATAGRAM HILANG: 6
+LOSS APLIKASI: 6.00%
+
+====================================================
+ 08. SOAL 3 - TCP RETRANSMISSION
+====================================================
+tcp-retransmission-analysis.txt : 5 paket teridentifikasi
+tcp-duplicate-ack.txt : 4 paket teridentifikasi
+tcp-lost-segment.txt : 2 paket teridentifikasi
+
+===== PACKET CAPTURE QOS =====
+[ADA] evidence/soal3/capture/tcp-transfer-loss-fixed.pcap
+-rw-r--r-- 1 tcpdump tcpdump 261K Nov  3 17:48 evidence/soal3/capture/tcp-transfer-loss-fixed.pcap
+
+====================================================
+ 09. SOAL 4 - INVESTIGASI GANGGUAN
+====================================================
+===== RINGKASAN INVESTIGASI =====
+UTS CS238 - RINGKASAN SOAL 4
+========================================
+Skenario: Routing IP + TCP
+Baseline TCP: BERHASIL
+Gangguan 1: Route unreachable khusus APP-SRV
+Gangguan 2: TCP server port 5504 mati
+H1: OSPF diperiksa melalui neighbor dan tabel routing
+H2: Route khusus teridentifikasi
+H3: TCP port 5504 tidak listening
+Perbaikan 1: Route sementara dihapus
+Perbaikan 2: Layanan TCP diuji kembali
+Pemulihan TCP: BERHASIL
+Regresi: BR1, BR2, dan OSPF diuji
+Status file Soal 1-3: TIDAK BERUBAH
+========================================
+
+===== HASIL REGRESI ICMP =====
+----- ICMP TEST: BASELINE BR1 -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.084/0.105 ms
+----- ICMP TEST: ROUTING TERGANGGU -----
+----- ICMP TEST: DUA GANGGUAN AKTIF -----
+----- ICMP TEST: BR2 SAAT GANGGUAN BR1 -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.080/0.096 ms
+----- ICMP TEST: SETELAH PERBAIKAN ROUTING -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.059/0.065/0.070 ms
+----- ICMP TEST: BR1 KE APP-SRV -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.067/0.071/0.075 ms
+----- ICMP TEST: BR2 KE APP-SRV -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.082/0.106 ms
+
+===== HASIL TCP =====
+----- TCP TEST: BASELINE TCP -----
+Exit code: 0
+HASIL TCP: BERHASIL
+----- TCP TEST: ROUTING TERGANGGU -----
+Exit code: 1
+HASIL TCP: GAGAL
+----- TCP TEST: DUA GANGGUAN AKTIF -----
+Exit code: 1
+HASIL TCP: GAGAL
+----- TCP TEST: TCP MASIH MATI -----
+Exit code: 1
+HASIL TCP: GAGAL
+----- TCP TEST: BUKTI TCP SERVER MATI -----
+Exit code: 1
+HASIL TCP: GAGAL
+----- TCP TEST: SETELAH TCP DIPULIHKAN -----
+Exit code: 0
+HASIL TCP: BERHASIL
+----- TCP TEST: TCP BR2 KE APP-SRV -----
+Exit code: 0
+HASIL TCP: BERHASIL
+
+===== CHECKSUM FILE SOAL 1-3 =====
+[ADA] evidence/soal4/checksum-sebelum.txt
+-rw-rw-r-- 1 budiluhur budiluhur 65 Nov  3 18:09 evidence/soal4/checksum-sebelum.txt
+[ADA] evidence/soal4/checksum-sesudah.txt
+-rw-rw-r-- 1 budiluhur budiluhur 65 Nov  3 18:10 evidence/soal4/checksum-sesudah.txt
+HASIL: FILE SOAL 1-3 TIDAK BERUBAH
+
+====================================================
+ 10. SOAL 5 - EVALUASI ARSITEKTUR
+====================================================
+===== EVIDENCE SOAL 5 =====
+evidence/soal5/evaluasi-arsitektur.txt
+
+===== SNAPSHOT EVALUASI =====
+[ADA] evidence/soal5/evaluasi-arsitektur.txt
+-rw-rw-r-- 1 budiluhur budiluhur 3.8K Nov  3 18:21 evidence/soal5/evaluasi-arsitektur.txt
+
+====================================================
+ 11. UJI KONEKTIVITAS FINAL
+====================================================
+===== CABANG 1 KE APPLICATION SERVER =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.064 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.082 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.072 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.064/0.072/0.082 ms
+
+===== CABANG 2 KE APPLICATION SERVER =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.081 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.064 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.072 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.064/0.072/0.081 ms
+
+===== KANTOR PUSAT KE APPLICATION SERVER =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=62 time=0.097 ms
+64 bytes from 10.10.30.10: seq=1 ttl=62 time=0.067 ms
+64 bytes from 10.10.30.10: seq=2 ttl=62 time=0.088 ms
+64 bytes from 10.10.30.10: seq=3 ttl=62 time=0.068 ms
+64 bytes from 10.10.30.10: seq=4 ttl=62 time=0.068 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.067/0.077/0.097 ms
+
+====================================================
+ 12. VERIFIKASI KONFIGURASI JARINGAN
+====================================================
+===== QDISC PC-BR1 =====
+qdisc noqueue 0: root refcnt 2 
+
+===== ROUTING MENUJU APP-SRV =====
+10.10.30.10 via 10.10.20.1 dev eth1 src 10.10.20.10 uid 0 
+    cache 
+
+===== ROUTE KHUSUS /32 =====
+
+====================================================
+ 13. REKAP JUMLAH FILE EVIDENCE
+====================================================
+SOAL 1 : 3 file evidence
+SOAL 2 : 22 file evidence
+SOAL 3 : 37 file evidence
+SOAL 4 : 7 file evidence
+SOAL 5 : 1 file evidence
+
+===== TOTAL EVIDENCE SOAL 1-5 =====
+70
+
+====================================================
+ 14. PEMERIKSAAN BACKUP ZIP
+====================================================
+-rw-rw-r-- 1 budiluhur budiluhur 431K Nov  3 18:31 /home/budiluhur/UTS-BACKUP/UTS-CS238-FINAL-SOAL1-5.zip
+
+====================================================
+ VERIFIKASI FINAL SELESAI
+====================================================
+Output lengkap: evidence/final/SHOW-ALL-UTS-CS238.txt
+Semua pemeriksaan bersifat observasi.
+Konfigurasi router dan container tidak diubah.

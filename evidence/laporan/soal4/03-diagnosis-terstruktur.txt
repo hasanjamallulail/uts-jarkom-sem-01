@@ -1,0 +1,91 @@
+================================================
+ UTS CS238 - SOAL 4(iii)
+ DIAGNOSIS TERSTRUKTUR DAN KONTROL VARIABEL
+================================================
+
+===== A. BASELINE SEBELUM GANGGUAN =====
+1. BASELINE KONDISI NORMAL
+----- ICMP TEST: BASELINE BR1 -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.084/0.105 ms
+----- TCP TEST: BASELINE TCP -----
+Respons: SOAL4_TCP_OK
+Exit code: 0
+HASIL TCP: BERHASIL
+BASELINE: VALID
+
+===== B. PERUBAHAN PERTAMA: ROUTING =====
+2. PEMICU GANGGUAN PERTAMA - ROUTING
+===== TAMBAHKAN ROUTE UNREACHABLE =====
+===== ROUTE YANG DISUNTIKKAN =====
+unreachable 10.10.30.10 
+ping: sendto: Host is unreachable
+----- TCP TEST: ROUTING TERGANGGU -----
+Exit code: 1
+HASIL TCP: GAGAL
+
+===== C. PERUBAHAN KEDUA: LAYANAN TCP =====
+3. PEMICU GANGGUAN KEDUA - TCP SERVER
+===== STATUS TCP SERVER =====
+TCP 5504 TIDAK LISTEN
+----- ICMP TEST: DUA GANGGUAN AKTIF -----
+ping: sendto: Host is unreachable
+----- TCP TEST: DUA GANGGUAN AKTIF -----
+Exit code: 1
+HASIL TCP: GAGAL
+
+===== D. DIAGNOSIS TANPA PERBAIKAN SEKALIGUS =====
+===== H1: OSPF ROUTER BERMASALAH? =====
+1.1.1.1           1 Full/-          1h27m09s          31.384s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+===== H2: ROUTING IP CLIENT BERMASALAH? =====
+unreachable 10.10.30.10 
+RTNETLINK answers: No route to host
+===== H3: LAYANAN TCP TIDAK AKTIF? =====
+TCP 5504 TIDAK LISTEN
+----- ICMP TEST: BR2 SAAT GANGGUAN BR1 -----
+3 packets transmitted, 3 packets received, 0% packet loss
+
+===== E. PERBAIKAN TAHAP 1: ROUTING SAJA =====
+5. SOLUSI TAHAP 1 - PERBAIKI ROUTING SAJA
+===== ROUTING SETELAH PERBAIKAN =====
+10.10.30.10 via 10.10.20.1 dev eth1 src 10.10.20.10 uid 0 
+----- ICMP TEST: SETELAH PERBAIKAN ROUTING -----
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.059/0.065/0.070 ms
+----- TCP TEST: TCP MASIH MATI -----
+HASIL TCP: GAGAL
+KESIMPULAN TAHAP 1:
+
+===== F. PEMBUKTIAN TCP MASIH GAGAL =====
+----- TCP TEST: BUKTI TCP SERVER MATI -----
+Respons: <tidak ada>
+Exit code: 1
+HASIL TCP: GAGAL
+
+===== G. PERBAIKAN TAHAP 2: TCP SAJA =====
+TCP SERVER: LISTEN port 5504
+----- TCP TEST: SETELAH TCP DIPULIHKAN -----
+Respons: SOAL4_TCP_OK
+Exit code: 0
+HASIL TCP: BERHASIL
+HASIL PEMULIHAN: BERHASIL
+
+===== H. MATRIKS PENGENDALIAN VARIABEL =====
+KONDISI                ICMP               TCP               
+Baseline               BERHASIL           BERHASIL          
+Route unreachable      GAGAL              GAGAL             
+Route diperbaiki       BERHASIL           GAGAL             
+TCP dipulihkan         BERHASIL*          BERHASIL          
+
+*ICMP berhasil pada tahap perbaikan routing.
+Pengujian TCP berhasil setelah layanan dipulihkan.
+
+===== I. BATASAN PENGUJIAN =====
+Tahapan berdasarkan log eksperimen historis.
+Tidak semua kondisi diuji secara bersamaan.
+Perubahan dilakukan secara bertahap.
+Tidak ada simulasi gangguan baru saat audit.
+
+================================================
+ SOAL 4(iii) - PEMERIKSAAN SELESAI
+================================================

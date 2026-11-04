@@ -1,0 +1,67 @@
+================================================
+ UTS CS238 - SOAL 1(v)
+ REKOMENDASI PENDEKATAN ROUTING
+================================================
+
+===== A. KONDISI TOPOLOGI =====
+Arsitektur    : Hub-and-Spoke
+Router        : R-HQ, R-BR1, R-BR2, R-DC
+Jalur BR1-HQ  : Satu link transit
+Jalur cadangan BR1 : Tidak tersedia
+
+===== B. VERIFIKASI OSPF AKTIF =====
+
+===== R-HQ =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+4.4.4.4           1 Full/-          10h30m51s         30.785s 10.0.0.6        eth2:10.0.0.5                        0     0     0
+3.3.3.3           1 Full/-          10h30m51s         30.785s 10.0.0.10       eth3:10.0.0.9                        0     0     0
+2.2.2.2           1 Full/-          10h30m51s         30.785s 10.0.0.2        eth1:10.0.0.1                        0     0     0
+
+
+===== R-BR1 =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          10h30m51s         30.730s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+===== R-BR2 =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          10h30m51s         30.676s 10.0.0.9        eth1:10.0.0.10                       0     0     0
+
+
+===== R-DC =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          10h30m51s         30.623s 10.0.0.5        eth1:10.0.0.6                        0     0     0
+
+
+===== C. REKOMENDASI =====
+Pendekatan utama: OSPF Area 0
+Alasan:
+- Pembelajaran rute secara dinamis
+- Pemilihan jalur berdasarkan cost
+- Mendukung pertumbuhan jaringan
+- Sudah diterapkan pada empat router
+
+===== D. KETERBATASAN =====
+- Belum tersedia link redundan BR1-HQ
+- R-HQ menjadi titik ketergantungan utama
+- Konfigurasi adjacency harus konsisten
+- Waktu konvergensi belum diukur setara
+
+===== E. KONDISI PERUBAHAN KEPUTUSAN =====
+- Jaringan tetap sangat kecil dan stabil
+- Keterbatasan kemampuan pengelolaan
+- Perubahan kebutuhan skalabilitas/SLA
+- Tersedia desain dan jalur redundan baru
+
+===== F. REKOMENDASI LANJUTAN =====
+Tambahkan jalur cadangan.
+Lakukan pengujian failover terukur.
+Terapkan monitoring dan backup konfigurasi.
+
+================================================
+ SOAL 1(v) - PEMERIKSAAN SELESAI
+================================================

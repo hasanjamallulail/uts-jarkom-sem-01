@@ -1,0 +1,27 @@
+
+======================================================
+ AUDIT FINAL UTS CS238
+======================================================
+Folder evidence: evidence/audit-final
+
+===== OUTPUT AUDIT =====
+-rw-rw-r-- 1 budiluhur budiluhur 5.7K Nov  4 01:47 evidence/audit-final/01-topologi.txt
+-rw-rw-r-- 1 budiluhur budiluhur 2.4K Nov  4 01:47 evidence/audit-final/02-static-routing.txt
+-rw-rw-r-- 1 budiluhur budiluhur 2.9K Nov  4 01:47 evidence/audit-final/03-rip.txt
+-rw-rw-r-- 1 budiluhur budiluhur 4.9K Nov  4 01:47 evidence/audit-final/04-ospf.txt
+-rw-rw-r-- 1 budiluhur budiluhur 1.7K Nov  4 01:47 evidence/audit-final/05-konektivitas.txt
+-rw-rw-r-- 1 budiluhur budiluhur 2.8K Nov  4 01:47 evidence/audit-final/06-tcp-udp.txt
+-rw-rw-r-- 1 budiluhur budiluhur 1.2K Nov  4 01:47 evidence/audit-final/07-qos.txt
+-rw-rw-r-- 1 budiluhur budiluhur 3.4K Nov  4 01:47 evidence/audit-final/08-investigasi.txt
+-rw-rw-r-- 1 budiluhur budiluhur  855 Nov  4 01:47 evidence/audit-final/09-kelengkapan.txt
+
+===== JUMLAH FILE AUDIT =====
+10
+
+===== STATUS =====
+Pemeriksaan selesai.
+Tidak ada simulasi gangguan yang dijalankan.
+Tidak ada perubahan konfigurasi router.
+
+CATATAN: Temuan historis memerlukan pembacaan
+log/screenshot aslinya untuk kesimpulan final.

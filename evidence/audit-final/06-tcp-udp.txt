@@ -1,0 +1,37 @@
+
+======================================================
+ AUDIT 06 - SOAL 3 TCP DAN UDP
+======================================================
+===== TCP HANDSHAKE =====
+17:20:33.745079 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [S], seq 12069666, win 56760, options [mss 9460,sackOK,TS val 1815794589 ecr 0,nop,wscale 7], length 0
+17:20:33.745093 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [S.], seq 1817581857, ack 12069667, win 56688, options [mss 9460,sackOK,TS val 2633741111 ecr 1815794589,nop,wscale 7], length 0
+17:20:33.745122 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [.], ack 1, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 0
+17:20:33.745165 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [P.], seq 1:24, ack 1, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 23
+17:20:33.745169 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [.], ack 24, win 443, options [nop,nop,TS val 2633741111 ecr 1815794589], length 0
+17:20:33.745190 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [F.], seq 24, ack 1, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 0
+17:20:33.745730 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [P.], seq 1:24, ack 25, win 443, options [nop,nop,TS val 2633741111 ecr 1815794589], length 23
+17:20:33.745761 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [.], ack 24, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 0
+17:20:33.746049 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [F.], seq 24, ack 25, win 443, options [nop,nop,TS val 2633741112 ecr 1815794589], length 0
+17:20:33.746073 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [.], ack 25, win 444, options [nop,nop,TS val 1815794590 ecr 2633741112], length 0
+
+===== TCP SERVER TIDAK AKTIF =====
+17:26:42.609861 IP 10.10.20.10.43497 > 10.10.30.10.5000: Flags [S], seq 3950595082, win 56760, options [mss 9460,sackOK,TS val 1816163453 ecr 0,nop,wscale 7], length 0
+17:26:42.609873 IP 10.10.30.10.5000 > 10.10.20.10.43497: Flags [R.], seq 0, ack 3950595083, win 0, length 0
+
+===== UDP SERVER TIDAK AKTIF =====
+17:31:22.642328 IP 10.10.20.10.51954 > 10.10.30.10.5001: UDP, length 16
+17:31:22.642356 IP 10.10.30.10 > 10.10.20.10: ICMP 10.10.30.10 udp port 5001 unreachable, length 52
+
+===== UDP TANPA RESPONS APLIKASI =====
+----- evidence/soal3/udp/udp-no-response-capture.txt -----
+17:33:44.677743 IP 10.10.20.10.54704 > 10.10.30.10.5001: UDP, length 27
+----- evidence/soal3/udp/udp-no-response-server.log -----
+UDP DITERIMA TANPA BALASAN
+
+===== PCAP YANG TERSEDIA =====
+evidence/soal3/capture/tcp-handshake.pcap
+evidence/soal3/capture/tcp-server-mati.pcap
+evidence/soal3/capture/tcp-transfer-loss-fixed.pcap
+evidence/soal3/capture/tcp-transfer-loss.pcap
+evidence/soal3/capture/udp-no-response.pcap
+evidence/soal3/capture/udp-server-mati.pcap

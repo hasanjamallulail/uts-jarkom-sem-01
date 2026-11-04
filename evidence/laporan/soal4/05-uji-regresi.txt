@@ -1,0 +1,140 @@
+====================================================
+ UTS CS238 - SOAL 4(v)
+ UJI REGRESI SETELAH PEMULIHAN GANGGUAN
+====================================================
+
+===== A. IDENTITAS PENGUJIAN =====
+Routing : OSPF Area 0
+Server  : APP-SRV (10.10.30.10)
+DNS     : DNS-SRV (10.10.30.53)
+TCP     : Port 5504
+Metode  : Read-only + pengujian konektivitas
+
+===== B. REGRESI ICMP PC-BR1 =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.108 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.081 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.075 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.081/0.108 ms
+
+===== C. REGRESI ICMP PC-BR2 =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.085 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.074 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.084 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.074 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.074 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.074/0.078/0.085 ms
+
+===== D. REGRESI ICMP PC-HQ1 =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=62 time=0.112 ms
+64 bytes from 10.10.30.10: seq=1 ttl=62 time=0.070 ms
+64 bytes from 10.10.30.10: seq=2 ttl=62 time=0.079 ms
+64 bytes from 10.10.30.10: seq=3 ttl=62 time=0.070 ms
+64 bytes from 10.10.30.10: seq=4 ttl=62 time=0.069 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.069/0.080/0.112 ms
+
+===== E. REGRESI DNS-SRV =====
+PING 10.10.30.53 (10.10.30.53): 56 data bytes
+64 bytes from 10.10.30.53: seq=0 ttl=61 time=0.079 ms
+64 bytes from 10.10.30.53: seq=1 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.53: seq=2 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.53: seq=3 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.53: seq=4 ttl=61 time=0.094 ms
+
+--- 10.10.30.53 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.072/0.078/0.094 ms
+
+===== F. VERIFIKASI TCP PORT 5504 =====
+Port 5504 pada APP-SRV:
+
+Catatan:
+1580 adalah representasi heksadesimal port 5504.
+Status 0A menunjukkan TCP LISTEN.
+
+===== G. UJI TCP DARI PC-BR1 DAN PC-BR2 =====
+
+----- PC-BR1 menuju APP-SRV TCP 5504 -----
+TCP PC-BR1: GAGAL / LAYANAN TIDAK TERSEDIA
+
+----- PC-BR2 menuju APP-SRV TCP 5504 -----
+TCP PC-BR2: GAGAL / LAYANAN TIDAK TERSEDIA
+
+===== H. STATUS OSPF SELURUH ROUTER =====
+
+----- ROUTER R-HQ -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+4.4.4.4           1 Full/-          12h26m40s         32.064s 10.0.0.6        eth2:10.0.0.5                        0     0     0
+3.3.3.3           1 Full/-          12h26m40s         32.064s 10.0.0.10       eth3:10.0.0.9                        0     0     0
+2.2.2.2           1 Full/-          12h26m40s         32.064s 10.0.0.2        eth1:10.0.0.1                        0     0     0
+
+
+----- ROUTER R-BR1 -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          12h26m40s         32.009s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+----- ROUTER R-BR2 -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          12h26m40s         31.953s 10.0.0.9        eth1:10.0.0.10                       0     0     0
+
+
+----- ROUTER R-DC -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          12h26m40s         31.901s 10.0.0.5        eth1:10.0.0.6                        0     0     0
+
+
+===== I. VERIFIKASI ROUTING PC-BR1 =====
+10.10.30.10 via 10.10.20.1 dev eth1  src 10.10.20.10 
+
+Pemeriksaan route unreachable:
+Tidak ada route unreachable.
+
+===== J. STATUS QDISC PC-BR1 =====
+qdisc noqueue 0: root refcnt 2 
+
+===== K. BUKTI REGRESI HISTORIS SOAL 4 =====
+8. UJI REGRESI
+===== REGRESI PC-BR1 =====
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.067/0.071/0.075 ms
+===== REGRESI PC-BR2 =====
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.082/0.106 ms
+===== REGRESI TCP DARI CABANG 2 =====
+Respons: SOAL4_TCP_OK
+Exit code: 0
+HASIL TCP: BERHASIL
+===== REGRESI OSPF EMPAT ROUTER =====
+4.4.4.4           1 Full/-          1h27m25s          34.688s 10.0.0.6        eth2:10.0.0.5                        0     0     0
+3.3.3.3           1 Full/-          1h27m25s          34.688s 10.0.0.10       eth3:10.0.0.9                        0     0     0
+2.2.2.2           1 Full/-          1h27m25s          34.688s 10.0.0.2        eth1:10.0.0.1                        0     0     0
+1.1.1.1           1 Full/-          1h27m25s          34.634s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+1.1.1.1           1 Full/-          1h27m25s          34.579s 10.0.0.9        eth1:10.0.0.10                       0     0     0
+1.1.1.1           1 Full/-          1h27m25s          34.526s 10.0.0.5        eth1:10.0.0.6                        0     0     0
+
+===== L. KESIMPULAN PEMERIKSAAN =====
+Uji regresi memeriksa fungsi yang sebelumnya bekerja.
+Kegagalan TCP harus dibedakan dari kegagalan routing.
+Pengujian ini tidak mengubah konfigurasi jaringan.
+
+====================================================
+ SOAL 4(v) - PEMERIKSAAN SELESAI
+====================================================

@@ -1,0 +1,11 @@
+CONTAINER ID   IMAGE                          COMMAND                  CREATED              STATUS              PORTS     NAMES
+1e712fc8d361   alpine:3.20                    "sleep infinity"         About a minute ago   Up About a minute             clab-uts-PC-BR2
+32824e70e429   alpine:3.20                    "sleep infinity"         About a minute ago   Up About a minute             clab-uts-APP-SRV
+bee196c7795f   alpine:3.20                    "sleep infinity"         About a minute ago   Up About a minute             clab-uts-DNS-SRV
+7bf0a6abb34b   alpine:3.20                    "sleep infinity"         About a minute ago   Up About a minute             clab-uts-PC-HQ2
+5ca6b6f1a72b   quay.io/frrouting/frr:10.4.1   "/sbin/tini -- /usr/…"   About a minute ago   Up About a minute             clab-uts-R-BR2
+ba5049d8e7c0   alpine:3.20                    "sleep infinity"         About a minute ago   Up About a minute             clab-uts-PC-BR1
+0fececcbbf4e   quay.io/frrouting/frr:10.4.1   "/sbin/tini -- /usr/…"   About a minute ago   Up About a minute             clab-uts-R-HQ
+5d4f6a01d95c   quay.io/frrouting/frr:10.4.1   "/sbin/tini -- /usr/…"   About a minute ago   Up About a minute             clab-uts-R-DC
+0d58e156bbcd   quay.io/frrouting/frr:10.4.1   "/sbin/tini -- /usr/…"   About a minute ago   Up About a minute             clab-uts-R-BR1
+a19402bc42bc   alpine:3.20                    "sleep infinity"         About a minute ago   Up About a minute             clab-uts-PC-HQ1

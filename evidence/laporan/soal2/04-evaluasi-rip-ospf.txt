@@ -1,0 +1,50 @@
+==================================================
+ UTS CS238 - SOAL 2(iv)
+ EVALUASI DAN REKOMENDASI RIP VS OSPF
+==================================================
+
+===== A. PERBANDINGAN KARAKTERISTIK =====
+ASPEK                  RIP VERSION 2            OSPF                    
+Metode                 Distance-vector          Link-state              
+Metric                 Hop count                Cost                    
+Administratif          120                      110                     
+Skalabilitas           Maks. 15 hop             Lebih fleksibel         
+Kompleksitas           Relatif sederhana        Lebih kompleks          
+Gangguan link          Update dan timer         Adjacency dan SPF       
+
+===== B. BUKTI ROUTING RIP HISTORIS =====
+R>* 10.10.20.0/24 [120/2] via 10.0.0.2, eth1, weight 1, 00:22:47
+R>* 10.10.30.0/24 [120/2] via 10.0.0.6, eth2, weight 1, 00:22:47
+R>* 10.10.40.0/24 [120/2] via 10.0.0.10, eth3, weight 1, 00:22:47
+
+===== C. BUKTI ROUTING OSPF AKTIF =====
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 10:56:51
+O   10.0.0.4/30 [110/10] is directly connected, eth2, weight 1, 11:15:37
+O   10.0.0.8/30 [110/10] is directly connected, eth3, weight 1, 11:15:37
+O   10.10.10.0/24 [110/10] is directly connected, eth4, weight 1, 11:15:36
+O>* 10.10.20.0/24 [110/20] via 10.0.0.2, eth1, weight 1, 10:53:49
+O>* 10.10.30.0/24 [110/20] via 10.0.0.6, eth2, weight 1, 10:53:49
+O>* 10.10.40.0/24 [110/20] via 10.0.0.10, eth3, weight 1, 10:53:49
+
+===== D. KESIMPULAN BERDASARKAN EKSPERIMEN =====
+1. RIP dan OSPF mampu mempelajari rute antarsubnet.
+2. Keduanya kehilangan akses BR1 saat link tunggal DOWN.
+3. Tidak ada jalur alternatif untuk Cabang 1.
+4. OSPF telah diverifikasi dengan adjacency FULL.
+5. Keunggulan waktu konvergensi belum terukur setara.
+
+===== E. REKOMENDASI =====
+OSPF direkomendasikan untuk pengembangan jaringan.
+RIP tetap relevan untuk topologi kecil dan sederhana.
+OSPF tidak otomatis lebih baik pada semua kondisi.
+
+===== F. KETERBATASAN =====
+- Pengukuran gangguan belum diulang secara setara.
+- Durasi konvergensi belum tercatat presisi.
+- Topologi tidak menyediakan link redundan.
+- Pengujian OSPF melibatkan koreksi network type.
+- Pengukuran dilakukan pada lingkungan virtual.
+
+==================================================
+ SOAL 2(iv) - PEMERIKSAAN SELESAI
+==================================================

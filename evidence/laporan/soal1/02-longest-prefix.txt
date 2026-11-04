@@ -1,0 +1,67 @@
+================================================
+ UTS CS238 - SOAL 1(ii)
+ VERIFIKASI LONGEST-PREFIX MATCH
+================================================
+
+===== 1. INFORMASI EKSPERIMEN =====
+Router : R-BR1
+Tujuan : APP-SRV 10.10.30.10
+Prefix : 10.10.30.0/24 dan 10.10.30.10/32
+
+===== 2. EVIDENCE EKSPERIMEN ASLI =====
+===============================================
+ UTS CS238 - LONGEST PREFIX MATCH
+ Router : R-BR1
+ Tujuan : 10.10.30.10
+===============================================
+
+=== 1. ROUTE SEBELUM ===
+10.10.30.10 via 10.0.0.1 dev eth1 src 10.0.0.2 uid 0 
+    cache 
+
+=== 2. TAMBAH ROUTE /32 ===
+
+=== 3. ROUTE /24 DAN /32 ===
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+S>* 10.10.10.0/24 [1/0] via 10.0.0.1, eth1, weight 1, 00:54:31
+S>* 10.10.30.0/24 [1/0] via 10.0.0.1, eth1, weight 1, 00:54:31
+S>* 10.10.30.10/32 [1/0] via 10.0.0.1, eth1, weight 1, 00:00:00
+S>* 10.10.40.0/24 [1/0] via 10.0.0.1, eth1, weight 1, 00:54:31
+
+=== 4. ROUTE YANG DIPILIH KERNEL ===
+10.10.30.10 via 10.0.0.1 dev eth1 src 10.0.0.2 uid 0 
+    cache 
+
+=== 5. UJI PING ===
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.108 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.072 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.072/0.084/0.108 ms
+
+===== 3. PERBANDINGAN PREFIX =====
+10.10.30.0/24  = jaringan Data Center
+10.10.30.10/32 = host APP-SRV
+
+Untuk tujuan 10.10.30.10:
+Prefix /32 lebih spesifik daripada /24.
+Dalam eksperimen, kedua rute memiliki
+next hop yang sama, yaitu 10.0.0.1.
+
+===== 4. STATUS =====
+Verifikasi menggunakan evidence historis.
+Tidak ada perubahan konfigurasi routing.
+
+================================================
+ SOAL 1(ii) - PEMERIKSAAN SELESAI
+================================================

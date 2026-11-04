@@ -1,0 +1,27 @@
+
+====================================================
+ SOAL 1(v) - REKOMENDASI ROUTING
+====================================================
+REKOMENDASI UTAMA: OSPF
+
+Alasan:
+1. Routing antarsubnet dipelajari dinamis.
+2. Cost dapat digunakan untuk pemilihan jalur.
+3. Cocok untuk pengembangan cabang.
+4. Konfigurasi Area 0 sudah terverifikasi.
+5. Seluruh adjacency final berstatus FULL.
+
+Keterbatasan:
+- Topologi belum memiliki link cadangan.
+- HQ merupakan single point of failure.
+- OSPF membutuhkan konfigurasi yang konsisten.
+- Waktu konvergensi belum diukur secara presisi.
+
+Kondisi perubahan keputusan:
+- Jaringan sangat kecil dan statis.
+- Ada keterbatasan kemampuan operasional.
+- Jumlah cabang atau persyaratan SLA berubah.
+- Dibutuhkan jalur redundan.
+
+Pengembangan yang disarankan:
+Tambahkan link cadangan dan uji failover OSPF.

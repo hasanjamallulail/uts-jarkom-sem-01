@@ -1,0 +1,303 @@
+
+================================================
+SOAL 4 - INVESTIGASI GANGGUAN TERINTEGRASI
+================================================
+2026-11-03T18:09:52+00:00
+Skenario: Routing IP + TCP
+Client   : PC-BR1
+Server   : APP-SRV
+IP server: 10.10.30.10
+TCP port : 5504
+
+================================================
+0. PREFLIGHT DAN KEAMANAN
+================================================
+2026-11-03T18:09:52+00:00
+===== CEK ROUTE KHUSUS YANG SUDAH ADA =====
+===== CEK PORT TCP KHUSUS =====
+===== CEK OSPF R-BR1 =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          1h27m03s          37.063s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+===== CEK QDISC PC-BR1 =====
+qdisc noqueue 0: root refcnt 2 
+===== CHECKSUM FILE SOAL 1-3 =====
+Checksum awal: 3ad0cee831c7285f2a6eb7578f85edae1d32b2d7f1a6d17857e82318fa9dc968
+
+================================================
+1. BASELINE KONDISI NORMAL
+================================================
+2026-11-03T18:09:52+00:00
+===== ROUTING CLIENT =====
+10.10.30.10 via 10.10.20.1 dev eth1 src 10.10.20.10 uid 0 
+    cache 
+===== OSPF ROUTING =====
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 01:30:00
+O>* 10.0.0.4/30 [110/20] via 10.0.0.1, eth1, weight 1, 01:26:58
+O>* 10.0.0.8/30 [110/20] via 10.0.0.1, eth1, weight 1, 01:26:58
+O>* 10.10.10.0/24 [110/20] via 10.0.0.1, eth1, weight 1, 01:26:58
+O   10.10.20.0/24 [110/10] is directly connected, eth2, weight 1, 01:48:45
+O>* 10.10.30.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 01:26:58
+O>* 10.10.40.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 01:26:58
+
+----- ICMP TEST: BASELINE BR1 -----
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.105 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.076 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.084/0.105 ms
+
+===== CLEANUP OTOMATIS =====
+TCP SERVER: LISTEN port 5504
+
+----- TCP TEST: BASELINE TCP -----
+Respons: SOAL4_TCP_OK
+Exit code: 0
+HASIL TCP: BERHASIL
+BASELINE: VALID
+
+================================================
+2. PEMICU GANGGUAN PERTAMA - ROUTING
+================================================
+2026-11-03T18:09:56+00:00
+
+===== CLEANUP OTOMATIS =====
+TCP SERVER: LISTEN port 5504
+===== TAMBAHKAN ROUTE UNREACHABLE =====
+===== ROUTE YANG DISUNTIKKAN =====
+unreachable 10.10.30.10 
+
+----- ICMP TEST: ROUTING TERGANGGU -----
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+ping: sendto: Host is unreachable
+
+----- TCP TEST: ROUTING TERGANGGU -----
+Respons: <tidak ada>
+Exit code: 1
+HASIL TCP: GAGAL
+
+================================================
+3. PEMICU GANGGUAN KEDUA - TCP SERVER
+================================================
+2026-11-03T18:09:57+00:00
+===== STATUS TCP SERVER =====
+TCP 5504 TIDAK LISTEN
+
+----- ICMP TEST: DUA GANGGUAN AKTIF -----
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+ping: sendto: Host is unreachable
+
+----- TCP TEST: DUA GANGGUAN AKTIF -----
+Respons: <tidak ada>
+Exit code: 1
+HASIL TCP: GAGAL
+
+================================================
+4. DIAGNOSIS TIGA HIPOTESIS
+================================================
+2026-11-03T18:09:58+00:00
+===== H1: OSPF ROUTER BERMASALAH? =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          1h27m09s          31.384s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+O   10.0.0.0/30 [110/10] is directly connected, eth1, weight 1, 01:30:06
+O>* 10.0.0.4/30 [110/20] via 10.0.0.1, eth1, weight 1, 01:27:04
+O>* 10.0.0.8/30 [110/20] via 10.0.0.1, eth1, weight 1, 01:27:04
+O>* 10.10.10.0/24 [110/20] via 10.0.0.1, eth1, weight 1, 01:27:04
+O   10.10.20.0/24 [110/10] is directly connected, eth2, weight 1, 01:48:51
+O>* 10.10.30.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 01:27:04
+O>* 10.10.40.0/24 [110/30] via 10.0.0.1, eth1, weight 1, 01:27:04
+
+===== H2: ROUTING IP CLIENT BERMASALAH? =====
+unreachable 10.10.30.10 
+RTNETLINK answers: No route to host
+
+===== H3: LAYANAN TCP TIDAK AKTIF? =====
+TCP 5504 TIDAK LISTEN
+
+===== KONTROL CABANG 2 =====
+
+----- ICMP TEST: BR2 SAAT GANGGUAN BR1 -----
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.096 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.073 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.080/0.096 ms
+
+================================================
+5. SOLUSI TAHAP 1 - PERBAIKI ROUTING SAJA
+================================================
+2026-11-03T18:10:00+00:00
+===== ROUTING SETELAH PERBAIKAN =====
+10.10.30.10 via 10.10.20.1 dev eth1 src 10.10.20.10 uid 0 
+    cache 
+
+----- ICMP TEST: SETELAH PERBAIKAN ROUTING -----
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.066 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.059 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.070 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.059/0.065/0.070 ms
+
+----- TCP TEST: TCP MASIH MATI -----
+Respons: <tidak ada>
+Exit code: 1
+HASIL TCP: GAGAL
+KESIMPULAN TAHAP 1:
+Routing dipulihkan tanpa mengaktifkan TCP server.
+
+================================================
+6. CAPTURE TCP SAAT LAYANAN MATI
+================================================
+2026-11-03T18:10:02+00:00
+
+----- TCP TEST: BUKTI TCP SERVER MATI -----
+Respons: <tidak ada>
+Exit code: 1
+HASIL TCP: GAGAL
+reading from file evidence/soal4/tcp-server-mati.pcap, link-type EN10MB (Ethernet), snapshot length 262144
+18:10:03.726817 IP 10.10.20.10.46239 > 10.10.30.10.5504: Flags [S], seq 1992371591, win 56760, options [mss 9460,sackOK,TS val 1818764570 ecr 0,nop,wscale 7], length 0
+18:10:03.726837 IP 10.10.30.10.5504 > 10.10.20.10.46239: Flags [R.], seq 0, ack 1992371592, win 0, length 0
+
+================================================
+7. SOLUSI TAHAP 2 - PULIHKAN TCP
+================================================
+2026-11-03T18:10:08+00:00
+
+===== CLEANUP OTOMATIS =====
+TCP SERVER: LISTEN port 5504
+
+----- TCP TEST: SETELAH TCP DIPULIHKAN -----
+Respons: SOAL4_TCP_OK
+Exit code: 0
+HASIL TCP: BERHASIL
+HASIL PEMULIHAN: BERHASIL
+
+================================================
+8. UJI REGRESI
+================================================
+2026-11-03T18:10:09+00:00
+===== REGRESI PC-BR1 =====
+
+----- ICMP TEST: BR1 KE APP-SRV -----
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.075 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.067 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.071 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.067/0.071/0.075 ms
+===== REGRESI PC-BR2 =====
+
+----- ICMP TEST: BR2 KE APP-SRV -----
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.106 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.072 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.082/0.106 ms
+===== REGRESI TCP DARI CABANG 2 =====
+
+===== CLEANUP OTOMATIS =====
+TCP SERVER: LISTEN port 5504
+
+----- TCP TEST: TCP BR2 KE APP-SRV -----
+Respons: SOAL4_TCP_OK
+Exit code: 0
+HASIL TCP: BERHASIL
+===== REGRESI OSPF EMPAT ROUTER =====
+
+===== R-HQ =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+4.4.4.4           1 Full/-          1h27m25s          34.688s 10.0.0.6        eth2:10.0.0.5                        0     0     0
+3.3.3.3           1 Full/-          1h27m25s          34.688s 10.0.0.10       eth3:10.0.0.9                        0     0     0
+2.2.2.2           1 Full/-          1h27m25s          34.688s 10.0.0.2        eth1:10.0.0.1                        0     0     0
+
+
+===== R-BR1 =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          1h27m25s          34.634s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+===== R-BR2 =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          1h27m25s          34.579s 10.0.0.9        eth1:10.0.0.10                       0     0     0
+
+
+===== R-DC =====
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          1h27m25s          34.526s 10.0.0.5        eth1:10.0.0.6                        0     0     0
+
+===== QDISC TIDAK BERUBAH =====
+qdisc noqueue 0: root refcnt 2 
+
+================================================
+9. CLEANUP DAN PEMERIKSAAN AKHIR
+================================================
+2026-11-03T18:10:15+00:00
+
+===== CLEANUP OTOMATIS =====
+===== ROUTE SETELAH CLEANUP =====
+10.10.30.10 via 10.10.20.1 dev eth1 src 10.10.20.10 uid 0 
+    cache 
+===== TCP PORT UJI =====
+PORT UJI TELAH DITUTUP
+===== CHECKSUM SOAL 1-3 =====
+Sebelum: 3ad0cee831c7285f2a6eb7578f85edae1d32b2d7f1a6d17857e82318fa9dc968
+Sesudah: 3ad0cee831c7285f2a6eb7578f85edae1d32b2d7f1a6d17857e82318fa9dc968
+Status file lama: TIDAK BERUBAH
+
+================================================
+10. RINGKASAN AKHIR
+================================================
+2026-11-03T18:10:15+00:00
+UTS CS238 - RINGKASAN SOAL 4
+========================================
+Skenario: Routing IP + TCP
+Baseline TCP: BERHASIL
+Gangguan 1: Route unreachable khusus APP-SRV
+Gangguan 2: TCP server port 5504 mati
+H1: OSPF diperiksa melalui neighbor dan tabel routing
+H2: Route khusus teridentifikasi
+H3: TCP port 5504 tidak listening
+Perbaikan 1: Route sementara dihapus
+Perbaikan 2: Layanan TCP diuji kembali
+Pemulihan TCP: BERHASIL
+Regresi: BR1, BR2, dan OSPF diuji
+Status file Soal 1-3: TIDAK BERUBAH
+========================================
+
+SEMUA PENGUJIAN SOAL 4 SELESAI

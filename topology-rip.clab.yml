@@ -1,0 +1,108 @@
+name: uts
+
+topology:
+  nodes:
+    R-HQ:
+      kind: linux
+      image: quay.io/frrouting/frr:10.4.1
+      binds:
+        - configs/rip/R-HQ:/etc/frr
+
+    R-BR1:
+      kind: linux
+      image: quay.io/frrouting/frr:10.4.1
+      binds:
+        - configs/rip/R-BR1:/etc/frr
+
+    R-BR2:
+      kind: linux
+      image: quay.io/frrouting/frr:10.4.1
+      binds:
+        - configs/rip/R-BR2:/etc/frr
+
+    R-DC:
+      kind: linux
+      image: quay.io/frrouting/frr:10.4.1
+      binds:
+        - configs/rip/R-DC:/etc/frr
+
+    SW-HQ:
+      kind: bridge
+
+    SW-BR1:
+      kind: bridge
+
+    SW-BR2:
+      kind: bridge
+
+    SW-DC:
+      kind: bridge
+
+    PC-HQ1:
+      kind: linux
+      image: alpine:3.20
+      cmd: sleep infinity
+      exec:
+        - ip link set eth1 up
+        - ip addr add 10.10.10.10/24 dev eth1
+        - ip route replace default via 10.10.10.1 dev eth1
+
+    PC-HQ2:
+      kind: linux
+      image: alpine:3.20
+      cmd: sleep infinity
+      exec:
+        - ip link set eth1 up
+        - ip addr add 10.10.10.11/24 dev eth1
+        - ip route replace default via 10.10.10.1 dev eth1
+
+    PC-BR1:
+      kind: linux
+      image: alpine:3.20
+      cmd: sleep infinity
+      exec:
+        - ip link set eth1 up
+        - ip addr add 10.10.20.10/24 dev eth1
+        - ip route replace default via 10.10.20.1 dev eth1
+
+    PC-BR2:
+      kind: linux
+      image: alpine:3.20
+      cmd: sleep infinity
+      exec:
+        - ip link set eth1 up
+        - ip addr add 10.10.40.10/24 dev eth1
+        - ip route replace default via 10.10.40.1 dev eth1
+
+    APP-SRV:
+      kind: linux
+      image: alpine:3.20
+      cmd: sleep infinity
+      exec:
+        - ip link set eth1 up
+        - ip addr add 10.10.30.10/24 dev eth1
+        - ip route replace default via 10.10.30.1 dev eth1
+
+    DNS-SRV:
+      kind: linux
+      image: alpine:3.20
+      cmd: sleep infinity
+      exec:
+        - ip link set eth1 up
+        - ip addr add 10.10.30.53/24 dev eth1
+        - ip route replace default via 10.10.30.1 dev eth1
+
+  links:
+    - endpoints: ["R-HQ:eth1", "R-BR1:eth1"]
+    - endpoints: ["R-HQ:eth2", "R-DC:eth1"]
+    - endpoints: ["R-HQ:eth3", "R-BR2:eth1"]
+    - endpoints: ["R-HQ:eth4", "SW-HQ:hq-r"]
+    - endpoints: ["R-BR1:eth2", "SW-BR1:br1-r"]
+    - endpoints: ["R-BR2:eth2", "SW-BR2:br2-r"]
+    - endpoints: ["R-DC:eth2", "SW-DC:dc-r"]
+    - endpoints: ["PC-HQ1:eth1", "SW-HQ:hq-pc1"]
+    - endpoints: ["PC-HQ2:eth1", "SW-HQ:hq-pc2"]
+    - endpoints: ["PC-BR1:eth1", "SW-BR1:br1-pc"]
+    - endpoints: ["PC-BR2:eth1", "SW-BR2:br2-pc"]
+    - endpoints: ["APP-SRV:eth1", "SW-DC:dc-app"]
+    - endpoints: ["DNS-SRV:eth1", "SW-DC:dc-dns"]

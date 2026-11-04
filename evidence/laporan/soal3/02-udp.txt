@@ -1,0 +1,38 @@
+==============================================
+ UTS CS238 - SOAL 3(ii)
+ VERIFIKASI KOMUNIKASI UDP
+==============================================
+
+===== A. INFORMASI PENGUJIAN =====
+Client : PC-BR1 10.10.20.10
+Server : APP-SRV 10.10.30.10
+Port   : UDP 5001
+
+===== B. UDP SERVER AKTIF =====
+UDP_SERVER_READY
+KONDISI: BASELINE
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 100
+DATAGRAM HILANG: 0
+LOSS APLIKASI: 0.00%
+
+===== C. UDP SERVER TIDAK AKTIF =====
+17:31:22.642328 IP 10.10.20.10.51954 > 10.10.30.10.5001: UDP, length 16
+17:31:22.642356 IP 10.10.30.10 > 10.10.20.10: ICMP 10.10.30.10 udp port 5001 unreachable, length 52
+
+===== D. UDP TANPA RESPONS APLIKASI =====
+17:33:44.677743 IP 10.10.20.10.54704 > 10.10.30.10.5001: UDP, length 27
+
+===== E. BUKTI DATAGRAM DITERIMA SERVER =====
+FILE: evidence/soal3/udp/udp-no-response-server.log
+UDP DITERIMA TANPA BALASAN
+
+===== F. KESIMPULAN TEKNIS =====
+UDP tidak memakai three-way handshake.
+Datagram dapat diterima tanpa balasan aplikasi.
+Tidak ada respons bukan bukti paket gagal.
+Port tertutup dapat menghasilkan ICMP unreachable.
+
+==============================================
+ SOAL 3(ii) - PEMERIKSAAN SELESAI
+==============================================

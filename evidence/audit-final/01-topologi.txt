@@ -1,0 +1,160 @@
+
+======================================================
+ AUDIT 01 - TOPOLOGI DAN IP ADDRESS
+======================================================
+Tanggal pemeriksaan:
+2026-11-04T01:47:20+00:00
+
+===== FILE TOPOLOGI =====
+[ADA] topology.clab.yml
+[ADA] topology-next.clab.yml
+[ADA] topology-rip.clab.yml
+[ADA] topology-ospf.clab.yml
+
+===== CONTAINER AKTIF =====
+NAMES              STATUS
+clab-uts-PC-BR1    Up 9 hours
+clab-uts-DNS-SRV   Up 9 hours
+clab-uts-APP-SRV   Up 9 hours
+clab-uts-R-HQ      Up 9 hours
+clab-uts-R-DC      Up 9 hours
+clab-uts-R-BR2     Up 9 hours
+clab-uts-R-BR1     Up 9 hours
+clab-uts-PC-BR2    Up 9 hours
+clab-uts-PC-HQ2    Up 9 hours
+clab-uts-PC-HQ1    Up 9 hours
+
+===== JUMLAH CONTAINER =====
+10
+
+===== IP ROUTER =====
+
+----- R-HQ -----
+lo               UNKNOWN        127.0.0.1/8 
+eth0@if111       UP             172.20.20.14/24 
+eth1@if114       UP             10.0.0.1/30 
+eth2@if116       UP             10.0.0.5/30 
+eth3@if118       UP             10.0.0.9/30 
+eth4@if120       UP             10.10.10.1/24 
+
+----- R-BR1 -----
+lo               UNKNOWN        127.0.0.1/8 
+eth0@if107       UP             172.20.20.9/24 
+eth1@if115       UP             10.0.0.2/30 
+eth2@if122       UP             10.10.20.1/24 
+
+----- R-BR2 -----
+lo               UNKNOWN        127.0.0.1/8 
+eth0@if108       UP             172.20.20.10/24 
+eth1@if119       UP             10.0.0.10/30 
+eth2@if124       UP             10.10.40.1/24 
+
+----- R-DC -----
+lo               UNKNOWN        127.0.0.1/8 
+eth0@if109       UP             172.20.20.13/24 
+eth1@if117       UP             10.0.0.6/30 
+eth2@if126       UP             10.10.30.1/24 
+
+===== IP HOST DAN SERVER =====
+
+----- PC-HQ1 -----
+BusyBox v1.36.1 (2025-11-23 14:32:18 UTC) multi-call binary.
+
+Usage: ip [OPTIONS] address|route|link|tunnel|neigh|rule [ARGS]
+
+OPTIONS := -f[amily] inet|inet6|link | -o[neline]
+
+ip addr add|del IFADDR dev IFACE | show|flush [dev IFACE] [to PREFIX]
+ip route list|flush|add|del|change|append|replace|test ROUTE
+ip link set IFACE [up|down] [arp on|off] [multicast on|off]
+	[promisc on|off] [mtu NUM] [name NAME] [qlen NUM] [address MAC]
+	[master IFACE | nomaster] [netns PID]
+ip tunnel add|change|del|show [NAME]
+	[mode ipip|gre|sit] [remote ADDR] [local ADDR] [ttl TTL]
+ip neigh show|flush [to PREFIX] [dev DEV] [nud STATE]
+ip rule [list] | add|del SELECTOR ACTION
+
+----- PC-HQ2 -----
+BusyBox v1.36.1 (2025-11-23 14:32:18 UTC) multi-call binary.
+
+Usage: ip [OPTIONS] address|route|link|tunnel|neigh|rule [ARGS]
+
+OPTIONS := -f[amily] inet|inet6|link | -o[neline]
+
+ip addr add|del IFADDR dev IFACE | show|flush [dev IFACE] [to PREFIX]
+ip route list|flush|add|del|change|append|replace|test ROUTE
+ip link set IFACE [up|down] [arp on|off] [multicast on|off]
+	[promisc on|off] [mtu NUM] [name NAME] [qlen NUM] [address MAC]
+	[master IFACE | nomaster] [netns PID]
+ip tunnel add|change|del|show [NAME]
+	[mode ipip|gre|sit] [remote ADDR] [local ADDR] [ttl TTL]
+ip neigh show|flush [to PREFIX] [dev DEV] [nud STATE]
+ip rule [list] | add|del SELECTOR ACTION
+
+----- PC-BR1 -----
+BusyBox v1.36.1 (2025-11-23 14:32:18 UTC) multi-call binary.
+
+Usage: ip [OPTIONS] address|route|link|tunnel|neigh|rule [ARGS]
+
+OPTIONS := -f[amily] inet|inet6|link | -o[neline]
+
+ip addr add|del IFADDR dev IFACE | show|flush [dev IFACE] [to PREFIX]
+ip route list|flush|add|del|change|append|replace|test ROUTE
+ip link set IFACE [up|down] [arp on|off] [multicast on|off]
+	[promisc on|off] [mtu NUM] [name NAME] [qlen NUM] [address MAC]
+	[master IFACE | nomaster] [netns PID]
+ip tunnel add|change|del|show [NAME]
+	[mode ipip|gre|sit] [remote ADDR] [local ADDR] [ttl TTL]
+ip neigh show|flush [to PREFIX] [dev DEV] [nud STATE]
+ip rule [list] | add|del SELECTOR ACTION
+
+----- PC-BR2 -----
+BusyBox v1.36.1 (2025-11-23 14:32:18 UTC) multi-call binary.
+
+Usage: ip [OPTIONS] address|route|link|tunnel|neigh|rule [ARGS]
+
+OPTIONS := -f[amily] inet|inet6|link | -o[neline]
+
+ip addr add|del IFADDR dev IFACE | show|flush [dev IFACE] [to PREFIX]
+ip route list|flush|add|del|change|append|replace|test ROUTE
+ip link set IFACE [up|down] [arp on|off] [multicast on|off]
+	[promisc on|off] [mtu NUM] [name NAME] [qlen NUM] [address MAC]
+	[master IFACE | nomaster] [netns PID]
+ip tunnel add|change|del|show [NAME]
+	[mode ipip|gre|sit] [remote ADDR] [local ADDR] [ttl TTL]
+ip neigh show|flush [to PREFIX] [dev DEV] [nud STATE]
+ip rule [list] | add|del SELECTOR ACTION
+
+----- APP-SRV -----
+BusyBox v1.36.1 (2025-11-23 14:32:18 UTC) multi-call binary.
+
+Usage: ip [OPTIONS] address|route|link|tunnel|neigh|rule [ARGS]
+
+OPTIONS := -f[amily] inet|inet6|link | -o[neline]
+
+ip addr add|del IFADDR dev IFACE | show|flush [dev IFACE] [to PREFIX]
+ip route list|flush|add|del|change|append|replace|test ROUTE
+ip link set IFACE [up|down] [arp on|off] [multicast on|off]
+	[promisc on|off] [mtu NUM] [name NAME] [qlen NUM] [address MAC]
+	[master IFACE | nomaster] [netns PID]
+ip tunnel add|change|del|show [NAME]
+	[mode ipip|gre|sit] [remote ADDR] [local ADDR] [ttl TTL]
+ip neigh show|flush [to PREFIX] [dev DEV] [nud STATE]
+ip rule [list] | add|del SELECTOR ACTION
+
+----- DNS-SRV -----
+BusyBox v1.36.1 (2025-11-23 14:32:18 UTC) multi-call binary.
+
+Usage: ip [OPTIONS] address|route|link|tunnel|neigh|rule [ARGS]
+
+OPTIONS := -f[amily] inet|inet6|link | -o[neline]
+
+ip addr add|del IFADDR dev IFACE | show|flush [dev IFACE] [to PREFIX]
+ip route list|flush|add|del|change|append|replace|test ROUTE
+ip link set IFACE [up|down] [arp on|off] [multicast on|off]
+	[promisc on|off] [mtu NUM] [name NAME] [qlen NUM] [address MAC]
+	[master IFACE | nomaster] [netns PID]
+ip tunnel add|change|del|show [NAME]
+	[mode ipip|gre|sit] [remote ADDR] [local ADDR] [ttl TTL]
+ip neigh show|flush [to PREFIX] [dev DEV] [nud STATE]
+ip rule [list] | add|del SELECTOR ACTION

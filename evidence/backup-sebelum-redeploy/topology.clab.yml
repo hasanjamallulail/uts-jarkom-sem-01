@@ -1,0 +1,88 @@
+name: uts
+
+topology:
+  nodes:
+    R-HQ:
+      kind: linux
+      image: quay.io/frrouting/frr:10.4.1
+      binds:
+        - configs/R-HQ/daemons:/etc/frr/daemons
+        - configs/R-HQ/frr.conf:/etc/frr/frr.conf
+
+    R-BR1:
+      kind: linux
+      image: quay.io/frrouting/frr:10.4.1
+      binds:
+        - configs/R-BR1/daemons:/etc/frr/daemons
+        - configs/R-BR1/frr.conf:/etc/frr/frr.conf
+
+    R-BR2:
+      kind: linux
+      image: quay.io/frrouting/frr:10.4.1
+      binds:
+        - configs/R-BR2/daemons:/etc/frr/daemons
+        - configs/R-BR2/frr.conf:/etc/frr/frr.conf
+
+    R-DC:
+      kind: linux
+      image: quay.io/frrouting/frr:10.4.1
+      binds:
+        - configs/R-DC/daemons:/etc/frr/daemons
+        - configs/R-DC/frr.conf:/etc/frr/frr.conf
+
+    SW-HQ:
+      kind: bridge
+
+    SW-BR1:
+      kind: bridge
+
+    SW-BR2:
+      kind: bridge
+
+    SW-DC:
+      kind: bridge
+
+    PC-HQ1:
+      kind: linux
+      image: alpine:3.20
+      cmd: sleep infinity
+
+    PC-HQ2:
+      kind: linux
+      image: alpine:3.20
+      cmd: sleep infinity
+
+    PC-BR1:
+      kind: linux
+      image: alpine:3.20
+      cmd: sleep infinity
+
+    PC-BR2:
+      kind: linux
+      image: alpine:3.20
+      cmd: sleep infinity
+
+    APP-SRV:
+      kind: linux
+      image: alpine:3.20
+      cmd: sleep infinity
+
+    DNS-SRV:
+      kind: linux
+      image: alpine:3.20
+      cmd: sleep infinity
+
+  links:
+    - endpoints: ["R-HQ:eth1", "R-BR1:eth1"]
+    - endpoints: ["R-HQ:eth2", "R-DC:eth1"]
+    - endpoints: ["R-HQ:eth3", "R-BR2:eth1"]
+    - endpoints: ["R-HQ:eth4", "SW-HQ:hq-r"]
+    - endpoints: ["R-BR1:eth2", "SW-BR1:br1-r"]
+    - endpoints: ["R-BR2:eth2", "SW-BR2:br2-r"]
+    - endpoints: ["R-DC:eth2", "SW-DC:dc-r"]
+    - endpoints: ["PC-HQ1:eth1", "SW-HQ:hq-pc1"]
+    - endpoints: ["PC-HQ2:eth1", "SW-HQ:hq-pc2"]
+    - endpoints: ["PC-BR1:eth1", "SW-BR1:br1-pc"]
+    - endpoints: ["PC-BR2:eth1", "SW-BR2:br2-pc"]
+    - endpoints: ["APP-SRV:eth1", "SW-DC:dc-app"]
+    - endpoints: ["DNS-SRV:eth1", "SW-DC:dc-dns"]

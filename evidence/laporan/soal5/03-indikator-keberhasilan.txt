@@ -1,0 +1,152 @@
+====================================================
+ UTS CS238 - SOAL 5(iii)
+ INDIKATOR KEBERHASILAN JARINGAN
+====================================================
+
+===== A. IDENTITAS PENGUKURAN =====
+Topologi : Hub-and-Spoke
+Routing  : OSPF Area 0
+Client   : PC-BR1 10.10.20.10
+Server   : APP-SRV 10.10.30.10
+Metode   : Evidence historis + audit saat ini
+
+===== B. K1 - PACKET LOSS ICMP =====
+Baseline historis:
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 0.069/0.075/0.096 ms
+
+Pengukuran kondisi saat ini:
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.092 ms
+64 bytes from 10.10.30.10: seq=5 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=6 ttl=61 time=0.277 ms
+64 bytes from 10.10.30.10: seq=7 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=8 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=9 ttl=61 time=0.078 ms
+64 bytes from 10.10.30.10: seq=10 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=11 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=12 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=13 ttl=61 time=0.098 ms
+64 bytes from 10.10.30.10: seq=14 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=15 ttl=61 time=0.072 ms
+64 bytes from 10.10.30.10: seq=16 ttl=61 time=0.071 ms
+64 bytes from 10.10.30.10: seq=17 ttl=61 time=0.073 ms
+64 bytes from 10.10.30.10: seq=18 ttl=61 time=0.112 ms
+64 bytes from 10.10.30.10: seq=19 ttl=61 time=0.084 ms
+
+--- 10.10.30.10 ping statistics ---
+20 packets transmitted, 20 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.087/0.277 ms
+
+Target usulan: 0% packet loss dari 20 paket.
+
+===== C. K2 - RTT / LATENCY =====
+Baseline RTT historis:
+round-trip min/avg/max = 0.069/0.075/0.096 ms
+
+Target usulan: RTT rata-rata < 1 ms
+pada kondisi normal di lingkungan virtual.
+
+===== D. K3 - KETERSEDIAAN TCP =====
+Bukti konektivitas TCP historis Soal 4:
+Respons: SOAL4_TCP_OK
+HASIL TCP: BERHASIL
+Respons: SOAL4_TCP_OK
+HASIL TCP: BERHASIL
+HASIL PEMULIHAN: BERHASIL
+Respons: SOAL4_TCP_OK
+HASIL TCP: BERHASIL
+
+Bukti TCP handshake Soal 3:
+17:20:33.745079 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [S], seq 12069666, win 56760, options [mss 9460,sackOK,TS val 1815794589 ecr 0,nop,wscale 7], length 0
+17:20:33.745093 IP 10.10.30.10.5000 > 10.10.20.10.44289: Flags [S.], seq 1817581857, ack 12069667, win 56688, options [mss 9460,sackOK,TS val 2633741111 ecr 1815794589,nop,wscale 7], length 0
+17:20:33.745122 IP 10.10.20.10.44289 > 10.10.30.10.5000: Flags [.], ack 1, win 444, options [nop,nop,TS val 1815794589 ecr 2633741111], length 0
+
+Target usulan:
+TCP berhasil dari kedua cabang ketika layanan aktif.
+
+===== E. K4 - STABILITAS OSPF =====
+Neighbor OSPF seluruh router:
+
+----- R-HQ -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+4.4.4.4           1 Full/-          13h28m55s         37.153s 10.0.0.6        eth2:10.0.0.5                        0     0     0
+3.3.3.3           1 Full/-          13h28m55s         37.153s 10.0.0.10       eth3:10.0.0.9                        0     0     0
+2.2.2.2           1 Full/-          13h28m55s         37.153s 10.0.0.2        eth1:10.0.0.1                        0     0     0
+
+
+----- R-BR1 -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          13h28m55s         37.099s 10.0.0.1        eth1:10.0.0.2                        0     0     0
+
+
+----- R-BR2 -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          13h28m55s         37.045s 10.0.0.9        eth1:10.0.0.10                       0     0     0
+
+
+----- R-DC -----
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/-          13h28m55s         36.991s 10.0.0.5        eth1:10.0.0.6                        0     0     0
+
+
+Target usulan:
+HQ memiliki 3 neighbor FULL.
+BR1, BR2, dan DC masing-masing 1 FULL.
+
+===== F. K5 - KEBERHASILAN UDP =====
+
+FILE: evidence/soal3/qos/udp-fixed-BASELINE.txt
+KONDISI: BASELINE
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 100
+DATAGRAM HILANG: 0
+LOSS APLIKASI: 0.00%
+
+FILE: evidence/soal3/qos/udp-fixed-LOSS_10PCT.txt
+KONDISI: LOSS_10PCT
+DATAGRAM DIKIRIM: 100
+DATAGRAM DITERIMA: 94
+DATAGRAM HILANG: 6
+LOSS APLIKASI: 6.00%
+
+Target usulan:
+Minimal 99 dari 100 datagram diterima
+pada kondisi jaringan normal.
+
+===== G. MATRIKS INDIKATOR =====
+KODE    METRIK                   TARGET                 
+K1      ICMP packet loss         0% dari 20 paket       
+K2      RTT rata-rata            < 1 ms (lab)           
+K3      Koneksi TCP              Berhasil 2 cabang      
+K4      OSPF neighbor            Semua FULL             
+K5      UDP diterima             >= 99 dari 100         
+
+===== H. METODE PENGUKURAN =====
+K1 : Ping 20 paket PC-BR1 ke APP-SRV.
+K2 : RTT min/avg/max dari output ping.
+K3 : Netcat TCP dan bukti handshake.
+K4 : FRRouting show ip ospf neighbor.
+K5 : Hitung datagram UDP pada aplikasi.
+
+===== I. KETERBATASAN =====
+- Target merupakan usulan untuk lab.
+- Pengukuran tidak mewakili SLA produksi.
+- TCP menggunakan hasil eksperimen historis.
+- UDP menggunakan hasil eksperimen historis.
+- OSPF FULL tidak menjamin aplikasi aktif.
+- RTT dipengaruhi lingkungan virtual.
+- Failover belum diuji dengan link cadangan.
+- Pengukuran konvergensi belum setara.
+
+====================================================
+ SOAL 5(iii) - PEMERIKSAAN SELESAI
+====================================================

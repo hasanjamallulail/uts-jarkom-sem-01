@@ -1,0 +1,86 @@
+==========================================
+ UTS CS238 - RIP VERSION 2 LINK FAILURE
+==========================================
+2026-11-03T16:02:30+00:00
+
+===== 1. BASELINE SEBELUM GANGGUAN =====
+67: eth1@if68: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP mode DEFAULT group default 
+    link/ether aa:c1:ab:eb:17:2a brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    altname clab-o-e65f54abc2e98ee0
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+R>* 10.0.0.4/30 [120/2] via 10.0.0.1, eth1, weight 1, 00:01:12
+R>* 10.0.0.8/30 [120/2] via 10.0.0.1, eth1, weight 1, 00:01:12
+R>* 10.10.10.0/24 [120/2] via 10.0.0.1, eth1, weight 1, 00:01:12
+R>* 10.10.30.0/24 [120/3] via 10.0.0.1, eth1, weight 1, 00:01:12
+R>* 10.10.40.0/24 [120/3] via 10.0.0.1, eth1, weight 1, 00:01:12
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.158 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.070 ms
+
+--- 10.10.30.10 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.070/0.099/0.158 ms
+
+===== 2. PUTUS LINK R-BR1 KE R-HQ =====
+2026-11-03T16:02:32+00:00
+67: eth1@if68: <BROADCAST,MULTICAST> mtu 9500 qdisc noqueue state DOWN mode DEFAULT group default 
+    link/ether aa:c1:ab:eb:17:2a brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    altname clab-o-e65f54abc2e98ee0
+
+===== 3. TABEL RIP SAAT LINK DOWN =====
+
+===== 4. PING BR1 SAAT LINK DOWN =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 0 packets received, 100% packet loss
+
+===== 5. PING BR2 SAAT BR1 DOWN =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+64 bytes from 10.10.30.10: seq=0 ttl=61 time=0.150 ms
+64 bytes from 10.10.30.10: seq=1 ttl=61 time=0.087 ms
+64 bytes from 10.10.30.10: seq=2 ttl=61 time=0.070 ms
+64 bytes from 10.10.30.10: seq=3 ttl=61 time=0.069 ms
+64 bytes from 10.10.30.10: seq=4 ttl=61 time=0.080 ms
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.069/0.091/0.150 ms
+
+===== 6. PEMERIKSAAN RIP SETELAH GANGGUAN =====
+
+===== 7. PEMULIHAN LINK =====
+2026-11-03T16:02:42+00:00
+===== MEMASTIKAN LINK BR1 AKTIF =====
+idence/soal2/ospf/ospf-link-failure.txt
+===== 8. TABEL RIP SETELAH PEMULIHAN =====
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric, t - Table-Direct,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+IPv4 unicast VRF default:
+R>* 10.0.0.4/30 [120/2] via 10.0.0.1, eth1, weight 1, 00:00:04
+R>* 10.0.0.8/30 [120/2] via 10.0.0.1, eth1, weight 1, 00:00:04
+R>* 10.10.10.0/24 [120/2] via 10.0.0.1, eth1, weight 1, 00:00:04
+R>* 10.10.30.0/24 [120/3] via 10.0.0.1, eth1, weight 1, 00:00:04
+R>* 10.10.40.0/24 [120/3] via 10.0.0.1, eth1, weight 1, 00:00:04
+
+===== 9. PING SETELAH PEMULIHAN =====
+PING 10.10.30.10 (10.10.30.10): 56 data bytes
+
+--- 10.10.30.10 ping statistics ---
+5 packets transmitted, 0 packets received, 100% packet loss
+
+===== EKSPERIMEN SELESAI =====
+2026-11-03T16:02:52+00:00
