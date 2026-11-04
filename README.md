@@ -205,8 +205,8 @@ Target merupakan **kriteria usulan untuk pengujian lab**, bukan SLA produksi.
 ### 1. Clone repository
 
 ```bash
-git clone git@github.com:hasanjamallulail/uas-jarkom-sem1.git
-cd uas-jarkom-sem1
+git clone git@github.com:hasanjamallulail/uts-jarkom-sem-01.git
+cd uts-jarkom-sem-01
 ```
 
 > Clone SSH memerlukan SSH key yang sudah terdaftar di akun GitHub. Untuk repo private, akun pengguna harus memiliki akses.
